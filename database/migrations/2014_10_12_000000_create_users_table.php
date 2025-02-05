@@ -13,13 +13,19 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable();
-            $table->string('email')->nullable();
+            $table->string('firstname');
+            $table->string('lastname');
+            $table->string('middlename')->nullable();
+            $table->string('dateofbirth');
+            $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password')->nullable();
-            $table->unsignedBigInteger('role_id');
+            $table->string('password');
+            $table->unsignedBigInteger('role_id')->nullable(); // No foreign key constraint yet
             $table->rememberToken();
             $table->timestamps();
+
+            // Add a unique constraint on the combination of firstname, lastname, and dateofbirth
+            $table->unique(['firstname', 'lastname', 'dateofbirth']);
         });
     }
 

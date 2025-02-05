@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('section')->nullable();
             $table->string('semester')->nullable();
             $table->string('academic_year')->nullable();
-            $table->date('birthdate')->nullable();
             $table->string('birthplace')->nullable();
             $table->text('address')->nullable();
             $table->timestamps(); 
