@@ -7,64 +7,92 @@
     <form method="POST" action="{{ route('users.store') }}" enctype="multipart/form-data">
         @csrf
 
-        <div class="form-group">
-            <label for="name">Full Name</label>
-            <input type="text" class="form-control" name="name" id="name" required>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" class="form-control" name="name" id="name" required>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" name="username" id="username" required>
+                </div>
+            </div>
         </div>
 
-        <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" class="form-control" name="username" id="username" required>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" name="password" id="password" required>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="role_id">Role</label>
+                    <select class="form-control" name="role_id" id="role_id" required>
+                        <option value="1">Admin</option>
+                        <option value="2">Student</option>
+                        <option value="3">Scanner</option>
+                    </select>
+                </div>
+            </div>
         </div>
 
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" name="password" id="password" required>
+        <hr>
+
+        <h5>Additional Information</h5>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="course">Course</label>
+                    <input type="text" class="form-control" name="course" id="course">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="year">Year</label>
+                    <input type="text" class="form-control" name="year" id="year">
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label for="section">Section</label>
+                    <input type="text" class="form-control" name="section" id="section">
+                </div>
+            </div>
         </div>
 
-        <div class="form-group">
-            <label for="role_id">Role</label>
-            <select class="form-control" name="role_id" id="role_id" required>
-                <option value="1">Admin</option>
-                <option value="2">Student</option>
-                <option value="3">Scanner</option>
-            </select>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="semester">Semester</label>
+                    <input type="text" class="form-control" name="semester" id="semester">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="academic_year">Academic Year</label>
+                    <input type="text" class="form-control" name="academic_year" id="academic_year">
+                </div>
+            </div>
         </div>
 
-        <!-- Additional User Information -->
-        <div class="form-group">
-            <label for="course">Course</label>
-            <input type="text" class="form-control" name="course" id="course">
-        </div>
-
-        <div class="form-group">
-            <label for="year">Year</label>
-            <input type="text" class="form-control" name="year" id="year">
-        </div>
-
-        <div class="form-group">
-            <label for="section">Section</label>
-            <input type="text" class="form-control" name="section" id="section">
-        </div>
-
-        <div class="form-group">
-            <label for="semester">Semester</label>
-            <input type="text" class="form-control" name="semester" id="semester">
-        </div>
-
-        <div class="form-group">
-            <label for="academic_year">Academic Year</label>
-            <input type="text" class="form-control" name="academic_year" id="academic_year">
-        </div>
-
-        <div class="form-group">
-            <label for="birthdate">Birthdate</label>
-            <input type="date" class="form-control" name="birthdate" id="birthdate">
-        </div>
-
-        <div class="form-group">
-            <label for="birthplace">Birthplace</label>
-            <input type="text" class="form-control" name="birthplace" id="birthplace">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="birthdate">Birthdate</label>
+                    <input type="date" class="form-control" name="birthdate" id="birthdate">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="birthplace">Birthplace</label>
+                    <input type="text" class="form-control" name="birthplace" id="birthplace">
+                </div>
+            </div>
         </div>
 
         <div class="form-group">

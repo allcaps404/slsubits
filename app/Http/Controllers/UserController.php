@@ -25,16 +25,30 @@ class UserController extends Controller
     {
         $request->validate([
             'username' => 'required|unique:users,username',
-            'name' => 'required|string|max:255',  // Add validation for 'name'
+            'name' => 'required|string|max:255',
             'password' => 'required|min:6',
             'role_id'  => 'required|exists:roles,id',
         ]);
 
-        User::create([
+        // Create the user first
+        $user = User::create([
             'username' => $request->username,
-            'name' => $request->name,  // Store the 'name'
+            'name' => $request->name,
             'password' => Hash::make($request->password),
             'role_id'  => $request->role_id,
+        ]);
+
+        // Create the related information
+        $user->information()->create([
+            'course' => $request->course,
+            'year' => $request->year,
+            'section' => $request->section,
+            'semester' => $request->semester,
+            'academic_year' => $request->academic_year,
+            'birthdate' => $request->birthdate,
+            'birthplace' => $request->birthplace,
+            'address' => $request->address,
+            'photo' => $this->uploadPhoto($request),
         ]);
 
         return redirect()->route('users.index')->with('success', 'User created successfully.');
@@ -53,13 +67,30 @@ class UserController extends Controller
 
         $request->validate([
             'username' => 'required|unique:users,username,' . $user->id,
-            'name' => 'required|string|max:255',  // Add validation for 'name'
+            'name' => 'required|string|max:255',
             'password' => 'nullable|min:6',
             'role_id'  => 'required|exists:roles,id',
         ]);
 
+        // Update information or create it if it doesn't exist
+        $user->information()->updateOrCreate(
+            ['user_id' => $user->id],
+            [
+                'course' => $request->course,
+                'year' => $request->year,
+                'section' => $request->section,
+                'semester' => $request->semester,
+                'academic_year' => $request->academic_year,
+                'birthdate' => $request->birthdate,
+                'birthplace' => $request->birthplace,
+                'address' => $request->address,
+                'photo' => $request->hasFile('photo') ? $this->uploadPhoto($request) : ($user->information->photo ?? null),
+            ]
+        );
+
+        // Update the user
         $user->username = $request->username;
-        $user->name = $request->name;  // Update the 'name'
+        $user->name = $request->name;
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
         }
@@ -74,5 +105,13 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->delete();
         return redirect()->route('users.index')->with('success', 'User deleted successfully.');
+    }
+
+    protected function uploadPhoto($request)
+    {
+        if ($request->hasFile('photo')) {
+            return $request->file('photo')->store('photos', 'public');
+        }
+        return null;
     }
 }
