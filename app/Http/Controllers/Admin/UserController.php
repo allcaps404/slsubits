@@ -16,8 +16,8 @@ class UserController extends Controller
     public function index()
     {
         $users = User::with('role')
-                    ->with('OtherDetail')->get();
-                    
+                    ->with('OtherDetail')->paginate(4);
+
         return view('admin.users.index', [
             'users' => $users,
             'title' => 'Users'

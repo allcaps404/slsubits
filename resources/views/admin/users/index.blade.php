@@ -58,7 +58,6 @@
                                         <p><strong>Section:</strong> {{ $user->OtherDetail->section ?? 'N/A' }}</p>
                                         <p><strong>Semester:</strong> {{ $user->OtherDetail->semester ?? 'N/A' }}</p>
                                         <p><strong>Academic Year:</strong> {{ $user->OtherDetail->academic_year ?? 'N/A' }}</p>
-                                        <p><strong>Birthdate:</strong> {{ $user->OtherDetail->birthdate ?? 'N/A' }}</p>
                                         <p><strong>Birthplace:</strong> {{ $user->OtherDetail->birthplace ?? 'N/A' }}</p>
                                         <p><strong>Address:</strong> {{ $user->OtherDetail->address ?? 'N/A' }}</p>
                                         <p><strong>Photo:</strong> 
@@ -74,6 +73,9 @@
                         @endforeach
                     </tbody>
                 </table>
+                <span>
+                    {{ $users->links() }}
+                </span>
             </div>
         </div>
     </div>
