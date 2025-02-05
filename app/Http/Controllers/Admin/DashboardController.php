@@ -12,6 +12,9 @@ class DashboardController extends Controller
     {
         $userCount = User::count();
         
-        return view('admin.dashboard.index', compact('userCount'));
+        return view('admin.dashboard.index', [
+            'userCount' => $userCount,
+            'title' => 'Dashboard'
+        ]);
     }
 }

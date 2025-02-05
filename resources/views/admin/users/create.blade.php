@@ -10,14 +10,29 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="name">Full Name</label>
-                    <input type="text" class="form-control" name="name" id="name" required>
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" name="email" id="email" required>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" class="form-control" name="username" id="username" required>
+                    <label for="firstname">First Name</label>
+                    <input type="text" class="form-control" name="firstname" id="firstname" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="lastname">Last Name</label>
+                    <input type="text" class="form-control" name="lastname" id="lastname" required>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="middlename">Middle Name</label>
+                    <input type="text" class="form-control" name="middlename" id="middlename">
                 </div>
             </div>
         </div>
@@ -84,7 +99,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="birthdate">Birthdate</label>
-                    <input type="date" class="form-control" name="birthdate" id="birthdate">
+                    <input type="date" class="form-control" name="dateofbirth" id="dateofbirth">
                 </div>
             </div>
             <div class="col-md-6">
@@ -100,12 +115,44 @@
             <textarea class="form-control" name="address" id="address" rows="3"></textarea>
         </div>
 
-        <div class="form-group">
-            <label for="photo">Photo</label>
-            <input type="file" class="form-control-file" name="photo" id="photo">
-        </div>
+        <!-- <div class="form-group">
+            <label for="photo">Upload Photo</label>
+            <input type="file" name="photo" id="photo" onchange="validateFile()">
+            <div id="error-message" style="color: red; display: none;"></div>
+        </div> -->
 
         <button type="submit" class="btn btn-primary">Create User</button>
     </form>
 </div>
+
+<script>
+    function validateFile() {
+        const fileInput = document.getElementById('photo');
+        const file = fileInput.files[0];
+        const errorMessage = document.getElementById('error-message');
+
+        errorMessage.style.display = 'none';
+        errorMessage.textContent = '';
+
+        if (!file) {
+            return;
+        }
+
+        const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/jpg'];
+        if (!allowedTypes.includes(file.type)) {
+            errorMessage.textContent = 'Invalid file type. Only JPG, JPEG, PNG, and GIF are allowed.';
+            errorMessage.style.display = 'block';
+            fileInput.value = ''; 
+            return;
+        }
+
+        const maxSize = 2 * 1024 * 1024; 
+        if (file.size > maxSize) {
+            errorMessage.textContent = 'File size exceeds 2MB. Please upload a smaller file.';
+            errorMessage.style.display = 'block';
+            fileInput.value = ''; 
+            return;
+        }
+    }
+</script>
 @endsection

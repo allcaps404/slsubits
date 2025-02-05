@@ -11,14 +11,29 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="name">Full Name</label>
-                    <input type="text" class="form-control" name="name" id="name" value="{{ old('name', $user->name) }}" required>
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" name="email" id="email" value="{{ old('email', $user->email) }}" required>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" class="form-control" name="username" id="username" value="{{ old('username', $user->username) }}" required>
+                    <label for="firstname">First Name</label>
+                    <input type="text" class="form-control" name="firstname" id="firstname" value="{{ old('firstname', $user->firstname) }}" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="lastname">Last Name</label>
+                    <input type="text" class="form-control" name="lastname" id="lastname" value="{{ old('lastname', $user->lastname) }}" required>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="middlename">Middle Name</label>
+                    <input type="text" class="form-control" name="middlename" id="middlename" value="{{ old('middlename', $user->middlename ?? '') }}">
                 </div>
             </div>
         </div>
@@ -115,4 +130,27 @@
         <button type="submit" class="btn btn-primary">Update User</button>
     </form>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $('#email').on('blur', function() {
+            let email = $(this).val();
+            let userId = {{ $user->id }}; 
+            $.ajax({
+                url: "{{ route('check-email') }}",
+                method: 'GET',
+                data: {
+                    email: email,
+                    user_id: userId
+                },
+                success: function(response) {
+                    if (response.exists) {
+                        alert('This email is already in use. Please choose a different one.');
+                    }
+                }
+            });
+        });
+    });
+</script>
+
 @endsection
