@@ -39,10 +39,10 @@ class UserController extends Controller
         try {
 
             if(User::where('email', $request->email)->exists()){
-                return redirect()->route('users.create')->with('error', 'Email already exists.');
+                return redirect()->route('usersmanagement.create')->with('error', 'Email already exists.');
             }
             if(User::where('firstname', $request->firstname)->where('lastname', $request->lastname)->where('dateofbirth', $request->dateofbirth)->exists()){
-                return redirect()->route('users.create')->with('error', 'User already exists.');
+                return redirect()->route('usersmanagement.create')->with('error', 'User already exists.');
             }
             // return $request-> all();
             $saveUser = new User();
@@ -65,10 +65,10 @@ class UserController extends Controller
                 $saveUserInfo->birthplace = $request->birthplace;
                 $saveUserInfo->address = $request->address;
                 $saveUserInfo->save();
-                return redirect()->route('users.create')->with('success', 'User created successfully.');
+                return redirect()->route('usersmanagement.create')->with('success', 'User created successfully.');
             }
             else{
-                return redirect()->route('users.create')->with('error', 'User creation failed.');
+                return redirect()->route('usersmanagement.create')->with('error', 'User creation failed.');
             }
 
         } catch (\Exception $e) {

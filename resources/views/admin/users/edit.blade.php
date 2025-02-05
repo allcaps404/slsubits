@@ -4,7 +4,7 @@
 <div class="container-fluid">
     <h1 class="h3 mb-2 text-gray-800">Edit User</h1>
 
-    <form action="{{ route('users.update', $user->id) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('usersmanagement.update', $user->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 

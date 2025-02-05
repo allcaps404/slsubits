@@ -9,7 +9,7 @@
     @endif
 
     <div class="d-flex justify-content-end mb-3">
-        <a href="{{ route('users.create') }}" class="btn btn-primary btn-sm">Create New User</a> <!-- Made button smaller -->
+        <a href="{{ route('usersmanagement.create') }}" class="btn btn-primary btn-sm">Create New User</a> <!-- Made button smaller -->
     </div>
 
     <div class="card shadow mb-4">
@@ -37,10 +37,10 @@
                                 <td class="small">{{ \Carbon\Carbon::parse($user->dateofbirth)->format('F j, Y') }}</td>
                                 <td class="small"><span class="badge badge-info">{{ $user->role->role_name }}</span></td>
                                 <td>
-                                    <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning btn-sm">
+                                    <a href="{{ route('usersmanagement.edit', $user->id) }}" class="btn btn-warning btn-sm">
                                         <i class="fas fa-edit"></i> Edit
                                     </a>
-                                    <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline;">
+                                    <form action="{{ route('usersmanagement.destroy', $user->id) }}" method="POST" style="display:inline;">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm">

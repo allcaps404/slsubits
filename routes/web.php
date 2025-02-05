@@ -16,11 +16,9 @@ Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::prefix('admin')->middleware(['admin'])->group(function () {
-    Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
-    Route::resource('users', UserController::class);
+    Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::resource('/usersmanagement', UserController::class);
     Route::get('/check-email', [UserController::class, 'checkEmail'])->name('check-email');
 });
 
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

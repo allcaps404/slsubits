@@ -10,10 +10,18 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $userCount = User::count();
-        
+        $totalRegisteredAdmins = User::where('role_id',1)
+        									->count();
+		$totalRegisteredStudents = User::where('role_id',2)
+        									->count();
+        $totalRegisteredScanners = User::where('role_id',3)
+        									->count();
+
+
         return view('admin.dashboard.index', [
-            'userCount' => $userCount,
+            'totalRegisteredAdmins' => $totalRegisteredAdmins,
+            'totalRegisteredStudents' => $totalRegisteredStudents,
+            'totalRegisteredScanners' => $totalRegisteredScanners ,
             'title' => 'Dashboard'
         ]);
     }

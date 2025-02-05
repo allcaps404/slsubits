@@ -27,7 +27,7 @@
                     <h3>Create New User</h3>
                 </div>
                 <div class="card-body">
-                    <form id="userForm" method="POST" action="{{ route('users.store') }}" enctype="multipart/form-data">
+                    <form id="userForm" method="POST" action="{{ route('usersmanagement.store') }}" enctype="multipart/form-data">
                         @csrf
 
                         <div class="row">
