@@ -51,7 +51,7 @@ class User extends Authenticatable
     ];
     public function information()
     {
-        return $this->belongsTo(Information::class);
+        return $this->belongsTo(OtherDetail::class);
     }
 
     public function role()

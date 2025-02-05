@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Models\Information;
+use App\Models\OtherDetail;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -54,7 +54,7 @@ class UserController extends Controller
 
         if($saveUser->save()){
             // return $request->all();
-            $saveUserInfo = new Information();
+            $saveUserInfo = new OtherDetail();
             $saveUserInfo->user_id = $saveUser->id;
             $saveUserInfo->course = $request->course;
             $saveUserInfo->year = $request->year;
@@ -74,71 +74,70 @@ class UserController extends Controller
     }
 
     public function edit($id)
-{
-    $user = User::findOrFail($id);
-    $roles = Role::all();
-    // Retrieve the information associated with the user
-    $userInfo = $user->information;
+    {
+        $user = User::findOrFail($id);
+        $roles = Role::all();
+        // Retrieve the information associated with the user
+        $userInfo = $user->information;
 
-    return view('admin.users.edit', [
-        'user' => $user,
-        'userInfo' => $userInfo,  // Pass the information model
-        'roles' => $roles,
-        'title' => 'Edit User'
-    ]);
-}
-
-public function update(Request $request, $id)
-{
-    $user = User::findOrFail($id);
-
-    $request->validate([
-        'email' => 'required|email|max:255|unique:users,email,' . $id,
-        'firstname' => 'required|string|max:255',
-        'lastname' => 'required|string|max:255',
-        'middlename' => 'nullable|string|max:255',
-        'password' => 'nullable|min:6',
-        'role_id' => 'required|exists:roles,id',
-        'course' => 'required|string|max:255',
-        'year' => 'required|integer|min:1|max:5',
-        'section' => 'required|string|max:255',
-        'semester' => 'required|string|max:255',
-        'academic_year' => 'required|string|max:255',
-        'birthdate' => 'nullable|date|before_or_equal:today',
-        'birthplace' => 'nullable|string|max:255',
-        'address' => 'nullable|string|max:500',
-    ]);
-
-    // Update user information
-    $user->information()->updateOrCreate(
-        ['user_id' => $user->id],
-        [
-            'course' => $request->course,
-            'year' => $request->year,
-            'section' => $request->section,
-            'semester' => $request->semester,
-            'academic_year' => $request->academic_year,
-            'birthdate' => $request->birthdate,
-            'birthplace' => $request->birthplace,
-            'address' => $request->address,
-            'photo' => $request->hasFile('photo') ? $this->uploadPhoto($request) : ($user->information->photo ?? null),
-        ]
-    );
-
-    // Update the user model
-    $user->email = $request->email;
-    $user->firstname = $request->firstname;
-    $user->lastname = $request->lastname;
-    $user->middlename = $request->middlename;
-    if ($request->filled('password')) {
-        $user->password = Hash::make($request->password);
+        return view('admin.users.edit', [
+            'user' => $user,
+            'userInfo' => $userInfo,  // Pass the information model
+            'roles' => $roles,
+            'title' => 'Edit User'
+        ]);
     }
-    $user->role_id = $request->role_id;
-    $user->save();
 
-    return redirect()->route('admin.users.index')->with('success', 'User updated successfully.');
-}
+    public function update(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
 
+        $request->validate([
+            'email' => 'required|email|max:255|unique:users,email,' . $id,
+            'firstname' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
+            'middlename' => 'nullable|string|max:255',
+            'password' => 'nullable|min:6',
+            'role_id' => 'required|exists:roles,id',
+            'course' => 'required|string|max:255',
+            'year' => 'required|integer|min:1|max:5',
+            'section' => 'required|string|max:255',
+            'semester' => 'required|string|max:255',
+            'academic_year' => 'required|string|max:255',
+            'birthdate' => 'nullable|date|before_or_equal:today',
+            'birthplace' => 'nullable|string|max:255',
+            'address' => 'nullable|string|max:500',
+        ]);
+
+        // Update user information
+        $user->information()->updateOrCreate(
+            ['user_id' => $user->id],
+            [
+                'course' => $request->course,
+                'year' => $request->year,
+                'section' => $request->section,
+                'semester' => $request->semester,
+                'academic_year' => $request->academic_year,
+                'birthdate' => $request->birthdate,
+                'birthplace' => $request->birthplace,
+                'address' => $request->address,
+                'photo' => $request->hasFile('photo') ? $this->uploadPhoto($request) : ($user->information->photo ?? null),
+            ]
+        );
+
+        // Update the user model
+        $user->email = $request->email;
+        $user->firstname = $request->firstname;
+        $user->lastname = $request->lastname;
+        $user->middlename = $request->middlename;
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
+        $user->role_id = $request->role_id;
+        $user->save();
+
+        return redirect()->route('admin.users.index')->with('success', 'User updated successfully.');
+    }
 
     public function destroy($id)
     {
@@ -182,5 +181,4 @@ public function update(Request $request, $id)
 
         return response()->json(['exists' => $emailExists]);
     }
-
 }
