@@ -6,6 +6,20 @@
     <title>{{ $title }}</title>
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <style>
+        /* Custom styles to ensure the content does not overlap with the sidebar */
+        #content-wrapper {
+            margin-left: 250px; /* Adjust this value based on your sidebar width */
+            transition: margin-left 0.2s; /* Smooth transition for margin changes */
+        }
+
+        /* Optional: Adjust the content area for smaller screens */
+        @media (max-width: 768px) {
+            #content-wrapper {
+                margin-left: 0; /* Remove margin on smaller screens */
+            }
+        }
+    </style>
 </head>
 <body id="page-top">
     <div id="wrapper">
