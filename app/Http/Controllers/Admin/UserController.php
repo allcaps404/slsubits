@@ -16,8 +16,8 @@ class UserController extends Controller
     public function index()
     {
         $users = User::with('role')
-                        ->with('information')->get();
-
+                    ->with('OtherDetail')->get();
+                    
         return view('admin.users.index', [
             'users' => $users,
             'title' => 'Users'
@@ -36,40 +36,43 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        if(User::where('email', $request->email)->exists()){
-            return redirect()->route('users.create')->with('error', 'Email already exists.');
-        }
-        if(User::where('firstname', $request->firstname)->where('lastname', $request->lastname)->where('dateofbirth', $request->dateofbirth)->exists()){
-            return redirect()->route('users.create')->with('error', 'User already exists.');
-        }
-        // return $request-> all();
-        $saveUser = new User();
-        $saveUser->email = $request->email;
-        $saveUser->firstname = $request->firstname;
-        $saveUser->lastname = $request->lastname;
-        $saveUser->middlename = $request->middlename;
-        $saveUser->dateofbirth = $request->dateofbirth;
-        $saveUser->password = Hash::make($request->password);
-        $saveUser->role_id = $request->role_id;
+        try {
 
-        if($saveUser->save()){
-            // return $request->all();
-            $saveUserInfo = new OtherDetail();
-            $saveUserInfo->user_id = $saveUser->id;
-            $saveUserInfo->course = $request->course;
-            $saveUserInfo->year = $request->year;
-            $saveUserInfo->section = $request->section;
-            $saveUserInfo->semester = $request->semester;
-            $saveUserInfo->academic_year = $request->academic_year;
-            $saveUserInfo->birthplace = $request->birthplace;
-            $saveUserInfo->address = $request->address;
-            // $saveUserInfo->photo = $this->uploadPhoto($request->photo);
-            $saveUserInfo->save();
+            if(User::where('email', $request->email)->exists()){
+                return redirect()->route('users.create')->with('error', 'Email already exists.');
+            }
+            if(User::where('firstname', $request->firstname)->where('lastname', $request->lastname)->where('dateofbirth', $request->dateofbirth)->exists()){
+                return redirect()->route('users.create')->with('error', 'User already exists.');
+            }
+            // return $request-> all();
+            $saveUser = new User();
+            $saveUser->email = $request->email;
+            $saveUser->firstname = $request->firstname;
+            $saveUser->lastname = $request->lastname;
+            $saveUser->middlename = $request->middlename;
+            $saveUser->dateofbirth = $request->dateofbirth;
+            $saveUser->password = Hash::make($request->password);
+            $saveUser->role_id = $request->role_id;
 
-            return redirect()->route('users.create')->with('success', 'User created successfully.');
-        }
-        else{
-            return redirect()->route('users.create')->with('error', 'User creation failed.');
+            if($saveUser->save()){
+                $saveUserInfo = new OtherDetail();
+                $saveUserInfo->user_id = $saveUser->id;
+                $saveUserInfo->course = $request->course;
+                $saveUserInfo->year = $request->year;
+                $saveUserInfo->section = $request->section;
+                $saveUserInfo->semester = $request->semester;
+                $saveUserInfo->academic_year = $request->academic_year;
+                $saveUserInfo->birthplace = $request->birthplace;
+                $saveUserInfo->address = $request->address;
+                $saveUserInfo->save();
+                return redirect()->route('users.create')->with('success', 'User created successfully.');
+            }
+            else{
+                return redirect()->route('users.create')->with('error', 'User creation failed.');
+            }
+
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to create user.');
         }
     }
 

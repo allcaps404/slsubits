@@ -49,9 +49,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-    public function information()
+    public function OtherDetail()
     {
-        return $this->belongsTo(OtherDetail::class);
+        return $this->belongsTo(OtherDetail::class, 'id', 'user_id');
     }
 
     public function role()
