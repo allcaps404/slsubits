@@ -9,8 +9,8 @@
 <div class="row">
 
     <!-- Total Registered Students Chart -->
-    <div class="col-lg-4">
-        <div class="card shadow mb-4">
+    <div class="col-12 col-md-4 mb-4"> <!-- Adjusted for responsiveness -->
+        <div class="card shadow">
             <div class="card-body text-center">  <!-- Centering the body -->
                 <h5 class="card-title">Total Registered Students</h5>
                 <canvas id="studentsChart"></canvas> <!-- Canvas for Chart.js -->
@@ -19,8 +19,8 @@
     </div>
 
     <!-- Total Registered Admins Chart -->
-    <div class="col-lg-4">
-        <div class="card shadow mb-4">
+    <div class="col-12 col-md-4 mb-4"> <!-- Adjusted for responsiveness -->
+        <div class="card shadow">
             <div class="card-body text-center">  <!-- Centering the body -->
                 <h5 class="card-title">Total Registered Admins</h5>
                 <canvas id="adminsChart"></canvas> <!-- Canvas for Chart.js -->
@@ -29,8 +29,8 @@
     </div>
 
     <!-- Total Registered Scanners Chart -->
-    <div class="col-lg-4">
-        <div class="card shadow mb-4">
+    <div class="col-12 col-md-4 mb-4"> <!-- Adjusted for responsiveness -->
+        <div class="card shadow">
             <div class="card-body text-center">  <!-- Centering the body -->
                 <h5 class="card-title">Total Registered Scanners</h5>
                 <canvas id="scannersChart"></canvas> <!-- Canvas for Chart.js -->
