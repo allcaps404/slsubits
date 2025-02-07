@@ -22,7 +22,6 @@ class UserController extends Controller
             'users' => $users,
             'title' => 'Users'
         ]);
-        
     }
 
     public function create()
@@ -44,7 +43,6 @@ class UserController extends Controller
             if(User::where('firstname', $request->firstname)->where('lastname', $request->lastname)->where('dateofbirth', $request->dateofbirth)->exists()){
                 return redirect()->route('usersmanagement.create')->with('error', 'User already exists.');
             }
-            // return $request-> all();
             $saveUser = new User();
             $saveUser->email = $request->email;
             $saveUser->firstname = $request->firstname;
@@ -80,12 +78,11 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $roles = Role::all();
-        // Retrieve the information associated with the user
-        $userInfo = $user->information;
+        $userInfo = $user->OtherDetail ?? new OtherDetail();
 
         return view('admin.users.edit', [
             'user' => $user,
-            'userInfo' => $userInfo,  // Pass the information model
+            'userInfo' => $userInfo, 
             'roles' => $roles,
             'title' => 'Edit User'
         ]);
@@ -95,58 +92,41 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
 
-        $request->validate([
-            'email' => 'required|email|max:255|unique:users,email,' . $id,
-            'firstname' => 'required|string|max:255',
-            'lastname' => 'required|string|max:255',
-            'middlename' => 'nullable|string|max:255',
-            'password' => 'nullable|min:6',
-            'role_id' => 'required|exists:roles,id',
-            'course' => 'required|string|max:255',
-            'year' => 'required|integer|min:1|max:5',
-            'section' => 'required|string|max:255',
-            'semester' => 'required|string|max:255',
-            'academic_year' => 'required|string|max:255',
-            'birthdate' => 'nullable|date|before_or_equal:today',
-            'birthplace' => 'nullable|string|max:255',
-            'address' => 'nullable|string|max:500',
-        ]);
+            $user->email = $request->email;
+            $user->firstname = $request->firstname;
+            $user->lastname = $request->lastname;
+            $user->middlename = $request->middlename;
+            $user->dateofbirth = $request->dateofbirth;
+            $user->role_id = $request->role_id;
 
-        // Update user information
-        $user->information()->updateOrCreate(
-            ['user_id' => $user->id],
-            [
-                'course' => $request->course,
-                'year' => $request->year,
-                'section' => $request->section,
-                'semester' => $request->semester,
-                'academic_year' => $request->academic_year,
-                'birthdate' => $request->birthdate,
-                'birthplace' => $request->birthplace,
-                'address' => $request->address,
-                'photo' => $request->hasFile('photo') ? $this->uploadPhoto($request) : ($user->information->photo ?? null),
-            ]
-        );
+            if ($request->filled('password')) {
+                $user->password = Hash::make($request->password);
+            }
 
-        // Update the user model
-        $user->email = $request->email;
-        $user->firstname = $request->firstname;
-        $user->lastname = $request->lastname;
-        $user->middlename = $request->middlename;
-        if ($request->filled('password')) {
-            $user->password = Hash::make($request->password);
+            $photo = $request->hasFile('photo') ? $this->uploadPhoto($request) : optional($user->OtherDetail)->photo;
+            
+            if ($user->save()) {
+                $user->otherDetail()->update([
+                    'course' => $request->course,
+                    'year' => $request->year,
+                    'section' => $request->section,
+                    'semester' => $request->semester,
+                    'academic_year' => $request->academic_year,
+                    'birthplace' => $request->birthplace,
+                    'address' => $request->address,
+                    'photo' => $photo,
+                ]);
+
+            return redirect()->route('usersmanagement.edit', $id)->with('success', 'User updated successfully.');
         }
-        $user->role_id = $request->role_id;
-        $user->save();
-
-        return redirect()->route('admin.users.index')->with('success', 'User updated successfully.');
+            return redirect()->route('usersmanagement.edit', $id)->with('error', 'User update failed.');
     }
 
     public function destroy($id)
     {
         $user = User::findOrFail($id);
         $user->delete();
-        return redirect()->route('admin.users.index')->with([
+        return redirect()->route('usersmanagement.index')->with([
             'success' => 'User deleted successfully.'
         ]);
     }

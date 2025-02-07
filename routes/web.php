@@ -18,6 +18,10 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::prefix('admin')->middleware(['admin'])->group(function () {
     Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard');
     Route::resource('/usersmanagement', UserController::class);
+    Route::get('/usersmanagement/{id}/edit', [UserController::class, 'edit'])->name('usersmanagement.edit');
+    Route::put('/usersmanagement/{id}', [UserController::class, 'update'])->name('usersmanagement.update');
+    Route::delete('admin/usersmanagement/{usersmanagement}', [UserController::class, 'destroy'])->name('usersmanagement.destroy');
+
     Route::get('/check-email', [UserController::class, 'checkEmail'])->name('check-email');
 });
 

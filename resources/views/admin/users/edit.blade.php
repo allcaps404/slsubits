@@ -2,20 +2,33 @@
 
 @section('content')
 <div class="container-fluid">
-    <h1 class="h3 mb-2 text-gray-800">Edit User</h1>
+    <h1 class="h3 mb-4 text-gray-800">Edit User</h1>
+
+    <!-- Success Message -->
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
 
     <form action="{{ route('usersmanagement.update', $user->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
         <div class="row">
-            <div class="col-md-6">
+            <!-- Email Field -->
+            <div class="col-md-6 mb-3">
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" class="form-control" name="email" id="email" value="{{ old('email', $user->email) }}" required>
                 </div>
             </div>
-            <div class="col-md-6">
+
+            <!-- First Name Field -->
+            <div class="col-md-6 mb-3">
                 <div class="form-group">
                     <label for="firstname">First Name</label>
                     <input type="text" class="form-control" name="firstname" id="firstname" value="{{ old('firstname', $user->firstname) }}" required>
@@ -24,13 +37,16 @@
         </div>
 
         <div class="row">
-            <div class="col-md-6">
+            <!-- Last Name Field -->
+            <div class="col-md-6 mb-3">
                 <div class="form-group">
                     <label for="lastname">Last Name</label>
                     <input type="text" class="form-control" name="lastname" id="lastname" value="{{ old('lastname', $user->lastname) }}" required>
                 </div>
             </div>
-            <div class="col-md-6">
+
+            <!-- Middle Name Field -->
+            <div class="col-md-6 mb-3">
                 <div class="form-group">
                     <label for="middlename">Middle Name</label>
                     <input type="text" class="form-control" name="middlename" id="middlename" value="{{ old('middlename', $user->middlename ?? '') }}">
@@ -39,13 +55,16 @@
         </div>
 
         <div class="row">
-            <div class="col-md-6">
+            <!-- Password Field -->
+            <div class="col-md-6 mb-3">
                 <div class="form-group">
                     <label for="password">Password (Leave blank to keep current password)</label>
                     <input type="password" class="form-control" name="password" id="password">
                 </div>
             </div>
-            <div class="col-md-6">
+
+            <!-- Role Field -->
+            <div class="col-md-6 mb-3">
                 <div class="form-group">
                     <label for="role_id">Role</label>
                     <select class="form-control" name="role_id" id="role_id" required>
@@ -60,68 +79,80 @@
         <hr>
 
         <h5>Additional Information</h5>
+
         <div class="row">
-            <div class="col-md-4">
+            <!-- Course Field -->
+            <div class="col-md-4 mb-3">
                 <div class="form-group">
                     <label for="course">Course</label>
-                    <input type="text" class="form-control" name="course" id="course" value="{{ old('course', $user->informations->course ?? '') }}">
+                    <input type="text" class="form-control" name="course" id="course" value="{{ old('course', $user->OtherDetail->course ?? '') }}">
                 </div>
             </div>
-            <div class="col-md-4">
+
+            <!-- Year Field -->
+            <div class="col-md-4 mb-3">
                 <div class="form-group">
                     <label for="year">Year</label>
-                    <input type="text" class="form-control" name="year" id="year" value="{{ old('year', $user->informations->year ?? '') }}">
+                    <input type="text" class="form-control" name="year" id="year" value="{{ old('year', $user->OtherDetail->year ?? '') }}">
                 </div>
             </div>
-            <div class="col-md-4">
+
+            <!-- Section Field -->
+            <div class="col-md-4 mb-3">
                 <div class="form-group">
                     <label for="section">Section</label>
-                    <input type="text" class="form-control" name="section" id="section" value="{{ old('section', $user->informations->section ?? '') }}">
+                    <input type="text" class="form-control" name="section" id="section" value="{{ old('section', $user->OtherDetail->section ?? '') }}">
                 </div>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-md-6">
+            <!-- Semester Field -->
+            <div class="col-md-6 mb-3">
                 <div class="form-group">
                     <label for="semester">Semester</label>
-                    <input type="text" class="form-control" name="semester" id="semester" value="{{ old('semester', $user->informations->semester ?? '') }}">
+                    <input type="text" class="form-control" name="semester" id="semester" value="{{ old('semester', $user->OtherDetail->semester ?? '') }}">
                 </div>
             </div>
-            <div class="col-md-6">
+
+            <!-- Academic Year Field -->
+            <div class="col-md-6 mb-3">
                 <div class="form-group">
                     <label for="academic_year">Academic Year</label>
-                    <input type="text" class="form-control" name="academic_year" id="academic_year" value="{{ old('academic_year', $user->informations->academic_year ?? '') }}">
+                    <input type="text" class="form-control" name="academic_year" id="academic_year" value="{{ old('academic_year', $user->OtherDetail->academic_year ?? '') }}">
                 </div>
             </div>
         </div>
 
         <div class="row">
-            <div class="col-md-6">
+            <!-- Birthdate Field -->
+            <div class="col-md-6 mb-3">
                 <div class="form-group">
-                    <label for="birthdate">Birthdate</label>
-                    <input type="date" class="form-control" name="birthdate" id="birthdate" value="{{ old('birthdate', $user->informations->birthdate ?? '') }}">
+                    <label for="dateofbirth">Birthdate</label>
+                    <input type="date" class="form-control" name="dateofbirth" id="dateofbirth" value="{{ old('dateofbirth', optional($user)->dateofbirth ? \Carbon\Carbon::parse($user->dateofbirth)->format('Y-m-d') : '') }}">
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="form-group">
+
+            <!-- Birthplace Field -->
+            <div class="col-md-6 mb-3">
+                <div class="form-group">    
                     <label for="birthplace">Birthplace</label>
-                    <input type="text" class="form-control" name="birthplace" id="birthplace" value="{{ old('birthplace', $user->informations->birthplace ?? '') }}">
+                    <input type="text" class="form-control" name="birthplace" id="birthplace" value="{{ old('birthplace', $user->OtherDetail->birthplace ?? '') }}">
                 </div>
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group mb-3">
             <label for="address">Address</label>
-            <textarea class="form-control" name="address" id="address" rows="3">{{ old('address', $user->informations->address ?? '') }}</textarea>
+            <textarea class="form-control" name="address" id="address" rows="3">{{ old('address', $user->OtherDetail->address ?? '') }}</textarea>
         </div>
 
-        <div class="form-group">
+        <div class="form-group mb-3">
             <label for="photo">Photo</label>
             <input type="file" class="form-control-file" name="photo" id="photo">
-            @if($user->informations && $user->informations->photo)
+            @if($user->OtherDetail && $user->OtherDetail->photo)
                 <div class="mt-2">
-                    <img src="{{ asset('storage/' . $user->informations->photo) }}" alt="Current Photo" class="img-thumbnail" width="150">
+                    <img src="{{ asset('storage/' . $user->OtherDetail->photo) }}" alt="Current Photo" class="img-thumbnail" width="150">
                     <p class="text-muted">Current photo</p>
                 </div>
             @endif
@@ -152,5 +183,4 @@
         });
     });
 </script>
-
 @endsection
