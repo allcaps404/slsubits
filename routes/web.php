@@ -21,4 +21,8 @@ Route::prefix('admin')->middleware(['admin'])->group(function () {
     Route::get('/check-email', [UserController::class, 'checkEmail'])->name('check-email');
 });
 
+Route::prefix('student')->middleware(['student'])->group(function () {
+    Route::get('/', [App\Http\Controllers\Student\HomeController::class,'index'])->name('student.home');
+});
+
 Auth::routes();
