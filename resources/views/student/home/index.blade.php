@@ -12,7 +12,7 @@
         Hello, {{ Auth::user()->firstname }}
        </h2>
        <p class="text-gray-600">
-         {{ $otherdetails->course }}
+			{{ $otherdetails->course ?? 'No course available' }}
        </p>
       </div>
      </div>
@@ -23,15 +23,15 @@
       <p class="text-gray-600">
        <i class="fas fa-envelope">
        </i>
-       {{ Auth::user()->email }}
+		{{ Auth::user()->email ?? 'Email not available' }}
       </p>
       <p class="text-gray-600">
-       <i class="fas fa-phone">
-       </i>
-       {{ $otherdetails->year }} Year |
-       {{ $otherdetails->academic_year }},
-       {{ $otherdetails->semester }} Semester
-      </p>
+		    <i class="fas fa-phone"></i>
+		    {{ $otherdetails->year ?? 'N/A' }} Year |
+		    {{ $otherdetails->academic_year ?? 'Unknown Academic Year' }},
+		    {{ $otherdetails->semester ?? 'Unknown Semester' }} Semester
+		</p>
+
      </div>
     </div>
    </div>
