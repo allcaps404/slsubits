@@ -136,13 +136,12 @@
                             <textarea class="form-control" name="address" id="address" rows="3" placeholder="Enter address"></textarea>
                         </div>
 
-                        <!-- Uncomment to enable file upload 
                         <div class="form-group mb-3">
                             <label for="photo">Upload Photo</label>
                             <input type="file" name="photo" id="photo" class="form-control" onchange="validateFile()">
                             <div id="error-message" style="color: red; display: none;"></div>
                         </div>
-                        -->
+                       
 
                         <button type="submit" class="btn btn-primary btn-block" id="submitBtn">Create User</button>
                         <div id="loadingSpinner" class="text-center mt-2" style="display: none;">
