@@ -1,4 +1,4 @@
-@extends('layouts.student.index') 
+@extends('layouts.student.index')
 
 @section('content') 
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -17,93 +17,68 @@
                      class="w-24 h-24 rounded-full">
             @endif
             <div>
-                <h2 class="text-xl font-bold"> Hello, {{ Auth::user()->firstname }}!
-                </h2>
+                <h2 class="text-xl font-bold"> Hello, {{ Auth::user()->firstname }}! </h2>
                 <p class="text-gray-600">
-                    {{ $otherdetails->course ?? 'No course available' }}
+                    <i class="fas fa-id-card"></i> ID Number: {{ $otherdetails->idnumber ?? 'Not available' }}
+                </p>
+                <p class="text-gray-600">
+                    <i class="fas fa-book"></i> Course: {{ $otherdetails->course ?? 'No course available' }}
                 </p>
             </div>
         </div>
+
         <div class="mt-4">
             <h3 class="text-lg font-semibold"> Basic Information </h3>
             <p class="text-gray-600">
-                <i class="fas fa-envelope"></i>
-                {{ Auth::user()->email ?? 'Email not available' }}
+                <i class="fas fa-user"></i> Full Name: {{ Auth::user()->firstname }} {{ Auth::user()->middlename ?? '' }} {{ Auth::user()->lastname }}
             </p>
             <p class="text-gray-600">
-                <i class="fas fa-phone"></i>
-                {{ $otherdetails->year ?? 'N/A' }} Year | {{ $otherdetails->academic_year ?? 'Unknown Academic Year' }}, {{ $otherdetails->semester ?? 'Unknown Semester' }} Semester
+                <i class="fas fa-envelope"></i> Email: {{ Auth::user()->email ?? 'Email not available' }}
+            </p>
+            <p class="text-gray-600">
+                <i class="fas fa-calendar"></i> Birthdate: {{ Auth::user()->dateofbirth ?? 'Not provided' }}
+            </p>
+            <p class="text-gray-600">
+                <i class="fas fa-map-marker-alt"></i> Birthplace: {{ $otherdetails->birthplace ?? 'Not specified' }}
+            </p>
+            <p class="text-gray-600">
+                <i class="fas fa-home"></i> Address: {{ $otherdetails->address ?? 'Not provided' }}
+            </p>
+        </div>
+
+        <div class="mt-4">
+            <h3 class="text-lg font-semibold"> Academic Information </h3>
+            <p class="text-gray-600">
+                <i class="fas fa-graduation-cap"></i> Year: {{ $otherdetails->year ?? 'N/A' }}
+            </p>
+            <p class="text-gray-600">
+                <i class="fas fa-users"></i> Section: {{ $otherdetails->section ?? 'Not specified' }}
+            </p>
+            <p class="text-gray-600">
+                <i class="fas fa-university"></i> Academic Year: {{ $otherdetails->academic_year ?? 'Unknown' }}
+            </p>
+            <p class="text-gray-600">
+                <i class="fas fa-clock"></i> Semester: {{ $otherdetails->semester ?? 'Unknown' }} Semester
             </p>
         </div>
     </div>
+
+    <!-- Announcements -->
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+        <h3 class="text-lg font-semibold mb-4"> 📢 Announcements </h3>
+        @if($announcements->isEmpty())
+            <p class="text-gray-600"> No announcements at the moment. </p>
+        @else
+            <ul class="space-y-2">
+                @foreach($announcements as $announcement)
+                    <li class="border-b pb-2">
+                        <strong>{{ $announcement->title }}</strong>
+                        <p class="text-gray-600 text-sm">{{ $announcement->content }}</p>
+                        <p class="text-xs text-gray-500">📅 {{ $announcement->date }}</p>
+                    </li>
+                @endforeach
+            </ul>
+        @endif
+    </div>
 </div>
-<!-- Events Section -->
-<div class="mt-8">
-    <h2 class="text-2xl font-bold mb-4"> Attendances </h2>
-    <!-- <div class="bg-white p-6 rounded-lg shadow-lg overflow-x-auto"><table class="min-w-full bg-white"><thead><tr><th class="py-2 px-4 border-b-2 border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">
-         Event
-        </th><th class="py-2 px-4 border-b-2 border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">
-         Date & Time
-        </th><th class="py-2 px-4 border-b-2 border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">
-         Semester
-        </th><th class="py-2 px-4 border-b-2 border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">
-         Academic Year
-        </th><th class="py-2 px-4 border-b-2 border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">
-         Login
-        </th><th class="py-2 px-4 border-b-2 border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-600 uppercase tracking-wider">
-         Logout
-        </th></tr></thead><tbody><tr><td class="py-2 px-4 border-b border-gray-200">
-         Tech Conference
-        </td><td class="py-2 px-4 border-b border-gray-200">
-         2023-09-15 10:00 AM
-        </td><td class="py-2 px-4 border-b border-gray-200">
-         Fall 2023
-        </td><td class="py-2 px-4 border-b border-gray-200">
-         2023-2024
-        </td><td class="py-2 px-4 border-b border-gray-200">
-         10:00 AM
-        </td><td class="py-2 px-4 border-b border-gray-200">
-         12:00 PM
-        </td></tr><tr><td class="py-2 px-4 border-b border-gray-200">
-         Workshop on AI
-        </td><td class="py-2 px-4 border-b border-gray-200">
-         2023-10-01 02:00 PM
-        </td><td class="py-2 px-4 border-b border-gray-200">
-         Fall 2023
-        </td><td class="py-2 px-4 border-b border-gray-200">
-         2023-2024
-        </td><td class="py-2 px-4 border-b border-gray-200">
-         02:00 PM
-        </td><td class="py-2 px-4 border-b border-gray-200">
-         04:00 PM
-        </td></tr><tr><td class="py-2 px-4 border-b border-gray-200">
-         Coding Bootcamp
-        </td><td class="py-2 px-4 border-b border-gray-200">
-         2023-11-20 09:00 AM
-        </td><td class="py-2 px-4 border-b border-gray-200">
-         Fall 2023
-        </td><td class="py-2 px-4 border-b border-gray-200">
-         2023-2024
-        </td><td class="py-2 px-4 border-b border-gray-200">
-         09:00 AM
-        </td><td class="py-2 px-4 border-b border-gray-200">
-         05:00 PM
-        </td></tr></tbody></table></div> -->
-</div>
-<!-- News Section -->
-<div class="mt-8">
-    <h2 class="text-2xl font-bold mb-4"> Latest News </h2>
-    <!-- <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"><div class="bg-white p-6 rounded-lg shadow-lg"><img alt="Image representing the news article" class="w-full h-40 object-cover rounded-lg mb-4" height="200" src="https://storage.googleapis.com/a1aa/image/M8ix0X2aIN7Sk24O6JPURBi-lqoUqKnFIjo5OSQch2w.jpg" width="300"/><h3 class="text-xl font-semibold mb-2">
-       Campus Reopening
-      </h3><p class="text-gray-600">
-       The campus will reopen for in-person classes starting next semester.
-      </p></div><div class="bg-white p-6 rounded-lg shadow-lg"><img alt="Image representing the news article" class="w-full h-40 object-cover rounded-lg mb-4" height="200" src="https://storage.googleapis.com/a1aa/image/M8ix0X2aIN7Sk24O6JPURBi-lqoUqKnFIjo5OSQch2w.jpg" width="300"/><h3 class="text-xl font-semibold mb-2">
-       New Library Resources
-      </h3><p class="text-gray-600">
-       New resources have been added to the library, including e-books and journals.
-      </p></div><div class="bg-white p-6 rounded-lg shadow-lg"><img alt="Image representing the news article" class="w-full h-40 object-cover rounded-lg mb-4" height="200" src="https://storage.googleapis.com/a1aa/image/M8ix0X2aIN7Sk24O6JPURBi-lqoUqKnFIjo5OSQch2w.jpg" width="300"/><h3 class="text-xl font-semibold mb-2">
-       Tech Conference
-      </h3><p class="text-gray-600">
-       Join us for the annual tech conference featuring industry leaders.
-      </p></div></div> -->
-</div> @endsection
+@endsection
