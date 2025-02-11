@@ -56,7 +56,7 @@
         <h3 class="text-xl font-semibold mt-6 mb-4">Other Details</h3>
         <div class="mb-4">
             <label class="block text-gray-700">ID Number</label>
-            @if(!$otherDetails->idnumber)
+            @if(!isset($otherDetails->idnumber))
                 <input type="text" name="idnumber" value="{{ old('idnumber', optional($otherDetails)->idnumber) }}" class="w-full p-2 border rounded">
             @else
                 <input type="text" value="{{ old('idnumber', optional($otherDetails)->idnumber) }}" class="w-full p-2 border rounded" disabled>
@@ -64,7 +64,7 @@
         </div>
         <div class="mb-4">
             <label class="block text-gray-700">Course</label>
-            @if(!$otherDetails->course)
+            @if(!isset($otherDetails->course))
                 <select name="course" class="w-full p-2 border rounded">
                     <option value="">Select Course</option>
                     <option value="BSIT" {{ old('course', optional($otherDetails)->course) == 'BSIT' ? 'selected' : '' }}>
@@ -83,7 +83,7 @@
 
         <div class="mb-4">
             <label class="block text-gray-700">Year</label>
-            @if(!$otherDetails->year)
+            @if(!isset($otherDetails->year))
                 <select name="year" class="w-full p-2 border rounded">
                     <option value="">Select Year</option>
                     <option value="1st" {{ old('year', optional($otherDetails)->year) == '1st' ? 'selected' : '' }}>1st Year</option>
@@ -104,7 +104,7 @@
 
         <div class="mb-4">
             <label class="block text-gray-700">Section</label>
-            @if(!$otherDetails->section)
+            @if(!isset($otherDetails->section))
                 <select name="section" class="w-full p-2 border rounded">
                     <option value="">Select Section</option>
                     <option value="A" {{ old('section', optional($otherDetails)->section) == 'A' ? 'selected' : '' }}>Section A</option>
@@ -124,7 +124,7 @@
         </div>
         <div class="mb-4">
             <label class="block text-gray-700">Semester</label>
-            @if(!$otherDetails->semester)
+            @if(!isset($otherDetails->semester))
                 <select name="semester" class="w-full p-2 border rounded">
                     <option value="">Select Semester</option>
                     <option value="1st" {{ old('semester', optional($otherDetails)->semester) == '1st' ? 'selected' : '' }}>1st Semester</option>
@@ -143,7 +143,7 @@
 
         <div class="mb-4">
             <label class="block text-gray-700">Academic Year</label>
-            @if(!$otherDetails->academic_year)
+            @if(!isset($otherDetails->academic_year))
                 <select name="academic_year" class="w-full p-2 border rounded">
                     <option value="">Select Academic Year</option>
                     @for ($year = date('Y'); $year >= 2000; $year--)
@@ -170,7 +170,7 @@
 
         <div class="mb-4">
             <label class="block text-gray-700">Birthplace</label>
-            @if(!$otherDetails->birthplace)
+            @if(!isset($otherDetails->birthplace))
                 <input type="text" name="birthplace" value="{{ old('birthplace', optional($otherDetails)->birthplace) }}" class="w-full p-2 border rounded">
             @else
                 <input type="text" value="{{ old('birthplace', optional($otherDetails)->birthplace) }}" class="w-full p-2 border rounded" disabled>
@@ -179,7 +179,7 @@
 
         <div class="mb-4">
             <label class="block text-gray-700">Address</label>
-            @if(!$otherDetails->address)
+            @if(!isset($otherDetails->address))
                 <textarea name="address" class="w-full p-2 border rounded" disabled>{{ old('address', optional($otherDetails)->address) }}</textarea>
             @else
                 <textarea class="w-full p-2 border rounded" disabled>{{ old('address', optional($otherDetails)->address) }}</textarea>
