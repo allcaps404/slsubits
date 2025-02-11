@@ -185,6 +185,13 @@
                 <textarea class="w-full p-2 border rounded" disabled>{{ old('address', optional($otherDetails)->address) }}</textarea>
             @endif
         </div>
+        
+        <div class="mb-4">
+            <label class="block text-gray-700">Upload Photo</label>
+            <input type="file" id="photoUpload" class="w-full p-2 border rounded" accept="image/*">
+            <input type="hidden" name="photo" id="photoBase64">
+            <img id="previewImage" src="{{ $otherDetails->photo ? 'data:image/jpeg;base64,' . $otherDetails->photo : '' }}" class="mt-2 max-w-xs rounded" style="display: {{ $otherDetails->photo ? 'block' : 'none' }};">
+        </div>
 
         <div class="mt-6">
             <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">
@@ -210,6 +217,18 @@
                 event.target.submit(); // Submit the form if confirmed
             }
         });
+    });
+    document.getElementById('photoUpload').addEventListener('change', function(event) {
+        let file = event.target.files[0];
+        if (file) {
+            let reader = new FileReader();
+            reader.onloadend = function() {
+                document.getElementById('photoBase64').value = reader.result.split(',')[1]; // Extract Base64 string
+                document.getElementById('previewImage').src = reader.result;
+                document.getElementById('previewImage').style.display = "block";
+            };
+            reader.readAsDataURL(file);
+        }
     });
 </script>
 @endsection
