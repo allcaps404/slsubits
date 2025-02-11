@@ -71,7 +71,7 @@
                                                 <img id="previewImage" 
                                                      height="100"
                                                      width="100"
-                                                     src="https://storage.googleapis.com/a1aa/image/-sIyLA5A4mz6xqurmkfc_ic3NQ0nQ6u4WJJZtIN-zJo.jpg" 
+                                                     src="https://www.gravatar.com/avatar/?d=mp" 
                                                      alt="Default profile picture" 
                                                      class="w-24 h-24 rounded-full">
                                             @endif

@@ -13,8 +13,7 @@
                      width="100" />
             @else
                 <img id="previewImage" 
-                     src="https://storage.googleapis.com/a1aa/image/-sIyLA5A4mz6xqurmkfc_ic3NQ0nQ6u4WJJZtIN-zJo.jpg" 
-                     alt="Default profile picture" 
+                     src="https://www.gravatar.com/avatar/?d=mp" 
                      class="w-24 h-24 rounded-full">
             @endif
             <div>
