@@ -6,7 +6,11 @@
     <!-- Profile Card -->
     <div class="bg-white p-6 rounded-lg shadow-lg">
      <div class="flex items-center space-x-4">
-      <img alt="Profile picture of the user" class="w-24 h-24 rounded-full" height="100" src="https://storage.googleapis.com/a1aa/image/-sIyLA5A4mz6xqurmkfc_ic3NQ0nQ6u4WJJZtIN-zJo.jpg" width="100"/>
+        @if($otherdetails->photo)
+            <img alt="Profile picture of the user" class="w-24 h-24 rounded-full" height="100" src="https://storage.googleapis.com/a1aa/image/-sIyLA5A4mz6xqurmkfc_ic3NQ0nQ6u4WJJZtIN-zJo.jpg" width="100"/>
+        @else
+            <img id="previewImage" src="{{ $otherDetails->photo ? 'data:image/jpeg;base64,' . $otherDetails->photo : '' }}" class="mt-2 max-w-xs rounded" style="display: {{ $otherDetails->photo ? 'block' : 'none' }};">
+        @endif
       <div>
        <h2 class="text-xl font-bold">
         Hello, {{ Auth::user()->firstname }}
