@@ -4,7 +4,7 @@
 <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md">
     <h2 class="text-2xl font-bold mb-4">Profile Information</h2>
     
-    <form id="profileForm" action="{{ route('student.profile.update') }}" method="POST">
+    <form id="profileForm" action="{{ route('student.profile.update') }}" method="POST" {{ $isProfileComplete ? 'onsubmit="return false;"' : '' }}>
         @csrf
         @method('PUT')
 
@@ -186,17 +186,26 @@
             @endif
         </div>
         
-        <div class="mb-4">
+      <div class="mb-4">
             <label class="block text-gray-700">Upload Photo</label>
             <input type="file" id="photoUpload" class="w-full p-2 border rounded" accept="image/*">
-            <input type="hidden" name="photo" id="photoBase64">
-            <img id="previewImage" src="{{ $otherDetails->photo ? 'data:image/jpeg;base64,' . $otherDetails->photo : '' }}" class="mt-2 max-w-xs rounded" style="display: {{ $otherDetails->photo ? 'block' : 'none' }};">
-        </div>
+            <input type="hidden" name="photo" id="photoBase64"> 
 
+            @if(isset($otherDetails->photo) && !empty($otherDetails->photo))
+                <img id="previewImage" 
+                     src="data:image/jpeg;base64,{{ $otherDetails->photo }}" 
+                     class="mt-2 max-w-xs rounded" 
+                     style="display: block;">
+            @else
+                <img id="previewImage" class="mt-2 max-w-xs rounded" style="display: none;">
+            @endif
+        </div>
         <div class="mt-6">
-            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">
-                Save Changes
-            </button>
+            @if(!$isProfileComplete)
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Save Changes </button>
+            @else
+                <button class="bg-blue-600 text-white px-4 py-2 rounded" disabled>Save Changes </button>
+            @endif
         </div>
     </form>
 </div>
@@ -219,15 +228,17 @@
         });
     });
     document.getElementById('photoUpload').addEventListener('change', function(event) {
-        let file = event.target.files[0];
+        const file = event.target.files[0];
+
         if (file) {
-            let reader = new FileReader();
-            reader.onloadend = function() {
-                document.getElementById('photoBase64').value = reader.result.split(',')[1]; // Extract Base64 string
-                document.getElementById('previewImage').src = reader.result;
-                document.getElementById('previewImage').style.display = "block";
-            };
+            const reader = new FileReader();
             reader.readAsDataURL(file);
+            reader.onload = function() {
+                const base64String = reader.result.split(',')[1]; // Extract Base64 data
+                document.getElementById('photoBase64').value = base64String;
+                document.getElementById('previewImage').src = reader.result;
+                document.getElementById('previewImage').style.display = 'block';
+            };
         }
     });
 </script>

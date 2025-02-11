@@ -14,8 +14,9 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         $otherDetails = OtherDetail::where('user_id', $user->id)->first();
-
-        return view('student.profile.index', compact('user', 'otherDetails'));
+        // Check if all required fields in Users and OtherDetails are filled
+    	$isProfileComplete = isset($user->firstname, $user->lastname, $user->middlename, $user->dateofbirth, $user->email) && isset($otherDetails->idnumber, $otherDetails->course, $otherDetails->year, $otherDetails->section, $otherDetails->semester, $otherDetails->academic_year, $otherDetails->birthplace, $otherDetails->address);
+        return view('student.profile.index', compact('user', 'otherDetails','isProfileComplete'));
     }
 
     public function update(Request $request)
@@ -46,14 +47,13 @@ class ProfileController extends Controller
 		            $otherDetail->user_id = $user->id;
 		        }
 
-				$fields = ['idnumber', 'course', 'year', 'section', 'semester', 'academic_year', 'birthplace', 'address'];
+				$fields = ['idnumber', 'course', 'year', 'section', 'semester', 'academic_year', 'birthplace', 'address', 'photo'];
 
 				foreach ($fields as $field) {
 				    if ($request->has($field)) {
 				        $otherDetail->$field = $request->input($field);
 				    }
 				}
-
 		        $otherDetail->save();
 		        return redirect()->route('student.profile')->with('success', 'Profile updated successfully.');
 			}	        
