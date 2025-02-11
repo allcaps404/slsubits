@@ -40,7 +40,7 @@
     <h2 class="text-2xl font-bold mb-4">
      Attendances
     </h2>
-    <div class="bg-white p-6 rounded-lg shadow-lg overflow-x-auto">
+    <!-- <div class="bg-white p-6 rounded-lg shadow-lg overflow-x-auto">
      <table class="min-w-full bg-white">
       <thead>
        <tr>
@@ -127,14 +127,14 @@
        </tr>
       </tbody>
      </table>
-    </div>
+    </div> -->
    </div>
    <!-- News Section -->
    <div class="mt-8">
     <h2 class="text-2xl font-bold mb-4">
      Latest News
     </h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <!-- <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
      <div class="bg-white p-6 rounded-lg shadow-lg">
       <img alt="Image representing the news article" class="w-full h-40 object-cover rounded-lg mb-4" height="200" src="https://storage.googleapis.com/a1aa/image/M8ix0X2aIN7Sk24O6JPURBi-lqoUqKnFIjo5OSQch2w.jpg" width="300"/>
       <h3 class="text-xl font-semibold mb-2">
@@ -162,6 +162,6 @@
        Join us for the annual tech conference featuring industry leaders.
       </p>
      </div>
-    </div>
+    </div> -->
    </div>
 @endsection

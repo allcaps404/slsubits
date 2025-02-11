@@ -180,7 +180,7 @@
         <div class="mb-4">
             <label class="block text-gray-700">Address</label>
             @if(!isset($otherDetails->address))
-                <textarea name="address" class="w-full p-2 border rounded" disabled>{{ old('address', optional($otherDetails)->address) }}</textarea>
+                <textarea name="address" class="w-full p-2 border rounded">{{ old('address', optional($otherDetails)->address) }}</textarea>
             @else
                 <textarea class="w-full p-2 border rounded" disabled>{{ old('address', optional($otherDetails)->address) }}</textarea>
             @endif
