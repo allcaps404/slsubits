@@ -138,7 +138,7 @@
                     <option value="2nd" {{ old('semester', optional($otherDetails)->semester) == '2nd' ? 'selected' : '' }}>2nd Semester</option>
                     <option value="Summer" {{ old('semester', optional($otherDetails)->semester) == 'Summer' ? 'selected' : '' }}>Summer</option>
                 </select>
-            @end
+            @endif
         </div>
 
         <div class="mb-4">
@@ -212,5 +212,4 @@
         });
     });
 </script>
-
 @endsection
