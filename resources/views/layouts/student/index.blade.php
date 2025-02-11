@@ -36,7 +36,7 @@
                             <a class="hover:underline cursor-pointer">Settings</a>
                             <ul class="absolute left-0 w-48 bg-white shadow-lg rounded-md hidden group-hover:block">
                                 <li>
-                                    <a href="{{ route('settings.change-password') }}" class="block px-4 py-2 hover:bg-gray-200">
+                                    <a href="{{ route('settings.change-password') }}" class="block px-4 py-2 hover:bg-gray-600">
                                         🔑 Change Password
                                     </a>
                                 </li>
