@@ -60,11 +60,18 @@
                                         <p class="small"><strong>Academic Year:</strong> {{ $user->OtherDetail->academic_year ?? 'N/A' }}</p>
                                         <p class="small"><strong>Birthplace:</strong> {{ $user->OtherDetail->birthplace ?? 'N/A' }}</p>
                                         <p class="small"><strong>Address:</strong> {{ $user->OtherDetail->address ?? 'N/A' }}</p>
-                                        <p class="small"><strong>Photo:</strong> 
-                                            @if($user->OtherDetail && $user->OtherDetail->photo)
-                                                <img src="{{ asset('storage/' . $user->OtherDetail->photo) }}" alt="Photo" class="img-thumbnail" width="100">
+                                        <p class="small"><strong>Photo:</strong>
+                                            @if(isset($user->OtherDetail->photo) && !empty($user->OtherDetail->photo))
+                                                <img alt="Profile picture of the user" 
+                                                     class="w-24 h-24 rounded-full" 
+                                                     height="100" 
+                                                     src="data:image/jpeg;base64,{{ $user->OtherDetail->photo }}" 
+                                                     width="100" />
                                             @else
-                                                N/A
+                                                <img id="previewImage" 
+                                                     src="https://storage.googleapis.com/a1aa/image/-sIyLA5A4mz6xqurmkfc_ic3NQ0nQ6u4WJJZtIN-zJo.jpg" 
+                                                     alt="Default profile picture" 
+                                                     class="w-24 h-24 rounded-full">
                                             @endif
                                         </p>
                                     </div>

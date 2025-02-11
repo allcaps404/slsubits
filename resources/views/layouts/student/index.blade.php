@@ -68,7 +68,7 @@
         <main class="container mx-auto mt-8 p-4"> @yield('content') </main>
         <footer class="bg-blue-600 text-white p-4 mt-8">
             <div class="container mx-auto text-center">
-                <p> © 2023 Student Portal. All rights reserved. </p>
+                <p> © 2024 Student Portal. All rights reserved. </p>
             </div>
         </footer>
      
