@@ -9,7 +9,10 @@ use App\Models\User;
 class OtherDetail extends Model
 {
     use HasFactory;
-
+    
+    protected $primaryKey = 'user_id'; // Set primary key to 'user_id'
+    public $incrementing = false; // Disable auto-incrementing
+    
     protected $fillable = [
         'user_id',
         'course',

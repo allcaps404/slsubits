@@ -21,12 +21,13 @@ Route::prefix('admin')->middleware(['admin'])->group(function () {
     Route::get('/usersmanagement/{id}/edit', [UserController::class, 'edit'])->name('usersmanagement.edit');
     Route::put('/usersmanagement/{id}', [UserController::class, 'update'])->name('usersmanagement.update');
     Route::delete('admin/usersmanagement/{usersmanagement}', [UserController::class, 'destroy'])->name('usersmanagement.destroy');
-
     Route::get('/check-email', [UserController::class, 'checkEmail'])->name('check-email');
 });
 
 Route::prefix('student')->middleware(['student'])->group(function () {
     Route::get('/', [App\Http\Controllers\Student\HomeController::class,'index'])->name('student.home');
+    Route::get('/profile', [App\Http\Controllers\Student\ProfileController::class, 'edit'])->name('student.profile');
+	Route::put('/profile', [App\Http\Controllers\Student\ProfileController::class, 'update'])->name('student.profile.update');
 });
 
 Auth::routes();
