@@ -71,9 +71,35 @@
                 <p> © 2024 Student Portal. All rights reserved. </p>
             </div>
         </footer>
-     
-        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        @php
+            $user = Auth::user();
+            $otherDetails = App\Models\OtherDetail::where('user_id', $user->id)->first();
+            $isProfileComplete = isset($user->firstname, $user->lastname, $user->middlename, $user->dateofbirth, $user->email) 
+                && isset($otherDetails->idnumber, $otherDetails->course, $otherDetails->year, $otherDetails->section, $otherDetails->semester, $otherDetails->academic_year, $otherDetails->birthplace, $otherDetails->address);
+        @endphp
 
+        @if(!$isProfileComplete && request()->route()->getName() !== 'student.profile')
+            <div id="profile-blocker" style="
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.7);
+                color: white;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                z-index: 9999;
+            ">
+                <h2>Please complete your profile before proceeding.</h2>
+                <p>All required fields must be filled out.</p>
+                <a href="{{ route('student.profile') }}" class="btn btn-primary" style="padding: 10px 20px; margin-top: 15px; background: #007bff; color: white; text-decoration: none; border-radius: 5px;">Proceed to Profile</a>
+            </div>
+        @endif
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <!-- Show SweetAlert2 notifications -->
         <script>
             document.addEventListener("DOMContentLoaded", function () {
