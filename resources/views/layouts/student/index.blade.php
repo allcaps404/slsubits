@@ -27,6 +27,9 @@
                             <a class="hover:underline" href="{{ url('/') }}"> Home </a>
                         </li>
                         <li>
+                            <a class="block text-white hover:underline" href="{{ route('student.events.index') }}"> Events/Activities </a>
+                        </li>
+                        <li>
                             <a class="hover:underline" href="#"> Announcements </a>
                         </li>
                         <li>
@@ -36,7 +39,7 @@
                             <a class="hover:underline cursor-pointer">Settings</a>
                             <ul class="absolute left-0 w-48 bg-white shadow-lg rounded-md hidden group-hover:block">
                                 <li>
-                                    <a href="{{ route('settings.change-password') }}" class="block px-4 py-2 hover:bg-gray-600">
+                                    <a href="{{ route('student.settings.change-password') }}" class="block px-4 py-2 hover:bg-gray-600">
                                         🔑 Change Password
                                     </a>
                                 </li>
@@ -56,14 +59,24 @@
                         <a class="block text-white hover:underline" href="{{ url('/') }}"> Home </a>
                     </li>
                     <li>
+                        <a class="block text-white hover:underline" href="{{ route('student.events.index') }}"> Events/Activities </a>
+                    </li>
+                    <li>
                         <a class="block text-white hover:underline" href="#"> Announcements </a>
                     </li>
                     <li>
                         <a class="block text-white hover:underline" href="{{ route('student.profile') }}"> Profile </a>
                     </li>
-                    <li>
-                        <a class="block text-white hover:underline" href="{{ route('settings.change-password') }}"> Settings </a>
-                    </li>
+                    <li class="relative group">
+                            <a class="hover:underline cursor-pointer">Settings</a>
+                            <ul class="absolute left-0 w-48 bg-white shadow-lg rounded-md hidden group-hover:block">
+                                <li>
+                                    <a href="{{ route('student.settings.change-password') }}" class="block px-4 py-2 hover:bg-gray-600">
+                                        🔑 Change Password
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                     <li>
                         <form action="{{ route('logout') }}" method="POST" style="display: inline;"> @csrf <button type="submit" class="dropdown-item text-danger">
                             <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Logout </button>

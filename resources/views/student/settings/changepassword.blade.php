@@ -37,7 +37,7 @@
             e.preventDefault();
             
             $.ajax({
-                url: "{{ route('settings.change-password.update') }}",
+                url: "{{ route('student.settings.change-password.update') }}",
                 type: "POST",
                 data: $(this).serialize(),
                 success: function (response) {
