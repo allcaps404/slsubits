@@ -15,7 +15,7 @@
     <body class="bg-gray-100">
         <header class="bg-blue-600 text-white p-4">
             <div class="container mx-auto flex justify-between items-center">
-                <h1 class="text-2xl font-bold"> Student Portal </h1>
+                <h1 class="text-2xl font-bold"><a href="{{ url('/') }}">Student Portal</a>  </h1>
                 <nav>
                     <div class="md:hidden">
                         <button class="text-white focus:outline-none" id="menu-button">
@@ -24,7 +24,7 @@
                     </div>
                     <ul class="hidden md:flex space-x-4" id="menu">
                         <li>
-                            <a class="hover:underline" href="#"> Home </a>
+                            <a class="hover:underline" href="{{ url('/') }}"> Home </a>
                         </li>
                         <li>
                             <a class="hover:underline" href="#"> Events </a>
@@ -46,7 +46,7 @@
             <div class="md:hidden">
                 <ul class="hidden space-y-2 mt-2" id="mobile-menu">
                     <li>
-                        <a class="block text-white hover:underline" href="#"> Home </a>
+                        <a class="block text-white hover:underline" href="{{ url('/') }}"> Home </a>
                     </li>
                     <li>
                         <a class="block text-white hover:underline" href="#"> Events </a>
@@ -58,7 +58,9 @@
                         <a class="block text-white hover:underline" href="#"> Settings </a>
                     </li>
                     <li>
-                        <a class="block text-white hover:underline" href="#"> Logout </a>
+                        <form action="{{ route('logout') }}" method="POST" style="display: inline;"> @csrf <button type="submit" class="dropdown-item text-danger">
+                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i> Logout </button>
+                        </form>
                     </li>
                 </ul>
             </div>

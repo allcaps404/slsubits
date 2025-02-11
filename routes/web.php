@@ -11,7 +11,10 @@ use App\Http\Controllers\Admin\UserController;
 |--------------------------------------------------------------------------
 */
 
-Route::get('/', [AuthController::class, 'showLoginForm'])->name('login');
+Route::get('/', function () {
+    return redirect(route('login'));
+});
+
 Route::post('/login', [AuthController::class, 'login'])->name('login.post');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
