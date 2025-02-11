@@ -31,6 +31,8 @@ Route::prefix('student')->middleware(['student'])->group(function () {
     Route::get('/', [App\Http\Controllers\Student\HomeController::class,'index'])->name('student.home');
     Route::get('/profile', [App\Http\Controllers\Student\ProfileController::class, 'edit'])->name('student.profile');
 	Route::put('/profile', [App\Http\Controllers\Student\ProfileController::class, 'update'])->name('student.profile.update');
+	Route::get('/settings/change-password', [App\Http\Controllers\Student\SettingsController::class, 'changePassword'])->name('settings.change-password');
+	Route::post('/settings/change-password/update', [App\Http\Controllers\Student\SettingsController::class, 'changePasswordUpdate'])->name('settings.change-password.update');
 });
 
 Auth::routes();
