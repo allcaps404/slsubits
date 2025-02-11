@@ -70,7 +70,8 @@
                     <select class="form-control" name="role_id" id="role_id" required>
                         <option value="1" {{ old('role_id', $user->role_id) == 1 ? 'selected' : '' }}>Admin</option>
                         <option value="2" {{ old('role_id', $user->role_id) == 2 ? 'selected' : '' }}>Student</option>
-                        <option value="3" {{ old('role_id', $user->role_id) == 3 ? 'selected' : '' }}>Scanner</option>
+                        <option value="3" {{ old('role_id', $user->role_id) == 3 ? 'selected' : '' }}>Event Organizer</option>
+                        <option value="4" {{ old('role_id', $user->role_id) == 4 ? 'selected' : '' }}>Scanner</option>
                     </select>
                 </div>
             </div>

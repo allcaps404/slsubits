@@ -73,7 +73,8 @@
                                     <select class="form-control" name="role_id" id="role_id" required>
                                         <option value="1">Admin</option>
                                         <option value="2">Student</option>
-                                        <option value="3">Scanner</option>
+                                        <option value="3">Event Organizer</option>
+                                        <option value="4">Scanner</option>
                                     </select>
                                 </div>
                             </div>
