@@ -65,7 +65,7 @@
                                                 <img alt="Profile picture of the user" 
                                                      class="w-24 h-24 rounded-full" 
                                                      height="100" 
-                                                     src="data:image/jpeg;base64,{{ $user->OtherDetail->photo }}" 
+                                                     src="{{ $user->OtherDetail->photo }}" 
                                                      width="100" />
                                             @else
                                                 <img id="previewImage" 
@@ -105,10 +105,24 @@
             ]
         });
 
-        // Add a toggle icon to show user information
         $('.accordion-toggle').on('click', function() {
             $(this).find('i').toggleClass('fa-chevron-down fa-chevron-up');
         });
+    });
+
+    document.getElementById('photoUpload').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+
+        if (file) {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function() {
+                const base64String = reader.result.split(',')[1]; // Extract Base64 data
+                document.getElementById('photoBase64').value = base64String;
+                document.getElementById('previewImage').src = reader.result;
+                document.getElementById('previewImage').style.display = 'block';
+            };
+        }
     });
 </script>
 @endsection

@@ -16,8 +16,8 @@ class UserController extends Controller
     public function index()
     {
         $users = User::with('role')
-                    ->with('OtherDetail')->paginate(10);
-
+                    ->with('OtherDetail')->paginate(4);
+        
         return view('admin.users.index', [
             'users' => $users,
             'title' => 'Users'
@@ -43,6 +43,12 @@ class UserController extends Controller
             if(User::where('firstname', $request->firstname)->where('lastname', $request->lastname)->where('dateofbirth', $request->dateofbirth)->exists()){
                 return redirect()->route('usersmanagement.create')->with('error', 'User already exists.');
             }
+
+            $photo = $this->uploadPhoto($request);
+            if ($photo === null) {
+                return redirect()->route('usersmanagement.create')->with('error', 'Failed to upload photo.');
+            }
+
             $saveUser = new User();
             $saveUser->email = $request->email;
             $saveUser->firstname = $request->firstname;
@@ -62,6 +68,7 @@ class UserController extends Controller
                 $saveUserInfo->academic_year = $request->academic_year;
                 $saveUserInfo->birthplace = $request->birthplace;
                 $saveUserInfo->address = $request->address;
+                $saveUserInfo->photo = $photo;
                 $saveUserInfo->save();
                 return redirect()->route('usersmanagement.create')->with('success', 'User created successfully.');
             }
@@ -103,7 +110,12 @@ class UserController extends Controller
                 $user->password = Hash::make($request->password);
             }
 
-            $photo = $request->hasFile('photo') ? $this->uploadPhoto($request) : optional($user->OtherDetail)->photo;
+            if ($request->hasFile('photo')) {
+                $file = $request->file('photo');
+                $photoBase64 = 'data:' . $file->getClientMimeType() . ';base64,' . base64_encode(file_get_contents($file));
+            } else {
+                $photoBase64 = optional($user->OtherDetail)->photo;
+            }
             
             if ($user->save()) {
                 $user->otherDetail()->update([
@@ -114,9 +126,8 @@ class UserController extends Controller
                     'academic_year' => $request->academic_year,
                     'birthplace' => $request->birthplace,
                     'address' => $request->address,
-                    'photo' => $photo,
+                    'photo' => $photoBase64,
                 ]);
-
             return redirect()->route('usersmanagement.edit', $id)->with('success', 'User updated successfully.');
         }
             return redirect()->route('usersmanagement.edit', $id)->with('error', 'User update failed.');
@@ -131,24 +142,21 @@ class UserController extends Controller
         ]);
     }
 
-    public function uploadPhoto(Request $request)
+    public function uploadPhoto($request)
     {
-        $request->validate([
-            'photo' => 'required|image|mimes:jpg,jpeg,png,gif|max:2048',
-        ]);
-    
-        // Check if a file was uploaded
-        if ($request->hasFile('photo')) {
-            $file = $request->file('photo');
-            $directory = 'public/photos';
-            if (!Storage::exists($directory)) {
-                Storage::makeDirectory($directory);
+        try {
+            if ($request->hasFile('photo')) {
+                $photo = $request->file('photo');
+                // Process the photo (convert to base64)
+                $photoData = base64_encode(file_get_contents($photo->getRealPath()));
+                return $photoData;
+            } else {
+                return null; // Handle case where no photo is uploaded
             }
-            $fileName = time() . '.' . $file->getClientOriginalExtension();
-            $path = $file->storeAs($directory, $fileName);    
-            return back()->with('success', 'Photo uploaded successfully');
+        } catch (\Exception $e) {
+            \Log::error('Photo upload failed: ' . $e->getMessage());
+            return null;
         }
-        return back()->with('error', 'No photo uploaded');
     }
 
     public function checkEmail(Request $request)

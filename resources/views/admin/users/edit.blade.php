@@ -4,7 +4,6 @@
 <div class="container-fluid">
     <h1 class="h3 mb-4 text-gray-800">Edit User</h1>
 
-    <!-- Success Message -->
     @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session('success') }}
@@ -17,17 +16,13 @@
     <form action="{{ route('usersmanagement.update', $user->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
-
         <div class="row">
-            <!-- Email Field -->
             <div class="col-md-6 mb-3">
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" class="form-control" name="email" id="email" value="{{ old('email', $user->email) }}" required>
                 </div>
             </div>
-
-            <!-- First Name Field -->
             <div class="col-md-6 mb-3">
                 <div class="form-group">
                     <label for="firstname">First Name</label>
@@ -35,17 +30,13 @@
                 </div>
             </div>
         </div>
-
         <div class="row">
-            <!-- Last Name Field -->
             <div class="col-md-6 mb-3">
                 <div class="form-group">
                     <label for="lastname">Last Name</label>
                     <input type="text" class="form-control" name="lastname" id="lastname" value="{{ old('lastname', $user->lastname) }}" required>
                 </div>
             </div>
-
-            <!-- Middle Name Field -->
             <div class="col-md-6 mb-3">
                 <div class="form-group">
                     <label for="middlename">Middle Name</label>
@@ -53,90 +44,89 @@
                 </div>
             </div>
         </div>
-
         <div class="row">
-            <!-- Password Field -->
             <div class="col-md-6 mb-3">
                 <div class="form-group">
                     <label for="password">Password (Leave blank to keep current password)</label>
                     <input type="password" class="form-control" name="password" id="password">
                 </div>
             </div>
-
-            <!-- Role Field -->
             <div class="col-md-6 mb-3">
                 <div class="form-group">
                     <label for="role_id">Role</label>
                     <select class="form-control" name="role_id" id="role_id" required>
                         <option value="1" {{ old('role_id', $user->role_id) == 1 ? 'selected' : '' }}>Admin</option>
                         <option value="2" {{ old('role_id', $user->role_id) == 2 ? 'selected' : '' }}>Student</option>
-                        <option value="3" {{ old('role_id', $user->role_id) == 3 ? 'selected' : '' }}>Event Organizer</option>
-                        <option value="4" {{ old('role_id', $user->role_id) == 4 ? 'selected' : '' }}>Scanner</option>
+                        <option value="3" {{ old('role_id', $user->role_id) == 3 ? 'selected' : '' }}>Scanner</option>
                     </select>
                 </div>
             </div>
         </div>
-
         <hr>
-
         <h5>Additional Information</h5>
-
         <div class="row">
-            <!-- Course Field -->
             <div class="col-md-4 mb-3">
                 <div class="form-group">
                     <label for="course">Course</label>
-                    <input type="text" class="form-control" name="course" id="course" value="{{ old('course', $user->OtherDetail->course ?? '') }}">
+                    <select class="form-control" name="course" id="course">
+                        <option value="BSIT" {{ old('course', $user->OtherDetail->course ?? '') == 'BSIT' ? 'selected' : '' }}>Bachelor of Science in Information Technology</option>
+                    </select>
                 </div>
             </div>
-
-            <!-- Year Field -->
             <div class="col-md-4 mb-3">
                 <div class="form-group">
                     <label for="year">Year</label>
-                    <input type="text" class="form-control" name="year" id="year" value="{{ old('year', $user->OtherDetail->year ?? '') }}">
+                    <select class="form-control" name="year" id="year">
+                        <option value="1st Year" {{ old('year', $user->OtherDetail->year ?? '') == '1st Year' ? 'selected' : '' }}>1st Year</option>
+                        <option value="2nd Year" {{ old('year', $user->OtherDetail->year ?? '') == '2nd Year' ? 'selected' : '' }}>2nd Year</option>
+                        <option value="3rd Year" {{ old('year', $user->OtherDetail->year ?? '') == '3rd Year' ? 'selected' : '' }}>3rd Year</option>
+                        <option value="4th Year" {{ old('year', $user->OtherDetail->year ?? '') == '4th Year' ? 'selected' : '' }}>4th Year</option>
+                    </select>
                 </div>
             </div>
-
-            <!-- Section Field -->
             <div class="col-md-4 mb-3">
                 <div class="form-group">
                     <label for="section">Section</label>
-                    <input type="text" class="form-control" name="section" id="section" value="{{ old('section', $user->OtherDetail->section ?? '') }}">
+                    <select class="form-control" name="section" id="section">
+                        <option value="A" {{ old('section', $user->OtherDetail->section ?? '') == 'A' ? 'selected' : '' }}>A</option>
+                        <option value="B" {{ old('section', $user->OtherDetail->section ?? '') == 'B' ? 'selected' : '' }}>B</option>
+                        <option value="C" {{ old('section', $user->OtherDetail->section ?? '') == 'C' ? 'selected' : '' }}>C</option>
+                    </select>
                 </div>
             </div>
         </div>
-
         <div class="row">
-            <!-- Semester Field -->
             <div class="col-md-6 mb-3">
                 <div class="form-group">
                     <label for="semester">Semester</label>
-                    <input type="text" class="form-control" name="semester" id="semester" value="{{ old('semester', $user->OtherDetail->semester ?? '') }}">
+                    <select class="form-control" name="semester" id="semester">
+                        <option value="1st Semester" {{ old('semester', $user->OtherDetail->semester ?? '') == '1st Semester' ? 'selected' : '' }}>1st Semester</option>
+                        <option value="2nd Semester" {{ old('semester', $user->OtherDetail->semester ?? '') == '2nd Semester' ? 'selected' : '' }}>2nd Semester</option>
+                    </select>
                 </div>
             </div>
-
-            <!-- Academic Year Field -->
             <div class="col-md-6 mb-3">
                 <div class="form-group">
                     <label for="academic_year">Academic Year</label>
-                    <input type="text" class="form-control" name="academic_year" id="academic_year" value="{{ old('academic_year', $user->OtherDetail->academic_year ?? '') }}">
+                    <select class="form-control" name="academic_year" id="academic_year">
+                        @for($year = 2020; $year <= 2027; $year++)
+                            <option value="{{ $year }}-{{ $year + 1 }}" {{ old('academic_year', $user->OtherDetail->academic_year ?? '') == "$year-$year+1" ? 'selected' : '' }}>
+                                {{ $year }}-{{ $year + 1 }}
+                            </option>
+                        @endfor
+                    </select>
                 </div>
             </div>
         </div>
-
         <div class="row">
-            <!-- Birthdate Field -->
             <div class="col-md-6 mb-3">
                 <div class="form-group">
                     <label for="dateofbirth">Birthdate</label>
                     <input type="date" class="form-control" name="dateofbirth" id="dateofbirth" value="{{ old('dateofbirth', optional($user)->dateofbirth ? \Carbon\Carbon::parse($user->dateofbirth)->format('Y-m-d') : '') }}">
                 </div>
             </div>
-
-            <!-- Birthplace Field -->
             <div class="col-md-6 mb-3">
-                <div class="form-group">    
+                <div class="form-group">
                     <label for="birthplace">Birthplace</label>
                     <input type="text" class="form-control" name="birthplace" id="birthplace" value="{{ old('birthplace', $user->OtherDetail->birthplace ?? '') }}">
                 </div>
@@ -148,17 +138,24 @@
             <textarea class="form-control" name="address" id="address" rows="3">{{ old('address', $user->OtherDetail->address ?? '') }}</textarea>
         </div>
 
-        <div class="form-group mb-3">
+        <div class="form-group">
             <label for="photo">Photo</label>
-            <input type="file" class="form-control-file" name="photo" id="photo">
-            @if($user->OtherDetail && $user->OtherDetail->photo)
-                <div class="mt-2">
-                    <img src="{{ asset('storage/' . $user->OtherDetail->photo) }}" alt="Current Photo" class="img-thumbnail" width="150">
-                    <p class="text-muted">Current photo</p>
-                </div>
+            <input type="file" class="form-control-file" id="photo" name="photo" accept="image/*" onchange="previewPhoto(this)">
+
+            @if(isset($user->OtherDetail->photo) && !empty($user->OtherDetail->photo))
+                <img id="previewImage" 
+                    src="{{ $user->OtherDetail->photo }}" 
+                    alt="User photo" 
+                    class="rounded-full mt-3" 
+                    style="max-width: 150px; max-height: 150px; width: auto; height: auto;">
+            @else
+                <img id="previewImage" 
+                    src="https://www.gravatar.com/avatar/?d=mp" 
+                    alt="Default profile picture" 
+                    class="rounded-full mt-3" 
+                    style="max-width: 150px; max-height: 150px; width: auto; height: auto;">
             @endif
         </div>
-
         <button type="submit" class="btn btn-primary">Update User</button>
     </form>
 </div>
@@ -167,7 +164,7 @@
     $(document).ready(function() {
         $('#email').on('blur', function() {
             let email = $(this).val();
-            let userId = {{ $user->id }}; 
+            let userId = {{ $user->id }};
             $.ajax({
                 url: "{{ route('check-email') }}",
                 method: 'GET',
@@ -183,5 +180,15 @@
             });
         });
     });
+
+    function previewPhoto(input) {
+        if (input.files && input.files[0]) {
+            let reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById('previewImage').src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 </script>
 @endsection

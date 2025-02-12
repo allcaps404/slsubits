@@ -85,19 +85,30 @@
                             <div class="col-md-4 mb-3">
                                 <div class="form-group">
                                     <label for="course">Course</label>
-                                    <input type="text" class="form-control" name="course" id="course" placeholder="Enter course">
+                                    <select class="form-control" name="course" id="course">
+                                        <option value="BSIT">Bachelor of Science in Information Technology</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-4 mb-3">
                                 <div class="form-group">
                                     <label for="year">Year</label>
-                                    <input type="text" class="form-control" name="year" id="year" placeholder="Enter year">
+                                    <select class="form-control" name="year" id="year">
+                                        <option value="1st Year">1st Year</option>
+                                        <option value="2nd Year">2nd Year</option>
+                                        <option value="3rd Year">3rd Year</option>
+                                        <option value="4th Year">4th Year</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-4 mb-3">
                                 <div class="form-group">
                                     <label for="section">Section</label>
-                                    <input type="text" class="form-control" name="section" id="section" placeholder="Enter section">
+                                    <select class="form-control" name="section" id="section">
+                                        <option value="A">A</option>
+                                        <option value="B">B</option>
+                                        <option value="C">C</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -106,13 +117,20 @@
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
                                     <label for="semester">Semester</label>
-                                    <input type="text" class="form-control" name="semester" id="semester" placeholder="Enter semester">
+                                    <select class="form-control" name="semester" id="semester">
+                                        <option value="1st Semester">1st Semester</option>
+                                        <option value="2nd Semester">2nd Semester</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
                                     <label for="academic_year">Academic Year</label>
-                                    <input type="text" class="form-control" name="academic_year" id="academic_year" placeholder="Enter academic year">
+                                    <select class="form-control" name="academic_year" id="academic_year">
+                                        @for($year = 2021; $year <= 2030; $year++)
+                                            <option value="{{ $year }}-{{ $year + 1 }}">{{ $year }}-{{ $year + 1 }}</option>
+                                        @endfor
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -139,10 +157,10 @@
 
                         <div class="form-group mb-3">
                             <label for="photo">Upload Photo</label>
-                            <input type="file" name="photo" id="photo" class="form-control" onchange="validateFile()">
+                            <input type="file" name="photo" id="photo" class="form-control" onchange="convertToBase64()">
+                            <input type="hidden" name="photo_base64" id="photo_base64">
                             <div id="error-message" style="color: red; display: none;"></div>
                         </div>
-                       
 
                         <button type="submit" class="btn btn-primary btn-block" id="submitBtn">Create User</button>
                         <div id="loadingSpinner" class="text-center mt-2" style="display: none;">
@@ -159,23 +177,18 @@
 
 <script>
     document.getElementById('userForm').addEventListener('submit', function (e) {
-        e.preventDefault(); // Prevent form submission until confirmed
-
-        // Confirmation alert
+        e.preventDefault();
         if (confirm('Are you sure you want to submit the form?')) {
-            // Show loading spinner
             document.getElementById('loadingSpinner').style.display = 'block';
-            
-            // Submit the form after confirmation
             this.submit();
         }
     });
 
-    // Optional: File validation (uncomment if file upload is enabled)
-    function validateFile() {
+    function convertToBase64() {
         const fileInput = document.getElementById('photo');
         const file = fileInput.files[0];
         const errorMessage = document.getElementById('error-message');
+        const base64Input = document.getElementById('photo_base64');
 
         errorMessage.style.display = 'none';
         errorMessage.textContent = '';
@@ -188,7 +201,7 @@
         if (!allowedTypes.includes(file.type)) {
             errorMessage.textContent = 'Invalid file type. Only JPG, JPEG, PNG, and GIF are allowed.';
             errorMessage.style.display = 'block';
-            fileInput.value = ''; 
+            fileInput.value = '';
             return;
         }
 
@@ -196,9 +209,15 @@
         if (file.size > maxSize) {
             errorMessage.textContent = 'File size exceeds 2MB. Please upload a smaller file.';
             errorMessage.style.display = 'block';
-            fileInput.value = ''; 
+            fileInput.value = '';
             return;
         }
+
+        const reader = new FileReader();
+        reader.onloadend = function () {
+            base64Input.value = reader.result;
+        };
+        reader.readAsDataURL(file);
     }
 </script>
 @endsection
