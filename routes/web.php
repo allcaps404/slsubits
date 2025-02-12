@@ -34,6 +34,15 @@ Route::prefix('student')->middleware(['student'])->group(function () {
 	Route::get('/settings/change-password', [App\Http\Controllers\Student\SettingsController::class, 'changePassword'])->name('student.settings.change-password');
 	Route::post('/settings/change-password/update', [App\Http\Controllers\Student\SettingsController::class, 'changePasswordUpdate'])->name('student.settings.change-password.update');
 	Route::get('/events', [App\Http\Controllers\Student\EventController::class, 'index'])->name('student.events.index');
+
+	Route::post('/attend', [App\Http\Controllers\Student\AttendanceController::class, 'attend'])->name('student.attend');
+    Route::post('/logout-attendance', [App\Http\Controllers\Student\AttendanceController::class, 'logout'])->name('student.logout-attendance');
+
+    Route::get('/settings/face-registration', [App\Http\Controllers\Student\FaceAuthController::class, 'showFaceRegistration'])
+        ->name('student.settings.face-registration');
+    Route::post('/settings/store-face', [App\Http\Controllers\Student\FaceAuthController::class, 'storeFace'])
+        ->name('student.settings.store-face');
+
 });
 
 Auth::routes();
