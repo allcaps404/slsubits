@@ -127,9 +127,9 @@
                 <a href="{{ route('student.profile') }}" class="btn btn-primary" style="padding: 10px 20px; margin-top: 15px; background: #007bff; color: white; text-decoration: none; border-radius: 5px;">Proceed to Profile</a>
             </div>
         @endif
-        
+ <!--        
         <script type="text/javascript" src="{{ asset('facerecognition/face-auth.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('facerecognition/face-worker.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('facerecognition/face-worker.js') }}"></script> -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
