@@ -102,8 +102,7 @@
         @php
             $user = Auth::user();
             $otherDetails = App\Models\OtherDetail::where('user_id', $user->id)->first();
-            $isProfileComplete = isset($user->firstname, $user->lastname, $user->middlename, $user->dateofbirth, $user->email) 
-                && isset($otherDetails->idnumber, $otherDetails->course, $otherDetails->year, $otherDetails->section, $otherDetails->semester, $otherDetails->academic_year, $otherDetails->birthplace, $otherDetails->address);
+            $isProfileComplete = isset($user->firstname, $user->lastname, $user->middlename, $user->dateofbirth, $user->email) && isset($otherDetails->idnumber, $otherDetails->course, $otherDetails->year, $otherDetails->section, $otherDetails->semester, $otherDetails->academic_year, $otherDetails->birthplace, $otherDetails->address, $otherDetails->photo);
         @endphp
 
         @if(!$isProfileComplete && request()->route()->getName() !== 'student.profile')

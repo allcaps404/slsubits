@@ -23,6 +23,6 @@ class IfStudent
 	            return $next($request);
 	        }
 	    }
-        abort(403);
+        return redirect(url('/'));
     }
 }

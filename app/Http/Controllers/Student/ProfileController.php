@@ -15,7 +15,7 @@ class ProfileController extends Controller
         $user = Auth::user();
         $otherDetails = OtherDetail::where('user_id', $user->id)->first();
         // Check if all required fields in Users and OtherDetails are filled
-    	$isProfileComplete = isset($user->firstname, $user->lastname, $user->middlename, $user->dateofbirth, $user->email) && isset($otherDetails->idnumber, $otherDetails->course, $otherDetails->year, $otherDetails->section, $otherDetails->semester, $otherDetails->academic_year, $otherDetails->birthplace, $otherDetails->address);
+    	$isProfileComplete = isset($user->firstname, $user->lastname, $user->middlename, $user->dateofbirth, $user->email) && isset($otherDetails->idnumber, $otherDetails->course, $otherDetails->year, $otherDetails->section, $otherDetails->semester, $otherDetails->academic_year, $otherDetails->birthplace, $otherDetails->address, $otherDetails->photo);
         return view('student.profile.index', compact('user', 'otherDetails','isProfileComplete'));
     }
 

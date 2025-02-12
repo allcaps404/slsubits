@@ -23,6 +23,6 @@ class IfAdmin
 	            return $next($request);
 	        }
 	    }
-        abort(403);
+        return redirect(url('/'));
     }
 }
