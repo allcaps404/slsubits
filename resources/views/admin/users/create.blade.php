@@ -155,14 +155,25 @@
                             <textarea class="form-control" name="address" id="address" rows="3" placeholder="Enter address"></textarea>
                         </div>
 
-                        <div class="form-group mb-3">
-                            <label for="photo">Upload Photo</label>
-                            <input type="file" name="photo" id="photo" class="form-control" onchange="convertToBase64()">
-                            <input type="hidden" name="photo_base64" id="photo_base64">
-                            <div id="error-message" style="color: red; display: none;"></div>
-                        </div>
+                        <div class="form-group">
+                            <label for="photo">Photo</label>
+                            <input type="file" class="form-control-file" id="photo" name="photo" accept="image/*" onchange="previewPhoto(this)">
 
-                        <button type="submit" class="btn btn-primary btn-block" id="submitBtn">Create User</button>
+                            @if(isset($user->OtherDetail->photo) && !empty($user->OtherDetail->photo))
+                                <img id="previewImage" 
+                                    src="{{ $user->OtherDetail->photo }}" 
+                                    alt="User photo" 
+                                    class="rounded-full mt-3" 
+                                    style="max-width: 150px; max-height: 150px; width: auto; height: auto;">
+                            @else
+                                <img id="previewImage" 
+                                    src="https://www.gravatar.com/avatar/?d=mp" 
+                                    alt="Default profile picture" 
+                                    class="rounded-full mt-3" 
+                                    style="max-width: 150px; max-height: 150px; width: auto; height: auto;">
+                            @endif
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-sm" id="submitBtn">Create User</button>
                         <div id="loadingSpinner" class="text-center mt-2" style="display: none;">
                             <div class="spinner-border text-primary" role="status">
                                 <span class="sr-only">Loading...</span>
@@ -184,40 +195,14 @@
         }
     });
 
-    function convertToBase64() {
-        const fileInput = document.getElementById('photo');
-        const file = fileInput.files[0];
-        const errorMessage = document.getElementById('error-message');
-        const base64Input = document.getElementById('photo_base64');
-
-        errorMessage.style.display = 'none';
-        errorMessage.textContent = '';
-
-        if (!file) {
-            return;
+    function previewPhoto(input) {
+        if (input.files && input.files[0]) {
+            let reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById('previewImage').src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
         }
-
-        const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/jpg'];
-        if (!allowedTypes.includes(file.type)) {
-            errorMessage.textContent = 'Invalid file type. Only JPG, JPEG, PNG, and GIF are allowed.';
-            errorMessage.style.display = 'block';
-            fileInput.value = '';
-            return;
-        }
-
-        const maxSize = 2 * 1024 * 1024; 
-        if (file.size > maxSize) {
-            errorMessage.textContent = 'File size exceeds 2MB. Please upload a smaller file.';
-            errorMessage.style.display = 'block';
-            fileInput.value = '';
-            return;
-        }
-
-        const reader = new FileReader();
-        reader.onloadend = function () {
-            base64Input.value = reader.result;
-        };
-        reader.readAsDataURL(file);
     }
 </script>
 @endsection
