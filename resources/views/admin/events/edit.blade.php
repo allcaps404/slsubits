@@ -38,20 +38,21 @@
                                     <input type="text" class="form-control" name="name" id="name" value="{{ old('name', $event->name) }}" required>
                                 </div>
                             </div>
-                            
+
+                            <!-- Short Description Field next to Name -->
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label for="short_description">Short Description</label>
+                                    <textarea class="form-control" name="short_description" id="short_description" rows="3" required>{{ old('short_description', $event->short_description) }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
                                     <label for="event_date">Event Date</label>
                                     <input type="date" class="form-control" name="event_date" id="event_date" value="{{ old('event_date', \Carbon\Carbon::parse($event->event_date)->format('Y-m-d')) }}" required>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="row">
-                            <div class="col-md-12 mb-3">
-                                <div class="form-group">
-                                    <label for="short_description">Short Description</label>
-                                    <textarea class="form-control" name="short_description" id="short_description" rows="3" required>{{ old('short_description', $event->short_description) }}</textarea>
                                 </div>
                             </div>
                         </div>
