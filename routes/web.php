@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\EventController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
 
@@ -42,7 +43,16 @@ Route::prefix('student')->middleware(['student'])->group(function () {
         ->name('student.settings.face-registration');
     Route::post('/settings/store-face', [App\Http\Controllers\Student\FaceAuthController::class, 'storeFace'])
         ->name('student.settings.store-face');
-
 });
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
+    Route::get('events', [App\Http\Controllers\Admin\EventController::class, 'index'])->name('events.index');
+    Route::get('events/create', [App\Http\Controllers\Admin\EventController::class, 'create'])->name('events.create');
+    Route::post('events', [App\Http\Controllers\Admin\EventController::class, 'store'])->name('events.store');
+    Route::get('events/{event}', [App\Http\Controllers\Admin\EventController::class, 'show'])->name('events.show');
+    Route::get('events/{event}/edit', [App\Http\Controllers\Admin\EventController::class, 'edit'])->name('events.edit');
+    Route::put('events/{event}', [App\Http\Controllers\Admin\EventController::class, 'update'])->name('events.update');
+    Route::delete('events/{event}', [App\Http\Controllers\Admin\EventController::class, 'destroy'])->name('events.destroy');
+});
+
 
 Auth::routes();
