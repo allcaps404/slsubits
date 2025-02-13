@@ -23,6 +23,12 @@
     <!-- Hidden Video Element for Face Capture -->
     <video id="faceCam" autoplay hidden></video>
 
+    <!-- Display Captured Face -->
+    <div id="capturedFace" class="text-center mt-4 hidden">
+        <h4 class="font-semibold">Detected Face</h4>
+        <img id="capturedFaceImg" class="mx-auto border rounded-lg shadow-md" alt="Detected Face">
+    </div>
+
     <!-- Feedback Message -->
     <div id="feedbackMessage" class="text-center mt-4"></div>
 </div>
@@ -34,6 +40,8 @@
     document.getElementById("registerFace").addEventListener("click", async function() {
         let faceScanBox = document.getElementById("faceScanBox");
         let feedbackMessage = document.getElementById("feedbackMessage");
+        let capturedFace = document.getElementById("capturedFace");
+        let capturedFaceImg = document.getElementById("capturedFaceImg");
 
         try {
             const stream = await navigator.mediaDevices.getUserMedia({ video: true });
@@ -53,6 +61,10 @@
 
                 // Stop video stream to prevent lag
                 stream.getTracks().forEach(track => track.stop());
+
+                // Show captured image
+                capturedFaceImg.src = imgData;
+                capturedFace.classList.remove("hidden");
 
                 faceScanBox.innerHTML = `<p class="text-gray-700">Uploading...</p>`;
 
