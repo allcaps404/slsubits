@@ -144,7 +144,7 @@
 
             @if(isset($user->OtherDetail->photo) && !empty($user->OtherDetail->photo))
                 <img id="previewImage" 
-                    src="{{ $user->OtherDetail->photo }}" 
+                    src="data:image/jpeg;base64, {{ $user->OtherDetail->photo }}" 
                     alt="User photo" 
                     class="rounded-full mt-3" 
                     style="max-width: 150px; max-height: 150px; width: auto; height: auto;">
