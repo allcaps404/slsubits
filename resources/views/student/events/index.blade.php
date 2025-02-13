@@ -3,7 +3,6 @@
 @section('content')
 <div class="max-w-4xl mx-auto bg-white p-4 rounded-lg shadow-lg">
     <h2 class="text-lg font-semibold mb-3">📅 Events/Activities</h2>
-
     <!-- Events Table -->
     <div class="overflow-x-auto">
         <table class="min-w-full bg-white border border-gray-300 text-sm">
@@ -40,8 +39,9 @@
             </tbody>
         </table>
     </div>
-
-    <!-- Attended Events Table -->
+</div>
+<div class="max-w-4xl mx-auto bg-white p-4 mt-6 rounded-lg shadow-lg">
+     <!-- Attended Events Table -->
     <h2 class="text-lg font-semibold mt-6 mb-3">✔️ Attended Events</h2>
     <div class="overflow-x-auto">
         <table class="min-w-full bg-white border border-gray-300 text-sm">
