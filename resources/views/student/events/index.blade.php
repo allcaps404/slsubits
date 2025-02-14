@@ -27,12 +27,12 @@
                     <td class="px-2 py-1 border">{{ $event->academic_year }}</td>
                     <td class="px-2 py-1 border">{{ $event->semester }}</td>
                     <td class="px-2 py-1 border text-center">
-                        <button class="bg-blue-500 text-white text-xs px-2 py-1 rounded hover:bg-blue-600 attend-btn" data-id="{{ $event->id }}">
+                       <!--  <button class="bg-blue-500 text-white text-xs px-2 py-1 rounded hover:bg-blue-600 attend-btn" data-id="{{ $event->id }}">
                             ✅
                         </button>
                         <button class="bg-red-500 text-white text-xs px-2 py-1 rounded hover:bg-red-600 logout-btn" data-id="{{ $event->id }}">
                             ❌
-                        </button>
+                        </button> -->
                     </td>
                 </tr>
                 @endforeach

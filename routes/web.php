@@ -53,6 +53,9 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::put('events/{event}', [App\Http\Controllers\Admin\EventController::class, 'update'])->name('events.update');
     Route::delete('events/{event}', [App\Http\Controllers\Admin\EventController::class, 'destroy'])->name('events.destroy');
 });
-
+Route::prefix('scanner')->middleware(['scanner'])->group(function () {
+    Route::get('/', [App\Http\Controllers\Scanner\QRScannerController::class, 'showScanner'])->name('qr-scanner');
+    Route::get('/get-student/{qr_code}', [App\Http\Controllers\Scanner\QRScannerController::class, 'getStudent']);
+});
 
 Auth::routes();

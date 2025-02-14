@@ -63,6 +63,25 @@
         </div>
     </div>
 
+    <!-- QR Code Display -->
+    <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+        <h3 class="text-lg font-semibold"> 🎟️ Your QR Code </h3>
+        @if(Auth::user()->qr_code)
+            <img id="qrCode" 
+                 src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={{ Auth::user()->qr_code }}" 
+                 alt="QR Code"
+                 class="mx-auto my-3">
+            <a id="downloadQR" 
+               href="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data={{ Auth::user()->qr_code }}" 
+               download="QR_Code.png"
+               class="px-4 py-2 bg-blue-500 text-white rounded shadow hover:bg-blue-600">
+                📥 Download QR
+            </a>
+        @else
+            <p class="text-gray-600 mt-2">QR Code not generated yet.</p>
+        @endif
+    </div>
+
     <!-- Announcements -->
     <div class="bg-white p-6 rounded-lg shadow-lg">
         <h3 class="text-lg font-semibold mb-4"> 📢 Announcements </h3>
