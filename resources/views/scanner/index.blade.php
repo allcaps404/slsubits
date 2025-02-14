@@ -14,7 +14,7 @@
             <h4>Scan QR Code</h4>
             <video id="preview" class="border rounded w-100"></video>
 
-            <!-- Message Display Below the Scanner -->
+             <!-- Message Display Below the Scanner -->
             <div id="scan-message" class="alert mt-3 d-none"></div>
         </div>
 
@@ -49,14 +49,14 @@ document.addEventListener("DOMContentLoaded", function() {
         if (cameras.length > 0) {
             scanner.start(cameras[0]);
         } else {
-            showMessage('No cameras found.', 'danger');
+            alert('No cameras found.');
         }
     }).catch(function (e) {
         console.error(e);
     });
 
     function fetchStudentDetails(qr_code, event_id) {
-        fetch(`/get-student/${qr_code}?event_id=${event_id}`)
+        fetch(`scanner/get-student/${qr_code}?event_id=${event_id}`)
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
@@ -66,17 +66,13 @@ document.addEventListener("DOMContentLoaded", function() {
                     document.getElementById("student-year-section").textContent = "Year & Section: " + data.year + " - " + data.section;
                     document.getElementById("student-semester").textContent = "Semester: " + data.semester;
                     document.getElementById("student-academic-year").textContent = "Academic Year: " + data.academic_year;
-                    showMessage(`✅ Successfully logged: ${data.name}`, 'success');
+                    showMessage(`✅ Successfully logged in: ${data.name}`, 'success');
                 } else {
                     showMessage(`❌ ${data.message}`, 'danger');
                 }
             })
-            .catch(error => {
-                console.error('Error fetching student details:', error);
-                showMessage('❌ Error fetching student details.', 'danger');
-            });
+            .catch(error => console.error('Error fetching student details:', error));
     }
-
     function showMessage(message, type) {
         let messageDiv = document.getElementById('scan-message');
         messageDiv.innerHTML = message;
