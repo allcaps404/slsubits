@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     function fetchStudentDetails(qr_code, event_id) {
-        fetch(`/get-student/${qr_code}?event_id=${event_id}`)
+        fetch(`scanner/get-student/${qr_code}?event_id=${event_id}`)
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
