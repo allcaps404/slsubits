@@ -8,7 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class AttendanceLog extends Model
 {
     use HasFactory;
-    
+ 	
+ 	protected $fillable = [
+        'event_id',
+        'student_id',
+        'login_time',
+        'logout_time',
+    ];
+
     public function event()
     {
         return $this->belongsTo(Event::class);
