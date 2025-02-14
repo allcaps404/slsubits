@@ -13,6 +13,9 @@
             </select>
             <h4>Scan QR Code</h4>
             <video id="preview" class="border rounded w-100"></video>
+
+            <!-- Message Display Below the Scanner -->
+            <div id="scan-message" class="alert mt-3 d-none"></div>
         </div>
 
         <!-- Right Side: Student Details -->
@@ -20,7 +23,7 @@
             <h4>Student Details</h4>
             <div class="card">
                 <div class="card-body text-center">
-                    <img id="student-photo" src="{{ asset('images/default.png') }}" class="img-fluid rounded-circle mb-3" width="150" height="150">
+                    <img id="student-photo" src="https://www.gravatar.com/avatar/?d=mp" class="img-fluid rounded-circle mb-3" width="150" height="150">
                     <h5 id="student-name">---</h5>
                     <p id="student-course">---</p>
                     <p id="student-year-section">---</p>
@@ -46,14 +49,14 @@ document.addEventListener("DOMContentLoaded", function() {
         if (cameras.length > 0) {
             scanner.start(cameras[0]);
         } else {
-            alert('No cameras found.');
+            showMessage('No cameras found.', 'danger');
         }
     }).catch(function (e) {
         console.error(e);
     });
 
     function fetchStudentDetails(qr_code, event_id) {
-        fetch(`scanner/get-student/${qr_code}?event_id=${event_id}`)
+        fetch(`/get-student/${qr_code}?event_id=${event_id}`)
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
@@ -63,11 +66,27 @@ document.addEventListener("DOMContentLoaded", function() {
                     document.getElementById("student-year-section").textContent = "Year & Section: " + data.year + " - " + data.section;
                     document.getElementById("student-semester").textContent = "Semester: " + data.semester;
                     document.getElementById("student-academic-year").textContent = "Academic Year: " + data.academic_year;
+                    showMessage(`✅ Successfully logged: ${data.name}`, 'success');
                 } else {
-                    alert(data.message);
+                    showMessage(`❌ ${data.message}`, 'danger');
                 }
             })
-            .catch(error => console.error('Error fetching student details:', error));
+            .catch(error => {
+                console.error('Error fetching student details:', error);
+                showMessage('❌ Error fetching student details.', 'danger');
+            });
+    }
+
+    function showMessage(message, type) {
+        let messageDiv = document.getElementById('scan-message');
+        messageDiv.innerHTML = message;
+        messageDiv.className = `alert alert-${type} mt-3`;
+        messageDiv.classList.remove('d-none');
+
+        // Hide the message after 5 seconds
+        setTimeout(() => {
+            messageDiv.classList.add('d-none');
+        }, 5000);
     }
 });
 </script>
