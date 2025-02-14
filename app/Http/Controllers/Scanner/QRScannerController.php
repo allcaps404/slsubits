@@ -20,41 +20,66 @@ class QRScannerController extends Controller
 
     public function getStudent(Request $request, $qr_code)
     {
+        // Find the student by QR code
         $student = User::where('qr_code', $qr_code)->first();
         $event_id = $request->query('event_id');
 
         if (!$student) {
-            return response()->json(['success' => false, 'message' => 'Student not found.']);
+            return response()->json(['success' => false, 'message' => '❌ Student not found.'], 400);
         }
 
+        // Find event details
         $event = Event::find($event_id);
         if (!$event) {
-            return response()->json(['success' => false, 'message' => 'Invalid event.']);
+            return response()->json(['success' => false, 'message' => '❌ Invalid event.'], 400);
         }
 
-        $now = Carbon::now();
-        if ($now < $event->login_datetime || $now > $event->logout_datetime) {
-            return response()->json(['success' => false, 'message' => 'Attendance not allowed at this time.']);
-        }
+        // Get current time with Manila timezone
+        $now = Carbon::now()->timezone('Asia/Manila');
 
-        $existingLog = AttendanceLog::where('event_id', $event_id)
+        // Compute allowed login/logout time ranges
+        $loginStartTime = Carbon::parse($event->login_datetime)->timezone('Asia/Manila')->subHour(); // 1 hour before login
+        $loginEndTime = Carbon::parse($event->login_datetime)->timezone('Asia/Manila'); // Login time
+
+        $logoutStartTime = Carbon::parse($event->logout_datetime)->timezone('Asia/Manila'); // Logout time
+        $logoutEndTime = Carbon::parse($event->logout_datetime)->timezone('Asia/Manila')->addHour(); // 1 hour after logout
+
+        // Check if student already has an attendance log
+        $attendance = AttendanceLog::where('event_id', $event->id)
             ->where('student_id', $student->id)
             ->first();
 
-        if ($existingLog) {
-            return response()->json(['success' => false, 'message' => 'Already logged in for this event.']);
+        if (!$attendance) {
+            // **LOGIN CASE**: Student is logging in
+            if ($now->between($loginStartTime, $loginEndTime)) {
+                AttendanceLog::create([
+                    'event_id' => $event_id,
+                    'student_id' => $student->id,
+                    'login_time' => $now,
+                ]);
+                $message = '✅ Login successful!';
+            } else {
+                return response()->json(['success' => false, 'message' => '❌ Login is only allowed 1 hour before the event start time.'], 400);
+            }
+        } elseif ($attendance && !$attendance->logout_time) {
+            // **LOGOUT CASE**: Student is logging out
+            if ($now->between($logoutStartTime, $logoutEndTime)) {
+                $attendance->logout_time = $now;
+                $attendance->save();
+                $message = '✅ Logout successful!';
+            } else {
+                return response()->json(['success' => false, 'message' => '❌ Logout is only allowed 1 hour after the event end time.'], 400);
+            }
+        } else {
+            return response()->json(['success' => false, 'message' => '❌ You have already logged out.'], 400);
         }
 
-        AttendanceLog::create([
-            'event_id' => $event_id,
-            'student_id' => $student->id,
-            'login_time' => Carbon::now(),
-        ]);
-
+        // Fetch additional student details
         $details = OtherDetail::where('user_id', $student->id)->first();
 
         return response()->json([
             'success' => true,
+            'message' => $message,
             'name' => $student->name,
             'photo' => asset($student->photo ?? 'images/default.png'),
             'course' => $details->course ?? 'N/A',
