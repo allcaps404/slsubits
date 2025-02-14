@@ -76,12 +76,14 @@ class QRScannerController extends Controller
 
         // Fetch additional student details
         $details = OtherDetail::where('user_id', $student->id)->first();
-
+        $user = OtherDetail::where('id', $details->user_id)->first();
+        $fullName = trim($user->firstname . ' ' . ($user->middlename ?? '') . ' ' . $user->lastname);
+        $photo = $user->photo ? 'data:image/jpeg;base64,' . base64_encode($user->photo) : 'https://www.gravatar.com/avatar/?d=mp';
         return response()->json([
             'success' => true,
             'message' => $message,
-            'name' => $student->name,
-            'photo' => asset($student->photo ?? 'images/default.png'),
+            'name' => $fullName,
+            'photo' => $photo,
             'course' => $details->course ?? 'N/A',
             'year' => $details->year ?? 'N/A',
             'section' => $details->section ?? 'N/A',
