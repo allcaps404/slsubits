@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function fetchStudentDetails(qr_code, event_id) {
         showMessage("⏳ Processing scan...", "warning");
 
-        fetch(`/get-student/${qr_code}?event_id=${event_id}`)
+        fetch(`scanner/get-student/${qr_code}?event_id=${event_id}`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Server is overloaded. Please try again later.');

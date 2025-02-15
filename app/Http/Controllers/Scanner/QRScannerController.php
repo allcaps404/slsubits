@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Cache;
 
 class QRScannerController extends Controller
 {
-     public function showScanner()
+    public function showScanner()
     {
         $events = Event::get();
         return view('scanner.index', compact('events'));
