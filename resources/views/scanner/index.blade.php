@@ -14,7 +14,7 @@
             <h4>Scan QR Code</h4>
             <video id="preview" class="border rounded w-100"></video>
 
-             <!-- Message Display Below the Scanner -->
+            <!-- Message Display Below the Scanner -->
             <div id="scan-message" class="alert mt-3 d-none"></div>
         </div>
 
@@ -39,8 +39,18 @@
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+    let lastScanTime = 0;
+    let cooldownTime = 1500; // 1.5 seconds cooldown between scans
 
     scanner.addListener('scan', function(qr_code) {
+        let currentTime = new Date().getTime();
+        
+        if (currentTime - lastScanTime < cooldownTime) {
+            console.log("⏳ Please wait before scanning again...");
+            return;
+        }
+
+        lastScanTime = currentTime; 
         let event_id = document.getElementById('event_id').value;
         fetchStudentDetails(qr_code, event_id);
     });
@@ -49,15 +59,22 @@ document.addEventListener("DOMContentLoaded", function() {
         if (cameras.length > 0) {
             scanner.start(cameras[0]);
         } else {
-            alert('No cameras found.');
+            showMessage('❌ No cameras found.', 'danger');
         }
     }).catch(function (e) {
         console.error(e);
     });
 
     function fetchStudentDetails(qr_code, event_id) {
-        fetch(`scanner/get-student/${qr_code}?event_id=${event_id}`)
-            .then(response => response.json())
+        showMessage("⏳ Processing scan...", "warning");
+
+        fetch(`/get-student/${qr_code}?event_id=${event_id}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Server is overloaded. Please try again later.');
+                }
+                return response.json();
+            })
             .then(data => {
                 if (data.success) {
                     document.getElementById("student-photo").src = data.photo;
@@ -71,8 +88,12 @@ document.addEventListener("DOMContentLoaded", function() {
                     showMessage(`❌ ${data.message}`, 'danger');
                 }
             })
-            .catch(error => console.error('Error fetching student details:', error));
+            .catch(error => {
+                console.error('Error fetching student details:', error);
+                showMessage('❌ Error fetching student details.', 'danger');
+            });
     }
+
     function showMessage(message, type) {
         let messageDiv = document.getElementById('scan-message');
         messageDiv.innerHTML = message;
