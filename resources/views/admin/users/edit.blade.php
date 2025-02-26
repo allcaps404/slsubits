@@ -55,6 +55,7 @@
                 <div class="form-group">
                     <label for="role_id">Role</label>
                     <select class="form-control" name="role_id" id="role_id" required>
+                        <option value="" disabled selected>Select a role</option>
                         <option value="1" {{ old('role_id', $user->role_id) == 1 ? 'selected' : '' }}>Admin</option>
                         <option value="2" {{ old('role_id', $user->role_id) == 2 ? 'selected' : '' }}>Student</option>
                         <option value="3" {{ old('role_id', $user->role_id) == 3 ? 'selected' : '' }}>Scanner</option>
@@ -70,6 +71,7 @@
                 <div class="form-group">
                     <label for="course">Course</label>
                     <select class="form-control" name="course" id="course">
+                        <!-- <option value="" disabled selected>Select a role</option> -->
                         <option value="BSIT" {{ old('course', $user->OtherDetail->course ?? '') == 'BSIT' ? 'selected' : '' }}>Bachelor of Science in Information Technology</option>
                     </select>
                 </div>
@@ -78,6 +80,7 @@
                 <div class="form-group">
                     <label for="year">Year</label>
                     <select class="form-control" name="year" id="year">
+                        <option value="" disabled selected>Select a year</option>
                         <option value="1st Year" {{ old('year', $user->OtherDetail->year ?? '') == '1st Year' ? 'selected' : '' }}>1st Year</option>
                         <option value="2nd Year" {{ old('year', $user->OtherDetail->year ?? '') == '2nd Year' ? 'selected' : '' }}>2nd Year</option>
                         <option value="3rd Year" {{ old('year', $user->OtherDetail->year ?? '') == '3rd Year' ? 'selected' : '' }}>3rd Year</option>
@@ -89,6 +92,7 @@
                 <div class="form-group">
                     <label for="section">Section</label>
                     <select class="form-control" name="section" id="section">
+                        <option value="" disabled selected>Select a section</option>
                         <option value="A" {{ old('section', $user->OtherDetail->section ?? '') == 'A' ? 'selected' : '' }}>A</option>
                         <option value="B" {{ old('section', $user->OtherDetail->section ?? '') == 'B' ? 'selected' : '' }}>B</option>
                         <option value="C" {{ old('section', $user->OtherDetail->section ?? '') == 'C' ? 'selected' : '' }}>C</option>
@@ -101,6 +105,7 @@
                 <div class="form-group">
                     <label for="semester">Semester</label>
                     <select class="form-control" name="semester" id="semester">
+                        <option value="" disabled selected>Select a semester</option>
                         <option value="1st Semester" {{ old('semester', $user->OtherDetail->semester ?? '') == '1st Semester' ? 'selected' : '' }}>1st Semester</option>
                         <option value="2nd Semester" {{ old('semester', $user->OtherDetail->semester ?? '') == '2nd Semester' ? 'selected' : '' }}>2nd Semester</option>
                     </select>
@@ -111,6 +116,7 @@
                     <label for="academic_year">Academic Year</label>
                     <select class="form-control" name="academic_year" id="academic_year">
                         @for($year = 2020; $year <= 2027; $year++)
+                            <option value="" disabled selected>Select a academic year</option>
                             <option value="{{ $year }}-{{ $year + 1 }}" {{ old('academic_year', $user->OtherDetail->academic_year ?? '') == "$year-$year+1" ? 'selected' : '' }}>
                                 {{ $year }}-{{ $year + 1 }}
                             </option>
