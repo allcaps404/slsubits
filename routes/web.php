@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EventController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Alumni\YearBookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,6 +66,8 @@ Route::prefix('alumni')->middleware(['alumni'])->group(function () {
     // Route::get('/settings/change-password', [App\Http\Controllers\Alumni\SettingsController::class, 'changePassword'])->name('alumni.settings.change-password');
     // Route::post('/settings/change-password/update', [App\Http\Controllers\Alumni\SettingsController::class, 'changePasswordUpdate'])->name('alumni.settings.change-password.update');
     // Route::get('/events', [App\Http\Controllers\Alumni\EventController::class, 'index'])->name('alumni.events.index');
+    Route::get('/yearbook', [YearBookController::class, 'index'])->name('yearbook.index');
+    Route::post('/yearbook', [YearBookController::class, 'store'])->name('yearbook.store');
 });
 
 Auth::routes();

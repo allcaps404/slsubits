@@ -12,10 +12,10 @@ class ProfileController extends Controller
 {
     public function edit()
     {
+        
         $user = Auth::user();
         $otherDetails = OtherDetail::where('user_id', $user->id)->first();
         
-        // Check if profile is complete
         $isProfileComplete = isset($user->firstname, $user->lastname, $user->middlename, $user->dateofbirth, $user->email) 
             && isset($otherDetails->idnumber, $otherDetails->course, $otherDetails->year, $otherDetails->section, 
                      $otherDetails->semester, $otherDetails->academic_year, $otherDetails->birthplace, 
@@ -29,7 +29,6 @@ class ProfileController extends Controller
         $user = Auth::user();
 
         try {
-            // Update user details only if not already set
             if (!isset($user->firstname)) {
                 $user->firstname = $request->input('firstname');
             }

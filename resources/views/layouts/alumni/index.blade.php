@@ -13,16 +13,15 @@
             overflow-x: hidden;
         }
 
-        /* Fixed Sidebar */
         #sidebar-wrapper {
             width: 15rem;
-            height: 100vh; /* Full height */
-            position: fixed; /* Keep it fixed */
+            height: 100vh;
+            position: fixed;
             top: 0;
             left: 0;
             background: white;
             border-right: 1px solid #ddd;
-            overflow-y: auto; /* Allows sidebar to scroll separately if needed */
+            overflow-y: auto;
             transition: all 0.3s;
             z-index: 1000;
         }
@@ -31,7 +30,7 @@
             padding: 0.875rem 1.25rem;
             font-size: 1.2rem;
             font-weight: bold;
-            background-color: #343a40;
+            background-color:rgb(37, 99, 235);
             color: white;
             text-align: center;
         }
@@ -117,7 +116,7 @@
             <div class="list-group list-group-flush">
                 <a class="list-group-item list-group-item-action bg-white" href="{{url('/alumni')}}"><i class="fas fa-home mr-2"></i> Home</a>
                 <a class="list-group-item list-group-item-action bg-white" href="#"><i class="fas fa-calendar-alt mr-2"></i> Events</a>
-                <a class="list-group-item list-group-item-action bg-white" href="#"><i class="fas fa-book mr-2"></i> Yearbook</a>
+                <a class="list-group-item list-group-item-action bg-white" href="{{ route('yearbook.index') }}"><i class="fas fa-book mr-2"></i> Yearbook</a>
             </div>
         </div>
         <!-- /#sidebar-wrapper -->
@@ -126,11 +125,12 @@
         <div id="page-content-wrapper">
             <nav class="navbar navbar-expand-lg navbar-light">
                 <button class="btn btn-primary d-block d-md-none" id="menu-toggle"><i class="fas fa-bars"></i></button>
-                <h2 class="ml-3 my-0">Dashboard</h2>
+                <h2 class="ml-3 my-0">{{ $page }}</h2>
                 <div class="ml-auto">
                     <div class="dropdown">
                         <button class="btn btn-white dropdown-toggle" id="accountDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="https://storage.googleapis.com/a1aa/image/lWklqY928xnSPgHWULfhgIMFk1y4KEZFFI1tbvqvW9Y.jpg" class="rounded-circle mr-2" width="40" height="40" alt="Profile"> John Doe
+                            <img src="https://storage.googleapis.com/a1aa/image/lWklqY928xnSPgHWULfhgIMFk1y4KEZFFI1tbvqvW9Y.jpg" class="rounded-circle mr-2" width="40" height="40" alt="Profile">
+                            {{ Auth::user()->firstname}}
                         </button>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdown">
                             <a class="dropdown-item" href="{{ route('alumni.profile') }}">Profile</a>
