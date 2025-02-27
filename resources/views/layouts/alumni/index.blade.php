@@ -125,7 +125,7 @@
         <div id="page-content-wrapper">
             <nav class="navbar navbar-expand-lg navbar-light">
                 <button class="btn btn-primary d-block d-md-none" id="menu-toggle"><i class="fas fa-bars"></i></button>
-                <h2 class="ml-3 my-0">{{ $page }}</h2>
+                <h2 class="ml-3 my-0">{{ $page ?? 'Yearbook Information' }}</h2>
                 <div class="ml-auto">
                     <div class="dropdown">
                         <button class="btn btn-white dropdown-toggle" id="accountDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

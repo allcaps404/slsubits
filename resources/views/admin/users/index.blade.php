@@ -29,6 +29,9 @@
                     <option value="Admin" {{ request('role') == 'Admin' ? 'selected' : '' }}>Admin</option>
                     <option value="Student" {{ request('role') == 'Student' ? 'selected' : '' }}>Student</option>
                     <option value="Scanner" {{ request('role') == 'Scanner' ? 'selected' : '' }}>Scanner</option>
+                    <option value="Event Organizer" {{ request('role') == 'Event Organizer' ? 'selected' : '' }}>Event Organizer</option>
+                    <option value="Alumnus" {{ request('role') == 'Alumnus' ? 'selected' : '' }}>Alumnus</option>
+                    <option value="Alumnae" {{ request('role') == 'Alumnae' ? 'selected' : '' }}>Alumnae</option>
                 </select>
             </div>
             <div class="col-md-3 mb-2">
