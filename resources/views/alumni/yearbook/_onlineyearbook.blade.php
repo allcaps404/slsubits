@@ -14,7 +14,6 @@
 @endphp
 
 <div class="container mt-5">
-    <h3 class="text-center mb-4">Yearbook Alumni Gallery</h3>
     <div class="row">
         @if($alumniUsers->isEmpty())
             <div class="col-12">

@@ -26,7 +26,7 @@ class YearbookController extends Controller
             'yearbook' => $yearbook,
             'yearbook_id' => $yearbook ? $yearbook->id : null,
             'message' => '',
-            'page' => 'Yearbook Information'
+            'page' => 'Yearbook'
         ]);
     }
 

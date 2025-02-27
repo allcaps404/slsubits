@@ -5,9 +5,6 @@
     <div class="row justify-content-center">
         <div class="col-lg-8 col-md-10 col-sm-12">
             <div class="card shadow-sm">
-                <div class="card-header bg-primary text-white">
-                    <h3 class="mb-0">Yearbook Information</h3>
-                </div>
                 <div class="card-body">
                     @if(!empty($message))
                         <div class="alert alert-warning">
