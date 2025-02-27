@@ -71,7 +71,7 @@
                                 <div class="form-group">
                                     <label for="role_id">Role</label>
                                     <select class="form-control" name="role_id" id="role_id" required>
-                                        <option value="" disabled selected>Select role</option>
+                                        <option value="" disabled selected>Select a role</option>
                                         <option value="1">Admin</option>
                                         <option value="2">Student</option>
                                         <option value="3">Scanner</option>
@@ -87,7 +87,7 @@
                                 <div class="form-group">
                                     <label for="course">Course</label>
                                     <select class="form-control" name="course" id="course">
-                                        <!-- <option value="" disabled selected>Select a course</option> -->
+                                        <option value="" disabled selected>Select a Course</option>
                                         <option value="BSIT">Bachelor of Science in Information Technology</option>
                                     </select>
                                 </div>
@@ -96,7 +96,7 @@
                                 <div class="form-group">
                                     <label for="year">Year</label>
                                     <select class="form-control" name="year" id="year">
-                                        <option value="" disabled selected>Select year level</option>
+                                        <option value="" disabled selected>Select a Year Level</option>
                                         <option value="1st Year">1st Year</option>
                                         <option value="2nd Year">2nd Year</option>
                                         <option value="3rd Year">3rd Year</option>
@@ -108,7 +108,7 @@
                                 <div class="form-group">
                                     <label for="section">Section</label>
                                     <select class="form-control" name="section" id="section">
-                                        <option value="" disabled selected>Select section</option>
+                                        <option value="" disabled selected>Select a Section</option>
                                         <option value="A">A</option>
                                         <option value="B">B</option>
                                         <option value="C">C</option>
@@ -122,7 +122,7 @@
                                 <div class="form-group">
                                     <label for="semester">Semester</label>
                                     <select class="form-control" name="semester" id="semester">
-                                        <option value="" disabled selected>Select semester</option>
+                                        <option value="" disabled selected>Select a Semester</option>
                                         <option value="1st Semester">1st Semester</option>
                                         <option value="2nd Semester">2nd Semester</option>
                                     </select>
@@ -134,6 +134,7 @@
                                     <select class="form-control" name="academic_year" id="academic_year">
                                         <option value="" disabled selected>Select academic year</option>
                                         @for($year = 2021; $year <= 2030; $year++)
+                                            <option value="" disabled selected>Select a Academic Year</option>
                                             <option value="{{ $year }}-{{ $year + 1 }}">{{ $year }}-{{ $year + 1 }}</option>
                                         @endfor
                                     </select>

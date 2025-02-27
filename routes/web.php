@@ -58,4 +58,13 @@ Route::prefix('scanner')->middleware(['scanner'])->group(function () {
     Route::get('/get-student/{qr_code}', [App\Http\Controllers\Scanner\QRScannerController::class, 'getStudent']);
 });
 
+Route::prefix('alumni')->middleware(['alumni'])->group(function () {
+    Route::get('/', [App\Http\Controllers\Alumni\HomeController::class, 'index'])->name('alumni.home');
+    Route::get('/profile', [App\Http\Controllers\Alumni\ProfileController::class, 'edit'])->name('alumni.profile');
+    Route::put('/profile', [App\Http\Controllers\Alumni\ProfileController::class, 'update'])->name('alumni.profile.update');
+    // Route::get('/settings/change-password', [App\Http\Controllers\Alumni\SettingsController::class, 'changePassword'])->name('alumni.settings.change-password');
+    // Route::post('/settings/change-password/update', [App\Http\Controllers\Alumni\SettingsController::class, 'changePasswordUpdate'])->name('alumni.settings.change-password.update');
+    // Route::get('/events', [App\Http\Controllers\Alumni\EventController::class, 'index'])->name('alumni.events.index');
+});
+
 Auth::routes();
