@@ -144,7 +144,7 @@
                     </div>
                 </div>
             </nav>
-            @yield ('content');
+            @yield ('content')
         </div>
         <!-- /#page-content-wrapper -->
     </div>

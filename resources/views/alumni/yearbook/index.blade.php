@@ -1,7 +1,7 @@
 @extends('layouts.alumni.index')
 
 @section('content')
-<div class="container mt-5">
+<div class="container mt-5 p-4">
     <div class="row justify-content-center">
         <div class="col-lg-8 col-md-10 col-sm-12">
             <div class="card shadow-sm">
@@ -21,7 +21,7 @@
                                 <label for="grad_pic">Graduation Picture</label>
                                 <input type="file" name="grad_pic" class="form-control" id="grad_pic" required>
                             </div>
-
+                            <div id="imagePreviewContainer" class="text-center mt-3"></div>
                             <div class="form-group">
                                 <label for="motto">Motto</label>
                                 <textarea name="motto" value="{{ old('motto', auth()->user()->motto) }}" class="form-control" id="motto" required></textarea>
@@ -44,32 +44,28 @@
 </div>
 
 <script>
-    // Select the file input element
     const gradPicInput = document.getElementById('grad_pic');
-    
-    // Attach event listener to handle the image file selection
+
+    const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+
     gradPicInput.addEventListener('change', function(event) {
         const file = event.target.files[0];
 
-        // Check if a file is selected
         if (file) {
             const reader = new FileReader();
 
-            // Once the file is read, convert it to base64
             reader.onloadend = function() {
-                const base64Image = reader.result; // This contains the base64 string
+                const base64Image = reader.result;
 
-                // You can now log the base64 string or send it to the server with the form
                 console.log(base64Image);
 
-                // Optionally, you can preview the image before submitting
                 const preview = document.createElement('img');
                 preview.src = base64Image;
                 preview.style.maxWidth = '300px';
-                document.body.appendChild(preview);
 
-                // You can store the base64 string in a hidden input if you want to send it to the server
-                // Example:
+                imagePreviewContainer.innerHTML = ''; 
+                imagePreviewContainer.appendChild(preview);
+
                 let hiddenBase64Input = document.getElementById('hidden_base64');
                 if (!hiddenBase64Input) {
                     hiddenBase64Input = document.createElement('input');
@@ -81,10 +77,8 @@
                 hiddenBase64Input.value = base64Image;
             };
 
-            // Read the image as base64
             reader.readAsDataURL(file);
         }
     });
 </script>
-
 @endsection
