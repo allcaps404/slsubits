@@ -40,8 +40,8 @@ class EventController extends Controller
             'name' => 'required|string|max:255',
             'short_description' => 'nullable|string',
             'event_date' => 'required|date',
-            'login_time' => 'required',
-            'logout_time' => 'required',
+            'login_time' => 'required|date_format:Y-m-d H:i',
+            'logout_time' => 'required|date_format:Y-m-d H:i',
             'academic_year' => 'required|string|max:255',
             'semester' => 'required|string|max:255',
         ]);
