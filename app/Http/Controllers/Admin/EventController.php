@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Event;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+
 
 class EventController extends Controller
 {
@@ -36,30 +38,29 @@ class EventController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        // Validate the request data
+        $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'short_description' => 'nullable|string',
+            'short_description' => 'required|string',
             'event_date' => 'required|date',
-            'login_time' => 'required|date_format:Y-m-d H:i',
-            'logout_time' => 'required|date_format:Y-m-d H:i',
-            'academic_year' => 'required|string|max:255',
-            'semester' => 'required|string|max:255',
+            'login_datetime' => 'required|date_format:Y-m-d\TH:i',
+            'logout_datetime' => 'required|date_format:Y-m-d\TH:i|after:login_time',
+            'academic_year' => 'required|string',
+            'semester' => 'required|string',
         ]);
 
-        $event = new Event();
+        try {
+            // Create and save the event using mass assignment
+            Event::create($validatedData);
 
-        $event->name = $request->name;
-        $event->short_description = $request->short_description;
-        $event->event_date = $request->event_date;
-        $event->login_datetime = $request->login_time;
-        $event->logout_datetime = $request->logout_time;
-        $event->academic_year = $request->academic_year;
-        $event->semester = $request->semester;
-
-        $event->save();
-
-        return redirect()->route('admin.events.index')->with('success', 'Event created successfully');
+            // Redirect with success message
+            return redirect()->route('admin.events.index')->with('success', 'Event created successfully.');
+        } catch (\Exception $e) {
+            // Redirect back with an error message
+            return redirect()->back()->withInput()->with('error', $e.'An error occurred while saving the event.');
+        }
     }
+
     public function show(Event $event)
     {
         $title = 'Event Details';
@@ -70,32 +71,48 @@ class EventController extends Controller
         $title = 'Edit Event';
         return view('admin.events.edit', compact('event', 'title'));
     }
-    
-    public function update(Request $request, Event $event)
+    public function update(Request $request, $id)
     {
+        // Validate input fields
         $request->validate([
             'name' => 'required|string|max:255',
-            'short_description' => 'nullable|string',
+            'short_description' => 'required|string|max:500',
             'event_date' => 'required|date',
-            'login_time' => 'required|date_format:Y-m-d H:i',
-            'logout_time' => 'required|date_format:Y-m-d H:i',
-            'academic_year' => 'required|string|max:255',
-            'semester' => 'required|string|max:255',
+            'login_datetime' => 'required|date_format:Y-m-d\TH:i',
+            'logout_datetime' => 'required|date_format:Y-m-d\TH:i|after:login_datetime',
+            'academic_year' => 'required|string',
+            'semester' => 'required|string|in:1st Semester,2nd Semester',
+        ], [
+            'name.required' => 'The event name is required.',
+            'short_description.required' => 'Please provide a short description.',
+            'event_date.required' => 'The event date is required.',
+            'login_datetime.required' => 'The login datetime is required.',
+            'logout_datetime.required' => 'The logout datetime is required.',
+            'logout_datetime.after' => 'Logout datetime must be after login datetime.',
+            'academic_year.required' => 'Academic year is required.',
+            'semester.required' => 'Please select a semester.',
         ]);
-    
-        $event->name = $request->name;
-        $event->short_description = $request->short_description;
-        $event->event_date = $request->event_date;
-        $event->login_datetime = $request->login_time;
-        $event->logout_datetime = $request->logout_time;
-        $event->academic_year = $request->academic_year;
-        $event->semester = $request->semester;
-    
-        $event->save();
-    
-        return redirect()->route('admin.events.index')->with('success', 'Event updated successfully.');
+
+        // Find the event by ID
+        $event = Event::findOrFail($id);
+
+        try {
+            // Update event details
+            $event->update([
+                'name' => $request->name,
+                'short_description' => $request->short_description,
+                'event_date' => Carbon::parse($request->event_date),
+                'login_datetime' => Carbon::parse($request->login_datetime),
+                'logout_datetime' => Carbon::parse($request->logout_datetime),
+                'academic_year' => $request->academic_year,
+                'semester' => $request->semester,
+            ]);
+
+            return redirect()->route('admin.events.index')->with('success', 'Event updated successfully.');
+        } catch (\Exception $e) {
+            return back()->with('error', 'An error occurred while updating the event.');
+        }
     }
-    
 
     public function destroy(Event $event)
     {
