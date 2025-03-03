@@ -59,13 +59,13 @@
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
                                     <label for="login_time">Login Time</label>
-                                    <input type="datetime" class="form-control" name="login_time" id="login_time" required>
+                                    <input type="datetime-local" class="form-control" name="login_time" id="login_time" required>
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
                                     <label for="logout_time">Logout Time</label>
-                                    <input type="datetime" class="form-control" name="logout_time" id="logout_time" required>
+                                    <input type="datetime-local" class="form-control" name="logout_time" id="logout_time" required>
                                 </div>
                             </div>
                         </div>
