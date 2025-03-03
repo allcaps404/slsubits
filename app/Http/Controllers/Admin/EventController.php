@@ -51,8 +51,8 @@ class EventController extends Controller
         $event->name = $request->name;
         $event->short_description = $request->short_description;
         $event->event_date = $request->event_date;
-        $event->login_datetime = $request->event_date . ' ' . $request->login_time;
-        $event->logout_datetime = $request->event_date . ' ' . $request->logout_time;
+        $event->login_datetime = $request->login_time;
+        $event->logout_datetime = $request->logout_time;
         $event->academic_year = $request->academic_year;
         $event->semester = $request->semester;
 
@@ -77,8 +77,8 @@ class EventController extends Controller
             'name' => 'required|string|max:255',
             'short_description' => 'nullable|string',
             'event_date' => 'required|date',
-            'login_time' => 'required|date_format:H:i',
-            'logout_time' => 'required|date_format:H:i',
+            'login_time' => 'required|date_format:Y-m-d H:i',
+            'logout_time' => 'required|date_format:Y-m-d H:i',
             'academic_year' => 'required|string|max:255',
             'semester' => 'required|string|max:255',
         ]);
@@ -86,8 +86,8 @@ class EventController extends Controller
         $event->name = $request->name;
         $event->short_description = $request->short_description;
         $event->event_date = $request->event_date;
-        $event->login_datetime = $request->event_date . ' ' . $request->login_time;
-        $event->logout_datetime = $request->event_date . ' ' . $request->logout_time;
+        $event->login_datetime = $request->login_time;
+        $event->logout_datetime = $request->logout_time;
         $event->academic_year = $request->academic_year;
         $event->semester = $request->semester;
     
