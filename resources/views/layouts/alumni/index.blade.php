@@ -11,6 +11,9 @@
         body {
             font-family: 'Roboto', sans-serif;
             overflow-x: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         #sidebar-wrapper {
@@ -44,24 +47,22 @@
             background-color: #f8f9fa;
         }
 
-        /* 🔥 FIXED Navbar */
         .navbar {
-            position: fixed; /* Keeps navbar at the top */
+            position: fixed; 
             top: 0;
-            left: 15rem; /* Adjust to match sidebar width */
+            left: 15rem;
             right: 0;
-            z-index: 1001; /* Higher than sidebar */
+            z-index: 1001;
             background: white;
             border-bottom: 1px solid #ddd;
             padding: 0.75rem 1.5rem;
         }
 
-        /* Prevent content from going under the navbar */
         #page-content-wrapper {
-            margin-left: 15rem; /* Prevents overlap */
-            padding-top: 70px; /* Push content down */
+            margin-left: 15rem;
+            padding-top: 70px;
             flex-grow: 1;
-            padding: 20px;
+            padding: 62px;
             transition: all 0.3s;
         }
 
@@ -85,7 +86,6 @@
             border-radius: 0.75rem;
         }
 
-        /* Responsive Behavior */
         @media (max-width: 767px) {
             #sidebar-wrapper {
                 left: -15rem;
@@ -129,7 +129,7 @@
                 <div class="ml-auto">
                     <div class="dropdown">
                         <button class="btn btn-white dropdown-toggle" id="accountDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="https://storage.googleapis.com/a1aa/image/lWklqY928xnSPgHWULfhgIMFk1y4KEZFFI1tbvqvW9Y.jpg" class="rounded-circle mr-2" width="40" height="40" alt="Profile">
+                            <img src="" class="rounded-circle mr-2" width="40" height="40" alt="Profile">
                             {{ Auth::user()->firstname}}
                         </button>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdown">

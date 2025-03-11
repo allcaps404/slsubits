@@ -14,7 +14,7 @@
 
 <div class="container mt-5">
     <!-- <div class="row" style="background-image: url('{{ asset('images/background.jpg') }}');"> -->
-    <div class="row" style="background-image: url('data:image/jpeg;base64,{{ $yearbook->grad_pic }}');">
+    <div class="row" style="ba7ckground-image: url('data:image/jpeg;base64,{{ $yearbook->grad_pic }}');">
         @if($alumniUsers->isEmpty())
             <div class="col-12">
                 <div class="alert alert-warning text-center">
@@ -25,24 +25,24 @@
             @foreach ($alumniUsers as $alumniUser)
                 <div class="col-md-4 col-sm-6 mb-4">
                     <div class="card shadow-sm">
-                        <div class="card-img-wrapper">
+                        <div class="card-img-wrapper d-flex justify-content-center">
                             <img src="{{ $alumniUser->yearbook->grad_pic ?? asset('default-profile.png') }}" 
-                                class="alumni-photo" 
+                                class="alumni-photo img-thumbnail" 
                                 alt="Alumni Photo">
                         </div>
-
                         <!-- Card Body with Alumni Info -->
-                        <div class="card-body">
-                            <h5 class="card-title">
+                        <div class="card-body text-center d-flex flex-column align-items-center">
+                            <h5 class="card-title font-weight-bold text-primary" style="font-size: 18px;">
                                 {{ $alumniUser->firstname ?? 'No First Name' }}
                                 {{ $alumniUser->middlename ?? '' }}
                                 {{ $alumniUser->lastname ?? 'No Last Name' }}
-                                <!-- <small class="text-muted">
-                                    ({{ $alumniUser->role_id == 5 ? 'Alumnus' : 'Alumna' }})
-                                </small> -->
                             </h5>
-                            <p class="card-text"><em>"{{ $alumniUser->yearbook->motto ?? 'No Motto Provided' }}"</em></p>
-                            <p class="card-text"><strong>Graduation Year:</strong> {{ $alumniUser->yearbook->grad_year ?? 'N/A' }}</p>
+
+                            <p class="card-text" style="font-size: 14px;"><em>"{{ $alumniUser->yearbook->motto ?? 'No Motto Provided' }}"</em></p>
+
+                            <p class="card-text" style="font-size: 14px;">
+                                <strong>Graduation Year:</strong> {{ $alumniUser->yearbook->grad_year ?? 'N/A' }}
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -51,26 +51,28 @@
     </div>
 </div>
 
-@section('styles')
+<!-- @section('styles')
 <style>
     .card-img-wrapper {
-    width: 100%;
-    height: 250px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    background-color: #f8f9fa;
+        width: 100%;
+        height: 200px; /* Adjust height as needed */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        background-color: #f8f9fa;
+        position: relative;
     }
 
     .alumni-photo {
-        width: 100%;
-        height: 100%;
-        object-fit: cover; 
+        width: 50%; /* Make the photo fill the width of the container */
+        height: 50%;
+        object-fit: cover; /* Ensures the image covers the area without distortion */
+        object-position: center;
     }
 
     .card-img-wrapper:hover .alumni-photo {
-        transform: scale(1.1); 
+        transform: scale(1.05);
     }
 
     .card {
@@ -78,7 +80,7 @@
         border-radius: 0.75rem;
         overflow: hidden;
         transition: box-shadow 0.3s ease;
-        height: 100%; 
+        height: 100%;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -118,5 +120,5 @@
     .card:hover {
         box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
     }
-</style>
+</style> -->
 @endsection
