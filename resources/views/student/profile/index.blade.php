@@ -228,16 +228,29 @@
         });
     });
     document.getElementById('photoUpload').addEventListener('change', function(event) {
-        const file = event.target.files[0];
-
-        if (file) {
-            const reader = new FileReader();
+        let file = event.target.files[0];
+        if (file && file.type.startsWith('image/')) {
+            let reader = new FileReader();
             reader.readAsDataURL(file);
-            reader.onload = function() {
-                const base64String = reader.result.split(',')[1]; // Extract Base64 data
-                document.getElementById('photoBase64').value = base64String;
-                document.getElementById('previewImage').src = reader.result;
-                document.getElementById('previewImage').style.display = 'block';
+            reader.onload = function(event) {
+                let img = new Image();
+                img.src = event.target.result;
+                img.onload = function() {
+                    let canvas = document.createElement('canvas');
+                    let ctx = canvas.getContext('2d');
+                    
+                    let maxWidth = 300; // Resize width to 300px max
+                    let scaleFactor = maxWidth / img.width;
+                    canvas.width = maxWidth;
+                    canvas.height = img.height * scaleFactor;
+
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+                    let base64String = canvas.toDataURL('image/jpeg', 0.8); // Convert to Base64
+                    document.getElementById('photoBase64').value = base64String.split(',')[1]; // Store base64 data
+                    document.getElementById('previewImage').src = base64String;
+                    document.getElementById('previewImage').style.display = 'block';
+                };
             };
         }
     });

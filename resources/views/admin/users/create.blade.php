@@ -134,6 +134,7 @@
                                 <div class="form-group">
                                     <label for="academic_year">Academic Year</label>
                                     <select class="form-control" name="academic_year" id="academic_year">
+                                        <option value="" disabled selected>Select academic year</option>
                                         @for($year = 2021; $year <= 2030; $year++)
                                             <option value="" disabled selected>Select a Academic Year</option>
                                             <option value="{{ $year }}-{{ $year + 1 }}">{{ $year }}-{{ $year + 1 }}</option>
