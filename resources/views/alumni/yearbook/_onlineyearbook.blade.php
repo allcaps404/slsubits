@@ -1,3 +1,4 @@
+@section('content')
 @php
     use App\Models\YearBook;
     use App\Models\User;
@@ -12,9 +13,8 @@
         ->get();
 @endphp
 
-<div class="container mt-5">
-    <!-- <div class="row" style="background-image: url('{{ asset('images/background.jpg') }}');"> -->
-    <div class="row" style="ba7ckground-image: url('data:image/jpeg;base64,{{ $yearbook->grad_pic }}');">
+<div class="container-fluid mt-5 px-md-4"> <!-- Adjust padding to balance spacing -->
+    <div class="row justify-content-center gx-2"> <!-- Reduced gaps -->
         @if($alumniUsers->isEmpty())
             <div class="col-12">
                 <div class="alert alert-warning text-center">
@@ -23,26 +23,17 @@
             </div>
         @else
             @foreach ($alumniUsers as $alumniUser)
-                <div class="col-md-4 col-sm-6 mb-4">
+                <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-4 d-flex justify-content-center"> <!-- Ensures 5 per row -->
                     <div class="card shadow-sm">
-                        <div class="card-img-wrapper d-flex justify-content-center">
+                        <div class="card-img-wrapper">
                             <img src="{{ $alumniUser->yearbook->grad_pic ?? asset('default-profile.png') }}" 
                                 class="alumni-photo img-thumbnail" 
                                 alt="Alumni Photo">
                         </div>
-                        <!-- Card Body with Alumni Info -->
-                        <div class="card-body text-center d-flex flex-column align-items-center">
-                            <h5 class="card-title font-weight-bold text-primary" style="font-size: 18px;">
-                                {{ $alumniUser->firstname ?? 'No First Name' }}
-                                {{ $alumniUser->middlename ?? '' }}
-                                {{ $alumniUser->lastname ?? 'No Last Name' }}
-                            </h5>
-
-                            <p class="card-text" style="font-size: 14px;"><em>"{{ $alumniUser->yearbook->motto ?? 'No Motto Provided' }}"</em></p>
-
-                            <p class="card-text" style="font-size: 14px;">
-                                <strong>Graduation Year:</strong> {{ $alumniUser->yearbook->grad_year ?? 'N/A' }}
-                            </p>
+                        <div class="card-body text-center">
+                            <h5 class="card-title text-primary">{{ $alumniUser->firstname ?? 'No First Name' }} {{ $alumniUser->middlename ?? '' }} {{ $alumniUser->lastname ?? 'No Last Name' }}</h5>
+                            <p class="card-text"><em>"{{ $alumniUser->yearbook->motto ?? 'No Motto Provided' }}"</em></p>
+                            <p class="card-text"><strong>Grad Year:</strong> {{ $alumniUser->yearbook->grad_year ?? 'N/A' }}</p>
                         </div>
                     </div>
                 </div>
@@ -50,40 +41,42 @@
         @endif
     </div>
 </div>
+@endsection
 
-<!-- @section('styles')
+@section('styles')
 <style>
+    .container-fluid {
+        max-width: 95%;
+    }
+
+    .card {
+        width: 100%;
+        min-height: 200px;
+        border: none;
+        border-radius: 0.75rem;
+        overflow: hidden;
+        transition: box-shadow 0.3s ease;
+        display: flex;
+        flex-direction: column;
+    }
+
     .card-img-wrapper {
         width: 100%;
-        height: 200px; /* Adjust height as needed */
+        height: 250px;
         display: flex;
         justify-content: center;
         align-items: center;
         overflow: hidden;
         background-color: #f8f9fa;
-        position: relative;
+        padding: 10px;
     }
 
     .alumni-photo {
-        width: 50%; /* Make the photo fill the width of the container */
-        height: 50%;
-        object-fit: cover; /* Ensures the image covers the area without distortion */
-        object-position: center;
-    }
-
-    .card-img-wrapper:hover .alumni-photo {
-        transform: scale(1.05);
-    }
-
-    .card {
-        border: none;
-        border-radius: 0.75rem;
-        overflow: hidden;
-        transition: box-shadow 0.3s ease;
+        width: 100%;
         height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 10px;
     }
 
     .card-body {
@@ -91,34 +84,20 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        padding: 1.25rem;
-        min-height: 150px;
+        padding: 1.5rem;
     }
 
     h5.card-title {
-        font-weight: bold;
         font-size: 1.2rem;
     }
 
     p.card-text {
-        font-size: 0.95rem;
+        font-size: 1rem;
         color: #6c757d;
     }
 
-    .col-md-4 {
-        display: flex;
-        align-items: stretch;
-    }
-
-    .card-container {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-    }
-
     .card:hover {
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
     }
-</style> -->
+</style>
 @endsection
