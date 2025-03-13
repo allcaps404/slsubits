@@ -15,7 +15,6 @@ class HomeController extends Controller
     									->first();
     	$announcements = Announcement::orderBy('date', 'desc')->get();
         return view('alumni.home.index',[
-    		// 'title' => 'Home',
 			'page' => 'Home',
     		'otherdetails'=> $getOtherdetails,
     		'announcements'=> $announcements

@@ -12,13 +12,13 @@ class ProfileController extends Controller
 {
     public function edit()
     {
-        
         $user = Auth::user();
         $otherDetails = OtherDetail::where('user_id', $user->id)->first();
         
-        $isProfileComplete = isset($user->firstname, $user->lastname, $user->middlename, $user->dateofbirth, $user->email) 
-            && isset($otherDetails->idnumber, $otherDetails->course, $otherDetails->year, $otherDetails->section, 
-                     $otherDetails->semester, $otherDetails->academic_year, $otherDetails->birthplace, 
+        // Check if all required fields in Users and OtherDetails are filled
+        $isProfileComplete = isset($user->firstname, $user->lastname, $user->middlename, $user->dateofbirth, $user->email)
+            && isset($otherDetails->idnumber, $otherDetails->course, $otherDetails->year, $otherDetails->section,
+                     $otherDetails->semester, $otherDetails->academic_year, $otherDetails->birthplace,
                      $otherDetails->address, $otherDetails->photo);
 
         return view('alumni.profile.index', compact('user', 'otherDetails', 'isProfileComplete'));
@@ -27,7 +27,6 @@ class ProfileController extends Controller
     public function update(Request $request)
     {
         $user = Auth::user();
-
         try {
             if (!isset($user->firstname)) {
                 $user->firstname = $request->input('firstname');
@@ -44,28 +43,33 @@ class ProfileController extends Controller
             if (!isset($user->email)) {
                 $user->email = $request->input('email');
             }
-            
+    
             if ($user->save()) {
                 $otherDetail = OtherDetail::where('user_id', $user->id)->first();
-                
+    
                 if (!$otherDetail) {
                     $otherDetail = new OtherDetail();
                     $otherDetail->user_id = $user->id;
                 }
-
-                $fields = ['idnumber', 'course', 'year', 'section', 'semester', 'academic_year', 'birthplace', 'address', 'photo'];
-
+    
+                $fields = ['idnumber', 'course', 'year', 'section', 'semester', 'academic_year', 'birthplace', 'address'];
+    
                 foreach ($fields as $field) {
                     if ($request->has($field)) {
                         $otherDetail->$field = $request->input($field);
                     }
                 }
-
+    
+                if ($request->has('photo')) {
+                    $photo = $request->input('photo');
+                    $otherDetail->photo = $photo;
+                }
+    
                 $otherDetail->save();
                 return redirect()->route('alumni.profile')->with('success', 'Profile updated successfully.');
             }
         } catch (\Exception $e) {
             return redirect()->route('alumni.profile')->with('error', 'Failed to update profile.');
         }
-    }
+    }    
 }

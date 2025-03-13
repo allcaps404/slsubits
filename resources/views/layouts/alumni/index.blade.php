@@ -105,6 +105,13 @@
                 padding-top: 70px;
             }
         }
+
+        .profile-img {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
     </style>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
@@ -130,8 +137,12 @@
                 <div class="ml-auto">
                     <div class="dropdown">
                         <button class="btn btn-white dropdown-toggle" id="accountDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <img src="" class="rounded-circle mr-2" width="40" height="40" alt="Profile">
-                            {{ Auth::user()->firstname}}
+                            @if(auth()->user()->otherDetail && auth()->user()->otherDetail->photo)
+                                <img src="data:image/jpeg;base64,{{ auth()->user()->otherDetail->photo }}" class="profile-img mr-2" alt="Profile">
+                            @else
+                                <img src="https://via.placeholder.com/40" class="profile-img mr-2" alt="Profile">
+                            @endif
+                            {{ Auth::user()->firstname }}
                         </button>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdown">
                             <a class="dropdown-item" href="{{ route('alumni.profile') }}">Profile</a>
