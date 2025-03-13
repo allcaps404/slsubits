@@ -99,64 +99,6 @@
                             @endif
                         </div>
 
-                        <!-- <div class="form-group">
-                            <label for="year">Year</label>
-                            @if(!isset($otherDetails->year))
-                                <select name="year" class="form-control" id="year">
-                                    <option value="">Select Year</option>
-                                    <option value="1st" {{ old('year', optional($otherDetails)->year) == '1st' ? 'selected' : '' }}>1st Year</option>
-                                    <option value="2nd" {{ old('year', optional($otherDetails)->year) == '2nd' ? 'selected' : '' }}>2nd Year</option>
-                                    <option value="3rd" {{ old('year', optional($otherDetails)->year) == '3rd' ? 'selected' : '' }}>3rd Year</option>
-                                    <option value="4th" {{ old('year', optional($otherDetails)->year) == '4th' ? 'selected' : '' }}>4th Year</option>
-                                </select>
-                            @else
-                                <select class="form-control" id="year" disabled>
-                                    <option value="1st" {{ old('year', optional($otherDetails)->year) == '1st' ? 'selected' : '' }}>1st Year</option>
-                                    <option value="2nd" {{ old('year', optional($otherDetails)->year) == '2nd' ? 'selected' : '' }}>2nd Year</option>
-                                    <option value="3rd" {{ old('year', optional($otherDetails)->year) == '3rd' ? 'selected' : '' }}>3rd Year</option>
-                                    <option value="4th" {{ old('year', optional($otherDetails)->year) == '4th' ? 'selected' : '' }}>4th Year</option>
-                                </select>
-                            @endif
-                        </div>
-
-                        <div class="form-group">
-                            <label for="section">Section</label>
-                            @if(!isset($otherDetails->section))
-                                <select name="section" class="form-control" id="section">
-                                    <option value="">Select Section</option>
-                                    <option value="A" {{ old('section', optional($otherDetails)->section) == 'A' ? 'selected' : '' }}>Section A</option>
-                                    <option value="B" {{ old('section', optional($otherDetails)->section) == 'B' ? 'selected' : '' }}>Section B</option>
-                                    <option value="C" {{ old('section', optional($otherDetails)->section) == 'C' ? 'selected' : '' }}>Section C</option>
-                                    <option value="D" {{ old('section', optional($otherDetails)->section) == 'D' ? 'selected' : '' }}>Section D</option>
-                                </select>
-                            @else
-                                <select class="form-control" id="section" disabled>
-                                    <option value="A" {{ old('section', optional($otherDetails)->section) == 'A' ? 'selected' : '' }}>Section A</option>
-                                    <option value="B" {{ old('section', optional($otherDetails)->section) == 'B' ? 'selected' : '' }}>Section B</option>
-                                    <option value="C" {{ old('section', optional($otherDetails)->section) == 'C' ? 'selected' : '' }}>Section C</option>
-                                    <option value="D" {{ old('section', optional($otherDetails)->section) == 'D' ? 'selected' : '' }}>Section D</option>
-                                </select>
-                            @endif
-                        </div> -->
-
-                        <!-- <div class="form-group">
-                            <label for="semester">Semester</label>
-                            @if(!isset($otherDetails->semester))
-                                <select name="semester" class="form-control" id="semester">
-                                    <option value="">Select Semester</option>
-                                    <option value="1st" {{ old('semester', optional($otherDetails)->semester) == '1st' ? 'selected' : '' }}>1st Semester</option>
-                                    <option value="2nd" {{ old('semester', optional($otherDetails)->semester) == '2nd' ? 'selected' : '' }}>2nd Semester</option>
-                                    <option value="Summer" {{ old('semester', optional($otherDetails)->semester) == 'Summer' ? 'selected' : '' }}>Summer</option>
-                                </select>
-                            @else
-                                <select class="form-control" id="semester" disabled>
-                                    <option value="1st" {{ old('semester', optional($otherDetails)->semester) == '1st' ? 'selected' : '' }}>1st Semester</option>
-                                    <option value="2nd" {{ old('semester', optional($otherDetails)->semester) == '2nd' ? 'selected' : '' }}>2nd Semester</option>
-                                    <option value="Summer" {{ old('semester', optional($otherDetails)->semester) == 'Summer' ? 'selected' : '' }}>Summer</option>
-                                </select>
-                            @endif
-                        </div> -->
-
                         <div class="form-group">
                             <label for="academic_year">Academic Year</label>
                             @if(!isset($otherDetails->academic_year))
@@ -165,8 +107,7 @@
                                     @for ($year = date('Y'); $year >= 2000; $year--)
                                         @php $nextYear = $year + 1; @endphp
                                         <option value="{{ $year }}-{{ $nextYear }}" 
-                                            {{ old('academic_year', optional($otherDetails)->academic_year) == "$year-$nextYear" ? 'selected' : '' }}>
-                                            {{ $year }} - {{ $nextYear }}
+                                            {{ old('academic_year', optional($otherDetails)->academic_year) == "$year-$nextYear" ? 'selected' : '' }}>{{ $year }} - {{ $nextYear }}
                                         </option>
                                     @endfor
                                 </select>
@@ -176,8 +117,7 @@
                                     @for ($year = date('Y'); $year >= 2000; $year--)
                                         @php $nextYear = $year + 1; @endphp
                                         <option value="{{ $year }}-{{ $nextYear }}" 
-                                            {{ old('academic_year', optional($otherDetails)->academic_year) == "$year-$nextYear" ? 'selected' : '' }}>
-                                            {{ $year }} - {{ $nextYear }}
+                                            {{ old('academic_year', optional($otherDetails)->academic_year) == "$year-$nextYear" ? 'selected' : '' }}>{{ $year }} - {{ $nextYear }}
                                         </option>
                                     @endfor
                                 </select>
@@ -210,10 +150,10 @@
                             @if(isset($otherDetails->photo) && !empty($otherDetails->photo))
                                 <img id="previewImage" 
                                      src="data:image/jpeg;base64,{{ $otherDetails->photo }}" 
-                                     class="mt-2 max-w-xs rounded" 
+                                     class="mt-2 rounded thumbnail-preview" 
                                      style="display: block;">
                             @else
-                                <img id="previewImage" class="mt-2 max-w-xs rounded" style="display: none;">
+                                <img id="previewImage" class="mt-2 rounded thumbnail-preview" style="display: none;">
                             @endif
                         </div>
 
@@ -238,14 +178,23 @@
         const file = this.files[0];
         const reader = new FileReader();
         reader.onloadend = function() {
-            const base64String = reader.result.split(',')[1]; // Extract base64 part
+            const base64String = reader.result.split(',')[1];
             photoBase64Input.value = base64String;
             previewImage.style.display = 'block';
-            previewImage.src = reader.result; // Display the image
+            previewImage.src = reader.result;
         };
         if (file) {
             reader.readAsDataURL(file);
         }
     });
 </script>
+
+<style>
+    .thumbnail-preview {
+        width: 250px;
+        height: 300px;
+        object-fit: cover;
+    }
+</style>
+
 @endsection

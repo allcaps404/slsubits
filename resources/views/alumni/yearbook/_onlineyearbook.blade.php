@@ -51,6 +51,7 @@
 
 @section('styles')
 <style>
+    
     .container-fluid {
         max-width: 95%;
     }
