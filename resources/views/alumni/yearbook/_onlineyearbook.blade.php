@@ -1,4 +1,4 @@
-@section('content')
+
 @php
     use App\Models\YearBook;
     use App\Models\User;
@@ -13,8 +13,9 @@
         ->get();
 @endphp
 
-<div class="container-fluid mt-5 px-md-4"> <!-- Adjust padding to balance spacing -->
-    <div class="row justify-content-center gx-2"> <!-- Reduced gaps -->
+@section('content')
+<div class="container-fluid mt-5 px-md-4">
+    <div class="row d-flex flex-wrap justify-content-center gx-2 gy-3">
         @if($alumniUsers->isEmpty())
             <div class="col-12">
                 <div class="alert alert-warning text-center">
@@ -23,15 +24,15 @@
             </div>
         @else
             @foreach ($alumniUsers as $alumniUser)
-                <div class="col-lg-2 col-md-3 col-sm-4 col-6 mb-4 d-flex justify-content-center"> <!-- Ensures 5 per row -->
+                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12 mb-4 d-flex justify-content-center">
                     <div class="card shadow-sm">
                         <div class="card-img-wrapper">
                             <img src="{{ $alumniUser->yearbook->grad_pic ?? asset('default-profile.png') }}" 
-                                class="alumni-photo img-thumbnail" 
+                                class="alumni-photo" 
                                 alt="Alumni Photo">
                         </div>
                         <div class="card-body text-center">
-                            <h5 class="card-title text-primary">{{ $alumniUser->firstname ?? 'No First Name' }} {{ $alumniUser->middlename ?? '' }} {{ $alumniUser->lastname ?? 'No Last Name' }}</h5>
+                            <h5 class="card-title">{{ $alumniUser->firstname ?? 'No First Name' }} {{ $alumniUser->middlename ?? '' }} {{ $alumniUser->lastname ?? 'No Last Name' }}</h5>
                             <p class="card-text"><em>"{{ $alumniUser->yearbook->motto ?? 'No Motto Provided' }}"</em></p>
                             <p class="card-text"><strong>Grad Year:</strong> {{ $alumniUser->yearbook->grad_year ?? 'N/A' }}</p>
                         </div>
@@ -45,19 +46,32 @@
 
 @section('styles')
 <style>
+    /* body {
+        background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSB5PvDSrKPCHmWV_ooFo8wve3Wam4xRbwfVQ&s');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+    } */
+
     .container-fluid {
         max-width: 95%;
     }
 
     .card {
-        width: 100%;
-        min-height: 200px;
-        border: none;
-        border-radius: 0.75rem;
+        min-width: 150px; 
+        max-width: 200px;
+        min-height: 380px;
+        margin: 10px;
+        border: 2px solid black !important;
+        border-radius: 10px;
         overflow: hidden;
         transition: box-shadow 0.3s ease;
         display: flex;
         flex-direction: column;
+        align-items: center;
+        text-align: center;
+        background-color: royalblue;
+        box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
     }
 
     .card-img-wrapper {
@@ -67,8 +81,14 @@
         justify-content: center;
         align-items: center;
         overflow: hidden;
-        background-color: #f8f9fa;
-        padding: 10px;
+        padding: 10px;   
+    }
+
+    .card img {
+        width: 100%;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        background-color: #3b82f6;
     }
 
     .alumni-photo {
@@ -84,20 +104,27 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        padding: 1.5rem;
+        padding: 1rem;
     }
 
     h5.card-title {
-        font-size: 1.2rem;
+        font-size: 1rem;
+        color: black;
+        font-weight: bold;
     }
 
     p.card-text {
         font-size: 1rem;
-        color: #6c757d;
+        color:rgb(5, 5, 5);
+        margin-bottom: 0.5rem;
     }
 
     .card:hover {
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .row {
+        gap: 30px;
     }
 </style>
 @endsection
