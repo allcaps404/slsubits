@@ -39,7 +39,7 @@
                                 {{ $alumniUser->middlename ? ' ' . $alumniUser->middlename : '' }}
                             </h5>
                             <p class="card-text"><em>"{{ $alumniUser->yearbook->motto ?? 'No Motto Provided' }}"</em></p>
-                            <p class="card-text"><strong>Grad Year:</strong> {{ $alumniUser->yearbook->grad_year ?? 'N/A' }}</p>
+                            <p class="card-text"><strong>Grad Date:</strong> {{ $alumniUser->yearbook->grad_year ?? 'N/A' }}</p>
                         </div>
                     </div>
                 </div>
