@@ -1,15 +1,16 @@
-
 @php
     use App\Models\YearBook;
     use App\Models\User;
-    
+
     $yearbook = YearBook::find($yearbook_id);
     $year_grad = $yearbook ? $yearbook->grad_year : null;
-    
+
     $alumniUsers = User::whereIn('role_id', [5, 6])
         ->whereHas('yearbook', function ($query) use ($year_grad) {
             $query->where('grad_year', $year_grad);
         })
+        ->orderBy('lastname')  // Sort by last name
+        ->orderBy('firstname') // Then by first name
         ->get();
 @endphp
 
@@ -32,7 +33,11 @@
                                 alt="Alumni Photo">
                         </div>
                         <div class="card-body text-center">
-                            <h5 class="card-title">{{ $alumniUser->firstname ?? 'No First Name' }} {{ $alumniUser->middlename ?? '' }} {{ $alumniUser->lastname ?? 'No Last Name' }}</h5>
+                            <h5 class="card-title">
+                                {{ $alumniUser->lastname ?? 'No Last Name' }}, 
+                                {{ $alumniUser->firstname ?? 'No First Name' }} 
+                                {{ $alumniUser->middlename ? ' ' . $alumniUser->middlename : '' }}
+                            </h5>
                             <p class="card-text"><em>"{{ $alumniUser->yearbook->motto ?? 'No Motto Provided' }}"</em></p>
                             <p class="card-text"><strong>Grad Year:</strong> {{ $alumniUser->yearbook->grad_year ?? 'N/A' }}</p>
                         </div>
@@ -46,13 +51,6 @@
 
 @section('styles')
 <style>
-    /* body {
-        background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSB5PvDSrKPCHmWV_ooFo8wve3Wam4xRbwfVQ&s');
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center center;
-    } */
-
     .container-fluid {
         max-width: 95%;
     }
@@ -111,6 +109,7 @@
         font-size: 1rem;
         color: black;
         font-weight: bold;
+        font-family: 'Poppins', sans-serif;
     }
 
     p.card-text {
