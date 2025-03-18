@@ -64,7 +64,17 @@
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
                                     <label for="password">Password</label>
-                                    <input type="password" class="form-control" name="password" id="password" placeholder="Enter password" required>
+                                    <div class="input-group">
+                                        <input id="password" type="password" class="form-control" name="password" value="{{ old('password') }}" required>
+                                        <div class="input-group-append">
+                                            <button type="button" class="btn btn-outline-secondary" onclick="togglePassword()">
+                                                <i id="toggleIcon" class="fa fa-eye"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    @error('password')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
