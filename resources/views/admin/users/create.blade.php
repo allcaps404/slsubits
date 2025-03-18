@@ -94,7 +94,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <!-- <div class="col-md-4 mb-3">
+                            <div class="col-md-4 mb-3">
                                 <div class="form-group">
                                     <label for="year">Year</label>
                                     <select class="form-control" name="year" id="year">
@@ -129,7 +129,7 @@
                                         <option value="2nd Semester">2nd Semester</option>
                                     </select>
                                 </div>
-                            </div> -->
+                            </div>
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
                                     <label for="academic_year">Academic Year</label>
