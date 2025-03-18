@@ -65,10 +65,10 @@
                                 <div class="form-group">
                                     <label for="password">Password</label>
                                     <div class="input-group">
-                                        <input id="password" type="password" class="form-control" name="password" value="{{ old('password') }}" required>
+                                        <input id="password" type="password" class="form-control" name="password" required>
                                         <div class="input-group-append">
-                                            <button type="button" class="btn btn-outline-secondary" onclick="togglePassword()">
-                                                <i id="toggleIcon" class="fa fa-eye"></i>
+                                            <button type="button" class="btn btn-outline-secondary" id="toggleButton">
+                                                <i id="toggleIcon" class="fas fa-eye"></i>
                                             </button>
                                         </div>
                                     </div>
@@ -190,7 +190,7 @@
         </div>
     </div>
 </div>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <script>
     function previewPhoto(input) {
         const preview = document.getElementById('previewImage');
@@ -207,20 +207,24 @@
             preview.src = "https://www.gravatar.com/avatar/?d=mp";
         }
     }
-   
-    document.getElementById('toggleButton').addEventListener('click', function () {
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const toggleButton = document.getElementById('toggleButton');
         const passwordField = document.getElementById('password');
         const toggleIcon = document.getElementById('toggleIcon');
 
-        if (passwordField.type === 'password') {
-            passwordField.type = 'text';
-            toggleIcon.classList.remove('fa-eye');
-            toggleIcon.classList.add('fa-eye-slash');
-        } else {
-            passwordField.type = 'password';
-            toggleIcon.classList.remove('fa-eye-slash');
-            toggleIcon.classList.add('fa-eye');
-        }
+        toggleButton.addEventListener('click', function () {
+            // Toggle between password and text
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordField.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            }
+        });
     });
 </script>
 
