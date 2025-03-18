@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     @yield('styles')
+    @yield('scripts')
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -15,67 +16,98 @@
             height: 100vh;
             display: flex;
             flex-direction: column;
+            background-color:hsl(206, 63.10%, 87.30%);
         }
 
         #sidebar-wrapper {
-            width: 15rem;
+            width: 16rem;
             height: 100vh;
             position: fixed;
             top: 0;
             left: 0;
-            background: white;
-            border-right: 1px solid #ddd;
+            background: linear-gradient(180deg, #003366, #00509E);
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
             overflow-y: auto;
-            transition: all 0.3s;
+            transition: all 0.3s ease-in-out;
             z-index: 1000;
         }
 
         #sidebar-wrapper .sidebar-heading {
-            padding: 0.875rem 1.25rem;
-            font-size: 1.2rem;
+            padding: 1rem;
+            font-size: 1.4rem;
             font-weight: bold;
-            background-color:rgb(37, 99, 235);
-            color: white;
+            background-color: #FFC107;
+            color: #003366;
             text-align: center;
+            border-bottom: 3px solid #FFD54F;
         }
 
         .list-group-item {
             border: none;
             padding: 1rem 1.5rem;
+            color: white;
+            background-color: transparent;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: all 0.3s ease-in-out;
         }
 
-        .list-group-item:hover {
-            background-color: #f8f9fa;
+        .list-group-item:hover, 
+        .list-group-item:focus {
+            background-color: #FFC107;
+            color: #003366;
+            font-weight: bold;
+            border-radius: 5px;
         }
 
         .navbar {
             position: fixed; 
             top: 0;
-            left: 15rem;
+            left: 16rem;
             right: 0;
             z-index: 1001;
             background: white;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 3px solid #FFC107;
             padding: 0.75rem 1.5rem;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar h2 {
+            color: #003366; 
+            font-weight: bold;
+        }
+
+        .navbar .btn-white {
+            color: #003366;
+            font-weight: bold;
         }
 
         #page-content-wrapper {
-            margin-left: 15rem;
+            margin-left: 16rem;
             padding-top: 70px;
             flex-grow: 1;
             padding: 62px;
             transition: all 0.3s;
+            background-color:rgb(180, 218, 245);
         }
 
         .card {
             border: none;
-            border-radius: 0.75rem;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            background:rgb(90, 153, 216);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
         }
 
         .card-title {
             font-size: 1.25rem;
-            font-weight: 500;
+            font-weight: 600;
+            color: #003366;
         }
 
         .card-text {
@@ -83,13 +115,28 @@
             color: #6c757d;
         }
 
-        .img-fluid {
-            border-radius: 0.75rem;
+        .profile-img {
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 2px solid #FFC107;
+        }
+
+        .btn-primary {
+            background-color: #00509E;
+            border: none;
+            font-weight: bold;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .btn-primary:hover {
+            background-color: #003366;
         }
 
         @media (max-width: 767px) {
             #sidebar-wrapper {
-                left: -15rem;
+                left: -16rem;
             }
 
             #wrapper.toggled #sidebar-wrapper {
@@ -106,12 +153,6 @@
             }
         }
 
-        .profile-img {
-            width: 40px;
-            height: 40px;
-            object-fit: cover;
-            border-radius: 50%;
-        }
     </style>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
@@ -119,12 +160,12 @@
 </head>
 <body class="bg-light">
     <div class="d-flex" id="wrapper">
-        <div class="bg-white border-right" id="sidebar-wrapper">
+        <div class="border-right" id="sidebar-wrapper">
             <div class="sidebar-heading">Alumni Portal</div>
             <div class="list-group list-group-flush">
-                <a class="list-group-item list-group-item-action bg-white" href="{{url('/alumni')}}"><i class="fas fa-home mr-2"></i> Home</a>
-                <a class="list-group-item list-group-item-action bg-white" href="#"><i class="fas fa-calendar-alt mr-2"></i> Events</a>
-                <a class="list-group-item list-group-item-action bg-white" href="{{ route('yearbook.index') }}"><i class="fas fa-book mr-2"></i> Yearbook</a>
+                <a class="list-group-item list-group-item-action" href="{{url('/alumni')}}"><i class="fas fa-home mr-2"></i> Home</a>
+                <a class="list-group-item list-group-item-action" href="#"><i class="fas fa-calendar-alt mr-2"></i> Events</a>
+                <a class="list-group-item list-group-item-action" href="{{ route('yearbook.index') }}"><i class="fas fa-book mr-2"></i> Yearbook</a>
             </div>
         </div>
         <!-- /#sidebar-wrapper -->

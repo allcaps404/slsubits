@@ -9,8 +9,8 @@
         ->whereHas('yearbook', function ($query) use ($year_grad) {
             $query->where('grad_year', $year_grad);
         })
-        ->orderBy('lastname')  // Sort by last name
-        ->orderBy('firstname') // Then by first name
+        ->orderBy('lastname')
+        ->orderBy('firstname')
         ->get();
 @endphp
 
@@ -30,7 +30,8 @@
                         <div class="card-img-wrapper">
                             <img src="{{ $alumniUser->yearbook->grad_pic ?? asset('default-profile.png') }}" 
                                 class="alumni-photo" 
-                                alt="Alumni Photo">
+                                alt="Alumni Photo"
+                                onclick="showImage('{{ $alumniUser->yearbook->grad_pic ?? asset('default-profile.png') }}')">
                         </div>
                         <div class="card-body text-center">
                             <h5 class="card-title">
@@ -47,21 +48,23 @@
         @endif
     </div>
 </div>
+
+<div id="imageOverlay" class="image-overlay" onclick="hideImage()">
+    <img id="overlayImage" class="overlay-image" src="" alt="Zoomed Alumni Photo">
+</div>
 @endsection
 
 @section('styles')
 <style>
-    
     .container-fluid {
         max-width: 95%;
     }
 
     .card {
         min-width: 150px; 
-        max-width: 200px;
-        min-height: 380px;
+        max-width: 100px;
+        min-height: 300px;
         margin: 10px;
-        border: 2px solid black !important;
         border-radius: 10px;
         overflow: hidden;
         transition: box-shadow 0.3s ease;
@@ -96,6 +99,12 @@
         object-fit: cover;
         object-position: center;
         border-radius: 10px;
+        transition: transform 0.3s ease;
+        cursor: pointer;
+    }
+
+    .alumni-photo:hover {
+        transform: scale(1.05);
     }
 
     .card-body {
@@ -107,14 +116,14 @@
     }
 
     h5.card-title {
-        font-size: 1rem;
+        font-size: 15px;
         color: black;
         font-weight: bold;
         font-family: 'Poppins', sans-serif;
     }
 
     p.card-text {
-        font-size: 1rem;
+        font-size: 15px;
         color:rgb(5, 5, 5);
         margin-bottom: 0.5rem;
     }
@@ -126,5 +135,52 @@
     .row {
         gap: 30px;
     }
+
+    /* Image Zoom Overlay */
+    .image-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    .overlay-image {
+        max-width: 90%;
+        max-height: 90vh;
+        border-radius: 10px;
+        box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
+    }
+
+    .image-overlay.active {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    
 </style>
+@endsection
+
+@section('scripts')
+<script>
+    function showImage(src) {
+        const overlay = document.getElementById("imageOverlay");
+        const overlayImage = document.getElementById("overlayImage");
+
+        overlayImage.src = src;
+        overlay.classList.add("active");
+    }
+
+    function hideImage() {
+        document.getElementById("imageOverlay").classList.remove("active");
+    }
+</script>
 @endsection
