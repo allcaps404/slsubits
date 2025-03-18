@@ -91,30 +91,6 @@
             background-color:rgb(180, 218, 245);
         }
 
-        .card {
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-            background:rgb(90, 153, 216);
-            transition: transform 0.2s ease-in-out;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .card-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: #003366;
-        }
-
-        .card-text {
-            font-size: 1rem;
-            color: #6c757d;
-        }
-
         .profile-img {
             width: 40px;
             height: 40px;

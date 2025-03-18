@@ -1,6 +1,7 @@
 @php
     use App\Models\YearBook;
     use App\Models\User;
+    use Carbon\Carbon;
 
     $yearbook = YearBook::find($yearbook_id);
     $year_grad = $yearbook ? $yearbook->grad_year : null;
@@ -16,6 +17,12 @@
 
 @section('content')
 <div class="container-fluid mt-5 px-md-4">
+    <div class="row justify-content-center">
+        <div class="col-12 text-center">
+            <h2 class="class-of-text">Class of {{ \Carbon\Carbon::parse($year_grad)->format('Y') }}</h2>
+        </div>
+    </div>
+
     <div class="row d-flex flex-wrap justify-content-center gx-2 gy-3">
         @if($alumniUsers->isEmpty())
             <div class="col-12">
@@ -40,7 +47,8 @@
                                 {{ $alumniUser->middlename ? ' ' . $alumniUser->middlename : '' }}
                             </h5>
                             <p class="card-text"><em>"{{ $alumniUser->yearbook->motto ?? 'No Motto Provided' }}"</em></p>
-                            <p class="card-text"><strong>Grad Date:</strong> {{ $alumniUser->yearbook->grad_year ?? 'N/A' }}</p>
+                            <p class="card-text"><strong>{{ \Carbon\Carbon::parse($alumniUser->yearbook->grad_year)->format('F j, Y') ?? 'N/A' }}
+                            </strong></p>
                         </div>
                     </div>
                 </div>
@@ -60,37 +68,47 @@
         max-width: 95%;
     }
 
+    .class-of-text {
+        font-size: 36px;
+        font-family: auto;
+        font-weight: bold;
+        margin-top: 20px;
+        margin-bottom: 30px;
+        background-color: #FFC107;
+        color: #003366;
+    }
+
     .card {
-        min-width: 150px; 
-        max-width: 100px;
+        min-width: 200px; 
+        max-width: 250px;
         min-height: 300px;
         margin: 10px;
         border-radius: 10px;
         overflow: hidden;
-        transition: box-shadow 0.3s ease;
         display: flex;
         flex-direction: column;
         align-items: center;
         text-align: center;
-        background-color: royalblue;
-        box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+        border: none;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        background:rgb(9, 57, 104);
+        transition: transform 0.2s ease-in-out;
     }
 
     .card-img-wrapper {
-        width: 100%;
+        width: 205px;
         height: 250px;
         display: flex;
         justify-content: center;
         align-items: center;
         overflow: hidden;
-        padding: 10px;   
+        padding: 5px;   
     }
 
     .card img {
         width: 100%;
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
-        background-color: #3b82f6;
     }
 
     .alumni-photo {
@@ -116,15 +134,15 @@
     }
 
     h5.card-title {
-        font-size: 15px;
-        color: black;
+        font-size: 18px;
+        color: white;
         font-weight: bold;
         font-family: 'Poppins', sans-serif;
     }
 
     p.card-text {
-        font-size: 15px;
-        color:rgb(5, 5, 5);
+        font-size: 16px;
+        color:white;
         margin-bottom: 0.5rem;
     }
 
@@ -133,10 +151,9 @@
     }
 
     .row {
-        gap: 30px;
+        gap: 35px;
     }
 
-    /* Image Zoom Overlay */
     .image-overlay {
         position: fixed;
         top: 0;
@@ -163,9 +180,7 @@
     .image-overlay.active {
         opacity: 1;
         pointer-events: auto;
-    }
-
-    
+    } 
 </style>
 @endsection
 
