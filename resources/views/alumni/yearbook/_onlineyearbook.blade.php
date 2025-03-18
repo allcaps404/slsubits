@@ -80,8 +80,8 @@
     }
 
     .card {
-        min-width: 200px; 
-        max-width: 250px;
+        min-width: 180px; 
+        max-width: 230px;
         min-height: 300px;
         margin: 10px;
         border-radius: 10px;
@@ -97,8 +97,8 @@
     }
 
     .card-img-wrapper {
-        width: 205px;
-        height: 250px;
+        width: 185px;
+        height: 230px;
         display: flex;
         justify-content: center;
         align-items: center;
