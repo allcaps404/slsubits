@@ -17,9 +17,9 @@
 
 @section('content')
 <div class="container-fluid mt-5 px-md-4">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center mb-4" >
         <div class="col-12 text-center">
-            <h2 class="class-of-text">Class of {{ \Carbon\Carbon::parse($year_grad)->format('Y') }}</h2>
+            <h2 class="class-of-text"><em style="font-size: 2em">Class of {{ \Carbon\Carbon::parse($year_grad)->format('Y') }}</em></h2>
         </div>
     </div>
 
@@ -32,7 +32,8 @@
             </div>
         @else
             @foreach ($alumniUsers as $alumniUser)
-                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12 mb-4 d-flex justify-content-center">
+                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12 d-flex justify-content-center" 
+                style="margin-top: -45px;">
                     <div class="card shadow-sm">
                         <div class="card-img-wrapper">
                             <img src="{{ $alumniUser->yearbook->grad_pic ?? asset('default-profile.png') }}" 
@@ -72,10 +73,10 @@
         font-size: 36px;
         font-family: auto;
         font-weight: bold;
-        margin-top: 20px;
+        margin-top: 15px;
         margin-bottom: 30px;
-        background-color: #6ca5d9;
         color: #003366;
+        padding-bottom: 10px;
     }
 
     .card {
@@ -91,7 +92,7 @@
         text-align: center;
         border: none;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-        background:rgb(9, 57, 104);
+        background:rgb(8, 40, 73);
         transition: transform 0.2s ease-in-out;
     }
 
@@ -130,7 +131,7 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        padding: 1rem;
+        padding: 20px;
     }
 
     h5.card-title {
