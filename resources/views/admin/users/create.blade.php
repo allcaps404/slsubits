@@ -72,6 +72,20 @@
                                     <label for="role_id">Role</label>
                                     <select class="form-control" name="role_id" id="role_id" required>
                                         <option value="" disabled selected>Select a role</option>
+                                        @php
+                                            $roles = \App\Models\Role::all();
+                                        @endphp
+                                        @foreach($roles as $role)
+                                            <option value="{{ $role->id }}">{{ $role->role_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label for="role_id">Role</label>
+                                    <select class="form-control" name="role_id" id="role_id" required>
+                                        <option value="" disabled selected>Select a role</option>
                                         <option value="1">Admin</option>
                                         <option value="2">Student</option>
                                         <option value="3">Scanner</option>
@@ -79,7 +93,7 @@
                                         <option value="5">Alumni</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
 
                         <h5 class="mt-4">Additional Information</h5>
