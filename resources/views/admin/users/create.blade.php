@@ -76,8 +76,7 @@
                                         <option value="2">Student</option>
                                         <option value="3">Scanner</option>
                                         <option value="4">Event Organizer</option>
-                                        <option value="5">Alumnus</option>
-                                        <option value="6">Alumnae</option>
+                                        <option value="5">Alumni</option>
                                     </select>
                                 </div>
                             </div>

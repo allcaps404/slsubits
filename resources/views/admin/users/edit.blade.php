@@ -60,8 +60,7 @@
                         <option value="2" {{ old('role_id', $user->role_id) == 2 ? 'selected' : '' }}>Student</option>
                         <option value="3" {{ old('role_id', $user->role_id) == 3 ? 'selected' : '' }}>Scanner</option>
                         <option value="4" {{ old('role_id', $user->role_id) == 4 ? 'selected' : '' }}>Event Organizer</option>
-                        <option value="5" {{ old('role_id', $user->role_id) == 5 ? 'selected' : '' }}>Alumnus</option>
-                        <option value="6" {{ old('role_id', $user->role_id) == 6 ? 'selected' : '' }}>Alumnae</option>
+                        <option value="5" {{ old('role_id', $user->role_id) == 5 ? 'selected' : '' }}>Alumni</option>
                     </select>
                 </div>
             </div>
