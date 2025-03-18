@@ -55,15 +55,20 @@
                 <div class="form-group">
                     <label for="role_id">Role</label>
                     <select class="form-control" name="role_id" id="role_id" required>
-                        <option value="" disabled selected>Select a role</option>
-                        <option value="1" {{ old('role_id', $user->role_id) == 1 ? 'selected' : '' }}>Admin</option>
-                        <option value="2" {{ old('role_id', $user->role_id) == 2 ? 'selected' : '' }}>Student</option>
-                        <option value="3" {{ old('role_id', $user->role_id) == 3 ? 'selected' : '' }}>Scanner</option>
-                        <option value="4" {{ old('role_id', $user->role_id) == 4 ? 'selected' : '' }}>Event Organizer</option>
-                        <option value="5" {{ old('role_id', $user->role_id) == 5 ? 'selected' : '' }}>Alumni</option>
+                        <option value="" disabled>Select a role</option>
+                        @php
+                            $roles = \App\Models\Role::all();
+                        @endphp
+                        @foreach($roles as $role)
+                            <option value="{{ $role->id }}" 
+                                {{ old('role_id', $user->role_id ?? '') == $role->id ? 'selected' : '' }}>
+                                {{ $role->role_name }}
+                            </option>
+                        @endforeach
                     </select>
                 </div>
             </div>
+
         </div>
         <hr>
         <h5>Additional Information</h5>
