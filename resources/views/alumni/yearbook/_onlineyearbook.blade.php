@@ -74,7 +74,7 @@
         font-weight: bold;
         margin-top: 20px;
         margin-bottom: 30px;
-        background-color: #FFC107;
+        background-color: #6ca5d9;
         color: #003366;
     }
 

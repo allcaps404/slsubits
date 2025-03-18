@@ -36,10 +36,10 @@
             padding: 1rem;
             font-size: 1.4rem;
             font-weight: bold;
-            background-color: #FFC107;
+            background-color: #6ca5d9;
             color: #003366;
             text-align: center;
-            border-bottom: 3px solid #FFD54F;
+            border-bottom: 3px solid #6ca5d9;
         }
 
         .list-group-item {
@@ -67,9 +67,9 @@
             right: 0;
             z-index: 1001;
             background: white;
-            border-bottom: 3px solid #FFC107;
+            border-bottom: 3px solid #6ca5d9;
             padding: 0.75rem 1.5rem;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 4px 10px hsla(0, 0.00%, 0.00%, 0.10);
         }
 
         .navbar h2 {
@@ -96,7 +96,7 @@
             height: 40px;
             object-fit: cover;
             border-radius: 50%;
-            border: 2px solid #FFC107;
+            border: 2px solid #6ca5d9;
         }
 
         .btn-primary {
