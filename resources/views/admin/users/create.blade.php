@@ -95,7 +95,7 @@
 
                         <h5 class="mt-4">Additional Information</h5>
                         <div class="row">
-                            <div class="col-md-4 mb-3">
+                            <div class="col-md-3 mb-3">
                                 <div class="form-group">
                                     <label for="course">Course</label>
                                     <select class="form-control" name="course" id="course">
@@ -104,7 +104,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-4 mb-3">
+                            <div class="col-md-3 mb-3">
                                 <div class="form-group">
                                     <label for="year">Year</label>
                                     <select class="form-control" name="year" id="year">
@@ -116,7 +116,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-4 mb-3">
+                            <div class="col-md-3 mb-3">
                                 <div class="form-group">
                                     <label for="section">Section</label>
                                     <select class="form-control" name="section" id="section">
@@ -124,6 +124,17 @@
                                         <option value="A" {{ old('section') == 'A' ? 'selected' : '' }}>A</option>
                                         <option value="B" {{ old('section') == 'B' ? 'selected' : '' }}>B</option>
                                         <option value="C" {{ old('section') == 'C' ? 'selected' : '' }}>C</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <div class="form-group">
+                                    <label for="section">Gender</label>
+                                    <select class="form-control" name="section" id="section">
+                                        <option value="" disabled {{ old('section') == '' ? 'selected' : '' }}>Select a Gender</option>
+                                        <option value="Male" {{ old('section') == 'male' ? 'selected' : '' }}>Male</option>
+                                        <option value="Female" {{ old('section') == 'Female' ? 'selected' : '' }}>Female</option>
+                                        <option value="LGBTQ+" {{ old('section') == 'LGBTQ+' ? 'selected' : '' }}>LGBTQ+</option>
                                     </select>
                                 </div>
                             </div>

@@ -111,6 +111,7 @@
                                     <p class="small"><strong>Course:</strong> {{ $user->OtherDetail->course ?? 'N/A' }}</p>
                                     <p class="small"><strong>Year:</strong> {{ $user->OtherDetail->year ?? 'N/A' }}</p>
                                     <p class="small"><strong>Section:</strong> {{ $user->OtherDetail->section ?? 'N/A' }}</p>
+                                    <p class="small"><strong>Gender:</strong> {{ $user->OtherDetail-> gender ?? 'N/A' }}</p>
                                     <p class="small"><strong>Semester:</strong> {{ $user->OtherDetail->semester ?? 'N/A' }}</p>
                                     <p class="small"><strong>Academic Year:</strong> {{ $user->OtherDetail->academic_year ?? 'N/A' }}</p>
                                     <p class="small"><strong>Birthplace:</strong> {{ $user->OtherDetail->birthplace ?? 'N/A' }}</p>

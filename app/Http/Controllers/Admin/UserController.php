@@ -46,6 +46,11 @@ class UserController extends Controller
                 $q->where('section', $request->section);
             });
         }
+        if ($request->filled('gender')) {
+            $query->whereHas('OtherDetail', function ($q) use ($request) {
+                $q->where('gender', $request->section);
+            });
+        }
         if ($request->filled('semester')) {
             $query->whereHas('OtherDetail', function ($q) use ($request) {
                 $q->where('semester', $request->semester);
@@ -102,6 +107,7 @@ class UserController extends Controller
                 $saveUserInfo->course = $request->course;
                 $saveUserInfo->year = $request->year;
                 $saveUserInfo->section = $request->section;
+                $saveUserInfo->gender = $request->gender;
                 $saveUserInfo->semester = $request->semester;
                 $saveUserInfo->academic_year = $request->academic_year;
                 $saveUserInfo->birthplace = $request->birthplace;
@@ -160,6 +166,7 @@ class UserController extends Controller
                     'course' => $request->course,
                     'year' => $request->year,
                     'section' => $request->section,
+                    'gender' => $request->gender,
                     'semester' => $request->semester,
                     'academic_year' => $request->academic_year,
                     'birthplace' => $request->birthplace,

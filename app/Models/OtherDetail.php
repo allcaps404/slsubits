@@ -18,6 +18,7 @@ class OtherDetail extends Model
         'course',
         'year',
         'section',
+        'gender',
         'semester',
         'academic_year',
         'birthplace',

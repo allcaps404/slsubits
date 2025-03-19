@@ -73,7 +73,7 @@
         <hr>
         <h5>Additional Information</h5>
         <div class="row">
-            <div class="col-md-4 mb-3">
+            <div class="col-md-3 mb-3">
                 <div class="form-group">
                     <label for="course">Course</label>
                     <select class="form-control" name="course" id="course">
@@ -82,7 +82,7 @@
                     </select>
                 </div>
             </div>
-            <div class="col-md-4 mb-3">
+            <div class="col-md-3 mb-3">
                 <div class="form-group">
                     <label for="year">Year</label>
                     <select class="form-control" name="year" id="year">
@@ -94,7 +94,7 @@
                     </select>
                 </div>
             </div>
-            <div class="col-md-4 mb-3">
+            <div class="col-md-3 mb-3">
                 <div class="form-group">
                     <label for="section">Section</label>
                     <select class="form-control" name="section" id="section">
@@ -102,6 +102,17 @@
                         <option value="A" {{ old('section', $user->OtherDetail->section ?? '') == 'A' ? 'selected' : '' }}>A</option>
                         <option value="B" {{ old('section', $user->OtherDetail->section ?? '') == 'B' ? 'selected' : '' }}>B</option>
                         <option value="C" {{ old('section', $user->OtherDetail->section ?? '') == 'C' ? 'selected' : '' }}>C</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <div class="form-group">
+                    <label for="section">Gender</label>
+                    <select class="form-control" name="gender" id="gender">
+                        <option value="" disabled selected>Select a gender</option>
+                        <option value="Male" {{ old('gender', $user->OtherDetail->gender ?? '') == 'Male' ? 'selected' : '' }}>Male</option>
+                        <option value="Female" {{ old('gender', $user->OtherDetail->gender ?? '') == 'Female' ? 'selected' : '' }}>Female</option>
+                        <option value="LGBTQ+" {{ old('gender', $user->OtherDetail->gender ?? '') == 'LGBTQ+' ? 'selected' : ''}}>LGBTQ+</option>  
                     </select>
                 </div>
             </div>
@@ -170,6 +181,7 @@
             @endif
         </div>
         <button type="submit" class="btn btn-primary">Update User</button>
+        <a href="{{ route('usersmanagement.index') }}" class="btn btn-secondary btn-sm">Back to List</a>
     </form>
 </div>
 
