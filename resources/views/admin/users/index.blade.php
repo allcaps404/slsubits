@@ -24,14 +24,14 @@
                 </select>
             </div>
             <div class="col-md-3 mb-2">
-                <select name="role" class="form-control">
-                    <option value="">Filter by Role</option>
-                    <option value="Admin" {{ request('role') == 'Admin' ? 'selected' : '' }}>Admin</option>
-                    <option value="Student" {{ request('role') == 'Student' ? 'selected' : '' }}>Student</option>
-                    <option value="Scanner" {{ request('role') == 'Scanner' ? 'selected' : '' }}>Scanner</option>
-                    <option value="Event Organizer" {{ request('role') == 'Event Organizer' ? 'selected' : '' }}>Event Organizer</option>
-                    <option value="Alumnus" {{ request('role') == 'Alumnus' ? 'selected' : '' }}>Alumnus</option>
-                    <option value="Alumnae" {{ request('role') == 'Alumnae' ? 'selected' : '' }}>Alumnae</option>
+                <select class="form-control" name="role" id="role" required>
+                    <option value="" disabled {{ old('role') == '' ? 'selected' : '' }}>Filter by Role</option>
+                    @php
+                        $roles = \App\Models\Role::all();
+                    @endphp
+                    @foreach($roles as $role)
+                        <option value="{{ $role->id }}" {{ old('role') == $role->id ? 'selected' : '' }}>{{ $role->role_name }}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="col-md-3 mb-2">

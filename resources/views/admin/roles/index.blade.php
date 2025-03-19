@@ -34,8 +34,6 @@
                 @endforeach
             </tbody>
         </table>
-
-        <!-- Pagination -->
         <div class="d-flex justify-content-center">
             {{ $roles->links() }}
         </div>
@@ -56,7 +54,6 @@
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                // If confirmed, submit the form
                 document.getElementById('deleteForm-' + roleId).submit();
             }
         });

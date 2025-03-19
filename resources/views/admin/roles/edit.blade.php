@@ -39,9 +39,47 @@
             confirmButtonText: "Yes, update it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                event.target.submit(); // Submit the form if confirmed
+                event.target.submit();
             }
         });
     });
+
+    unction deleteRole(roleId) {
+        fetch(`/roles/${roleId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // Ensure CSRF token is sent for security
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                window.location.href = "/roles";
+            } else {
+                return response.json().then(data => {
+                    if (data.errors) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: data.errors
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'An unexpected error occurred.'
+                        });
+                    }
+                });
+            }
+        })
+        .catch(error => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'An unexpected error occurred.'
+            });
+        });
+    }
     </script>
 @endsection
