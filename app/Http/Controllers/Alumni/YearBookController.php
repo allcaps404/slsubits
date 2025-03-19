@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Alumni;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Yearbook;
+use App\Models\YearBook;
 use App\Http\Controllers\Controller;
 use Intervention\Image\Facades\Image;
 
@@ -12,7 +12,7 @@ class YearbookController extends Controller
 {
     public function index()
     {
-        $yearbook = Yearbook::where('user_id', Auth::id())->first();
+        $yearbook = YearBook::where('user_id', Auth::id())->first();
 
         if (!$yearbook) {
             return view('alumni.yearbook.index', [
@@ -37,7 +37,7 @@ class YearbookController extends Controller
             'grad_year' => 'required|date',
         ]);
 
-        $yearbook = Yearbook::updateOrCreate(
+        $yearbook = YearBook::updateOrCreate(
             ['user_id' => Auth::id()],
             [
                 'grad_pic' => $request->input('grad_pic_base64'),
