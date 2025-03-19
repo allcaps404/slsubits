@@ -7,7 +7,7 @@
     @if(session('success'))
     <div class="alert alert-success">{{ session('success') }}</div>
     @endif
-    <form method="GET" action="{{ route('admin.events.index') }}" class="mb-3">
+    <form method="GET" action="{{ route('events.index') }}" class="mb-3">
         <div class="row">
             <div class="col-md-3 mb-2">
                 <input type="text" name="name" class="form-control" placeholder="Filter by Event Name" value="{{ request('name') }}">
@@ -39,7 +39,7 @@
     <div class="card shadow mb-4">
         <div class="card-body">
             <div class="d-flex justify-content-end mb-3">
-                <a href="{{ route('admin.events.create') }}" class="btn btn-primary btn-sm">Create New Event</a>
+                <a href="{{ route('events.create') }}" class="btn btn-primary btn-sm">Create New Event</a>
             </div>
             <div class="table-responsive">
                 <table class="table table-hover table-striped table-bordered" id="dataTable" width="100%" cellspacing="0">

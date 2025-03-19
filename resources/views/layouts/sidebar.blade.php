@@ -16,8 +16,8 @@
         </a>
     </li>
 
-    <li class="nav-item {{ request()->routeIs('admin.events.index') ? 'active' : '' }}">
-        <a class="nav-link" href="{{ route('admin.events.index') }}">
+    <li class="nav-item {{ request()->routeIs('events.index') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('events.index') }}">
             <i class="fas fa-fw fa-calendar-alt"></i>
             <span>Events</span>
         </a>
@@ -27,6 +27,13 @@
         <a class="nav-link" href="{{ route('usersmanagement.index') }}">
             <i class="fas fa-fw fa-user-graduate"></i>
             <span>Users</span>
+        </a>
+    </li>
+
+    <li class="nav-item {{ request()->routeIs('roles.index') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('roles.index') }}">
+            <i class="fas fa-fw fa-user-graduate"></i>
+            <span>Roles</span>
         </a>
     </li>
 </ul>

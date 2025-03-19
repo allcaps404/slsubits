@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EventController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Alumni\YearBookController;
 
 /*
@@ -27,6 +28,16 @@ Route::prefix('admin')->middleware(['admin'])->group(function () {
     Route::put('/usersmanagement/{id}', [UserController::class, 'update'])->name('usersmanagement.update');
     Route::delete('admin/usersmanagement/{usersmanagement}', [UserController::class, 'destroy'])->name('usersmanagement.destroy');
     Route::get('/check-email', [UserController::class, 'checkEmail'])->name('check-email');
+
+    Route::resource('roles', RoleController::class);
+
+    Route::get('events', [App\Http\Controllers\Admin\EventController::class, 'index'])->name('events.index');
+    Route::get('events/create', [App\Http\Controllers\Admin\EventController::class, 'create'])->name('events.create');
+    Route::post('events', [App\Http\Controllers\Admin\EventController::class, 'store'])->name('events.store');
+    Route::get('events/{event}', [App\Http\Controllers\Admin\EventController::class, 'show'])->name('events.show');
+    Route::get('events/{event}/edit', [App\Http\Controllers\Admin\EventController::class, 'edit'])->name('events.edit');
+    Route::put('events/{event}', [App\Http\Controllers\Admin\EventController::class, 'update'])->name('events.update');
+    Route::delete('events/{event}', [App\Http\Controllers\Admin\EventController::class, 'destroy'])->name('events.destroy');
 });
 
 Route::prefix('student')->middleware(['student'])->group(function () {
@@ -45,15 +56,7 @@ Route::prefix('student')->middleware(['student'])->group(function () {
     Route::post('/settings/store-face', [App\Http\Controllers\Student\FaceAuthController::class, 'storeFace'])
         ->name('student.settings.store-face');
 });
-Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
-    Route::get('events', [App\Http\Controllers\Admin\EventController::class, 'index'])->name('events.index');
-    Route::get('events/create', [App\Http\Controllers\Admin\EventController::class, 'create'])->name('events.create');
-    Route::post('events', [App\Http\Controllers\Admin\EventController::class, 'store'])->name('events.store');
-    Route::get('events/{event}', [App\Http\Controllers\Admin\EventController::class, 'show'])->name('events.show');
-    Route::get('events/{event}/edit', [App\Http\Controllers\Admin\EventController::class, 'edit'])->name('events.edit');
-    Route::put('events/{event}', [App\Http\Controllers\Admin\EventController::class, 'update'])->name('events.update');
-    Route::delete('events/{event}', [App\Http\Controllers\Admin\EventController::class, 'destroy'])->name('events.destroy');
-});
+
 Route::prefix('scanner')->middleware(['scanner'])->group(function () {
     Route::get('/', [App\Http\Controllers\Scanner\QRScannerController::class, 'showScanner'])->name('qr-scanner');
     Route::get('/get-student/{qr_code}', [App\Http\Controllers\Scanner\QRScannerController::class, 'getStudent']);
@@ -69,5 +72,4 @@ Route::prefix('alumni')->middleware(['alumni'])->group(function () {
     Route::get('/yearbook', [YearBookController::class, 'index'])->name('yearbook.index');
     Route::post('/yearbook', [YearBookController::class, 'store'])->name('yearbook.store');
 });
-
 Auth::routes();
