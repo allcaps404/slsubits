@@ -19,7 +19,7 @@ class IfAlumni
     {
         if (Auth::check()) {
             $role = Role::where('id', auth()->user()->role_id)->first();
-            if ($role && in_array($role->id, 4)) {
+            if ($role && $role->id== 4) {
                 return $next($request);
             }
         }
