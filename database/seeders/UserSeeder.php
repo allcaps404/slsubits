@@ -42,24 +42,13 @@ class UserSeeder extends Seeder
         ]);
 
         User::create([
-            'firstname' => 'Event Organizer',
-            'lastname' => 'User',
-            'middlename' => 'n/a',
-            'email' => 'eventorganizer@example.com',
-            'password' => Hash::make('password'),
-            'dateofbirth' => Carbon::now(),
-            'role_id' => 4,
-        ]);
-
-        User::create([
             'firstname' => 'Alumni',
             'lastname' => 'User',
             'middlename' => 'n/a',
             'email' => 'alumni@example.com',
             'password' => Hash::make('password'),
             'dateofbirth' => Carbon::now(),
-            'role_id' => 5,
-            'role_id' => 6, 
+            'role_id' => 4,
         ]);
     }
 }

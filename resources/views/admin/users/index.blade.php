@@ -24,7 +24,7 @@
                 </select>
             </div>
             <div class="col-md-3 mb-2">
-                <select class="form-control" name="role" id="role" required>
+                <select class="form-control" name="role" id="role">
                     <option value="" disabled {{ old('role') == '' ? 'selected' : '' }}>Filter by Role</option>
                     @php
                         $roles = \App\Models\Role::all();

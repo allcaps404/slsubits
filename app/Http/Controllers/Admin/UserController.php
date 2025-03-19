@@ -33,7 +33,7 @@ class UserController extends Controller
         }
         if ($request->filled('role')) {
             $query->whereHas('role', function ($q) use ($request) {
-                $q->where('role_name', $request->role);
+                $q->where('id', $request->role);
             });
         }
         if ($request->filled('year')) {
