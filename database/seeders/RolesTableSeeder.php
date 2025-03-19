@@ -19,8 +19,7 @@ class RolesTableSeeder extends Seeder
             ['role_name' => 'Student', 'url' =>'/student'],
             ['role_name' => 'Scanner', 'url' =>'/scanner'],
             ['role_name' => 'Event Organizer', 'url' =>'/eventorganizer'],
-            ['role_name' => 'Alumnus', 'url' =>'/alumni'],
-            ['role_name' => 'Alumnae', 'url' =>'/alumni'],
+            ['role_name' => 'Alumni', 'url' =>'/alumni'],
         ]);
     }
 }
