@@ -1,12 +1,11 @@
 @php
-    use App\Models\YearBook;
     use App\Models\User;
     use Carbon\Carbon;
 
-    $yearbook = YearBook::find($yearbook_id);
+    $yearbook = App\Models\YearBook::find($yearbook_id);
     $year_grad = $yearbook ? $yearbook->grad_year : null;
 
-    $alumniUsers = User::whereIn('role_id', [5, 6])
+    $alumniUsers = User::whereIn('role_id', 4)
         ->whereHas('yearbook', function ($query) use ($year_grad) {
             $query->where('grad_year', $year_grad);
         })
