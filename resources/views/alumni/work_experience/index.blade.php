@@ -34,7 +34,7 @@
                             <div>
                                 <h5 class="mb-1 text-primary">{{ $workExperience->company_name }}</h5>
                                 <p class="mb-1"><strong>Job Position:</strong> {{ $workExperience->position }}</p>
-                                <p class="mb-1"><strong>Contact Number:</strong> {{ $workExperience->contact_number }}</p>
+                                <p class="mb-1"><strong>Company Contact Number:</strong> {{ $workExperience->contact_number }}</p>
                                 <p class="mb-1"><strong>Start Date:</strong> {{ $workExperience->start_date }}</p>
                                 <p class="mb-1">
                                     <strong>End Date:</strong> 
@@ -59,7 +59,7 @@
                                 </p>
 
                                 <p class="mb-1">
-                                    <strong>Affiliation:</strong> 
+                                    <strong>Type of Organition:</strong> 
                                     <span class="badge {{ $workExperience->respondent_affiliation == 'Government' ? 'bg-info' : 'bg-secondary' }}">
                                         {{ $workExperience->respondent_affiliation }}
                                     </span>
@@ -70,10 +70,10 @@
                             <div>
                                 <a href="{{ route('work_experiences.edit', $workExperience->id) }}" class="btn btn-warning btn-sm me-2">✏️ Edit</a>
                                 
-                                <form action="{{ route('work_experiences.destroy', $workExperience->id) }}" method="POST" class="d-inline">
+                                <form action="{{ route('work_experiences.destroy', $workExperience->id) }}" method="POST" class="d-inline delete-btn">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this work experience?')">
+                                    <button type="submit" class="btn btn-danger btn-sm">
                                         🗑️ Delete
                                     </button>
                                 </form>
@@ -85,6 +85,8 @@
         </div>
     </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".see-more").forEach(function (btn) {
@@ -106,5 +108,27 @@
     });
 });
 
+ // SweetAlert Delete Confirmation
+ document.querySelectorAll(".delete-btn").forEach(function (button) {
+            button.addEventListener("click", function (e) {
+                e.preventDefault();
+                let form = this.closest("form");
+
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "This action cannot be undone!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#d33",
+                    cancelButtonColor: "#3085d6",
+                    confirmButtonText: "Yes, delete it!"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            });
+        });
 </script>
+
 @endsection
