@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\WorkExperience;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+
+$workExperiences = WorkExperience::all()->map(function ($experience) {
+    $experience->short_description = Str::limit($experience->description, 100);
+    return $experience;
+});
 
 class WorkExperienceController extends Controller
 {

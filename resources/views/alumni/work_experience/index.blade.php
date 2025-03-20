@@ -3,7 +3,7 @@
 @section('content')
 <div class="container mt-5 p-4">
     <!-- Top Section: Add Button on Left, Title Centered -->
-    <h3 class="text-center flex-grow-1">WORK EXPERIENCE</h3>
+    <!-- <h3 class="text-center flex-grow-1">WORK EXPERIENCE</h3> -->
 
     <div class="d-flex justify-content-between align-items-center mb-3">
     <a href="{{ route('work_experiences.create') }}" class="btn btn-primary d-flex align-items-center px-4">
@@ -33,8 +33,7 @@
                             <!-- Left Side: Work Experience Details -->
                             <div>
                                 <h5 class="mb-1 text-primary">{{ $workExperience->company_name }}</h5>
-                                <p class="mb-1"><strong>Position:</strong> {{ $workExperience->position }}</p>
-                                <p class="mb-1"><strong>Job Title:</strong> {{ $workExperience->job_title }}</p>
+                                <p class="mb-1"><strong>Job Position:</strong> {{ $workExperience->position }}</p>
                                 <p class="mb-1"><strong>Contact Number:</strong> {{ $workExperience->contact_number }}</p>
                                 <p class="mb-1"><strong>Start Date:</strong> {{ $workExperience->start_date }}</p>
                                 <p class="mb-1">
@@ -45,7 +44,19 @@
                                         {{ $workExperience->end_date }}
                                     @endif
                                 </p>
-                                <p class="mb-1"><strong>Description:</strong> {{ Str::limit($workExperience->description, 100) }}</p>
+                                <p class="mb-1">
+                                <p style="display" id="description-{{ $workExperience->id }}"> 
+                                    <strong>Description:</strong> 
+                                    {{ Str::limit($workExperience->description, 100) }} 
+                                    @if(strlen($workExperience->description) > 100)
+                                        <a href="#" class="see-more" data-id="{{ $workExperience->id }}">See More</a>
+                                    @endif
+                                </p>
+                                <p id="full-description-{{ $workExperience->id }}" style="display: none;">
+                                    {{ $workExperience->description }} 
+                                    <a href="#" class="see-less" data-id="{{ $workExperience->id }}">See Less</a>
+                                </p>
+                                </p>
 
                                 <p class="mb-1">
                                     <strong>Affiliation:</strong> 
@@ -74,4 +85,26 @@
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".see-more").forEach(function (btn) {
+        btn.addEventListener("click", function (event) {
+            event.preventDefault();
+            let id = this.getAttribute("data-id");
+            document.getElementById("description-" + id).style.display = "none";
+            document.getElementById("full-description-" + id).style.display = "block";
+        });
+    });
+
+    document.querySelectorAll(".see-less").forEach(function (btn) {
+        btn.addEventListener("click", function (event) {
+            event.preventDefault();
+            let id = this.getAttribute("data-id");
+            document.getElementById("description-" + id).style.display = "block";
+            document.getElementById("full-description-" + id).style.display = "none";
+        });
+    });
+});
+
+</script>
 @endsection
