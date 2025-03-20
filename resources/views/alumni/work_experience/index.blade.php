@@ -6,8 +6,11 @@
     <h3 class="text-center flex-grow-1">WORK EXPERIENCE</h3>
 
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <a href="{{ route('work_experiences.create') }}" class="btn btn-primary">Add</a>
-    </div>
+    <a href="{{ route('work_experiences.create') }}" class="btn btn-primary d-flex align-items-center px-4">
+        <i class="fas fa-plus-circle me-2 "></i> &nbsp; Add Work Experience
+    </a>
+</div>
+
 
     <div class="row justify-content-center">
         <div class="col-lg-12 col-md-10 col-sm-12">
@@ -55,6 +58,7 @@
                             <!-- Right Side: Edit & Delete Buttons -->
                             <div>
                                 <a href="{{ route('work_experiences.edit', $workExperience->id) }}" class="btn btn-warning btn-sm me-2">✏️ Edit</a>
+                                
                                 <form action="{{ route('work_experiences.destroy', $workExperience->id) }}" method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')

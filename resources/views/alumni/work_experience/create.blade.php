@@ -59,14 +59,36 @@
 
                         <!-- Respondent Affiliation (Dropdown) -->
                         <div class="mb-3">
-                            <label for="respondent_affiliation" class="form-label">Affiliation</label>
+                            <label for="respondent_affiliation" class="form-label">Type of Organization</label>
                             <select name="respondent_affiliation" id="respondent_affiliation" class="form-control" required>
-                                <option value="" selected disabled>Select Affiliation</option>
+                                <option value="" selected disabled>Select Type of Organization</option>
                                 <option value="Government">Government</option>
                                 <option value="Non-Government">Non-Government</option>
+                                <option value="Private Corporation">Private Corporation</option>
+                                <option value="Public Corporation">Public Corporation</option>
+                                <option value="Startup">Startup</option>
+                                <option value="Multinational Corporation (MNC)">Multinational Corporation (MNC)</option>
+                                <option value="Small and Medium Enterprise (SME)">Small and Medium Enterprise (SME)</option>
+                                <option value="Freelance">Freelance / Self-Employed</option>
+                                <option value="Partnership">Partnership</option>
+                                <option value="Cooperative">Cooperative</option>
+                                <option value="Educational Institution">Educational Institution (School, University, etc.)</option>
+                                <option value="Healthcare">Healthcare / Hospital</option>
+                                <option value="Financial Institution">Financial Institution (Bank, Insurance, etc.)</option>
+                                <option value="Manufacturing">Manufacturing Industry</option>
+                                <option value="Retail">Retail / E-commerce</option>
+                                <option value="Technology">Technology / IT Company</option>
+                                <option value="Construction">Construction / Engineering</option>
+                                <option value="Hospitality">Hospitality (Hotel, Restaurant, Tourism)</option>
+                                <option value="Real Estate">Real Estate</option>
+                                <option value="Media">Media & Entertainment</option>
                             </select>
                         </div>
-
+                                <div class="alert alert-info text-center" role="alert">
+                        <strong>Disclaimer:</strong> The information provided in this form should be accurate and truthful. 
+                Your data will be used solely for alumni records and career tracking. 
+                We respect your privacy and will not share your details without your consent.
+                                      </div>
                         <!-- Submit Button -->
                         <div class="d-flex justify-content-between">
                             <a href="{{ route('work_experiences.index') }}" class="btn btn-secondary">Back</a>
