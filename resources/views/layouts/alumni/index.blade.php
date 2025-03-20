@@ -142,6 +142,7 @@
                 <a class="list-group-item list-group-item-action" href="{{url('/alumni')}}"><i class="fas fa-home mr-2"></i> Home</a>
                 <a class="list-group-item list-group-item-action" href="#"><i class="fas fa-calendar-alt mr-2"></i> Events</a>
                 <a class="list-group-item list-group-item-action" href="{{ route('yearbook.index') }}"><i class="fas fa-book mr-2"></i> Yearbook</a>
+                <a class="list-group-item list-group-item-action" href="{{ route('work_experiences.index') }}"><i class="fas fa-book mr-2"></i> Work Experience</a>
             </div>
         </div>
         <!-- /#sidebar-wrapper -->

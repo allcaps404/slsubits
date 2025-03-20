@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Alumni\YearBookController;
+use App\Http\Controllers\Alumni\WorkExperienceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,5 +72,16 @@ Route::prefix('alumni')->middleware(['alumni'])->group(function () {
     // Route::get('/events', [App\Http\Controllers\Alumni\EventController::class, 'index'])->name('alumni.events.index');
     Route::get('/yearbook', [YearBookController::class, 'index'])->name('yearbook.index');
     Route::post('/yearbook', [YearBookController::class, 'store'])->name('yearbook.store');
+    
+    Route::get('work_experiences', [App\Http\Controllers\Alumni\WorkExperienceController::class, 'index'])->name('work_experiences.index');
+    Route::get('work_experiences/create', [App\Http\Controllers\Alumni\WorkExperienceController::class, 'create'])->name('work_experiences.create');
+    Route::post('work_experiences', [App\Http\Controllers\Alumni\WorkExperienceController::class, 'store'])->name('work_experiences.store');
+    Route::get('work_experiences/{work_experience}', [App\Http\Controllers\Alumni\WorkExperienceController::class, 'show'])->name('work_experiences.show');
+    Route::get('work_experiences/{work_experience}/edit', [App\Http\Controllers\Alumni\WorkExperienceController::class, 'edit'])->name('work_experiences.edit');
+    Route::put('work_experiences/{work_experience}', [App\Http\Controllers\Alumni\WorkExperienceController::class, 'update'])->name('work_experiences.update');
+    Route::delete('work_experiences/{work_experience}', [App\Http\Controllers\Alumni\WorkExperienceController::class, 'destroy'])->name('work_experiences.destroy');
+
+
 });
+
 Auth::routes();
