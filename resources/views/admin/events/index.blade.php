@@ -66,10 +66,10 @@
                                 <td class="small">{{ $event->academic_year }}</td>
                                 <td class="small">{{ $event->semester }}</td>
                                 <td>
-                                    <a href="{{ route('admin.events.edit', $event->id) }}" class="btn btn-warning btn-sm">
+                                    <a href="{{ route('events.edit', $event->id) }}" class="btn btn-warning btn-sm">
                                         <i class="fas fa-edit"></i> Edit
                                     </a>
-                                    <form action="{{ route('admin.events.destroy', $event->id) }}" method="POST" style="display:inline;">
+                                    <form action="{{ route('events.destroy', $event->id) }}" method="POST" style="display:inline;">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm">
