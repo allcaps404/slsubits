@@ -1,7 +1,7 @@
 @extends('layouts.alumni.index')
 
 @section('content')
-<div class="container mt-5 p-4">
+<div class="container mt-4 p-4">
     <!-- Top Section: Add Button on Left, Title Centered -->
     <!-- <h3 class="text-center flex-grow-1">WORK EXPERIENCE</h3> -->
 
