@@ -6,8 +6,8 @@
         <h3 class="mb-3">Events</h3>
         <div class="card mb-3">
             <div class="card-body">
-                <h5 class="card-title">New Alumni Meetup</h5>
-                <p class="card-text">Join us for the annual alumni meetup on December 15th. Don't miss the chance to reconnect with old friends and make new ones!</p>
+                <h5 class="card-title">Hi, there! Bachelor in Information Technology Alumni</h5>
+                <p class="card-text">Share your memorable experiences with us 😊</p>
             </div>
         </div>
         <div class="card mb-3">
