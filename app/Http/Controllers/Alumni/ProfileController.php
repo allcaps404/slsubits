@@ -17,7 +17,7 @@ class ProfileController extends Controller
         
         // Check if all required fields in Users and OtherDetails are filled
         $isProfileComplete = isset($user->firstname, $user->lastname, $user->middlename, $user->dateofbirth, $user->email)
-            && isset($otherDetails->idnumber, $otherDetails->course, $otherDetails->year, $otherDetails->section,
+            && isset($otherDetails->idnumber, $otherDetails->course, $otherDetails->year, $otherDetails->gender,
                      $otherDetails->semester, $otherDetails->academic_year, $otherDetails->birthplace,
                      $otherDetails->address, $otherDetails->photo);
 
@@ -52,7 +52,7 @@ class ProfileController extends Controller
                     $otherDetail->user_id = $user->id;
                 }
     
-                $fields = ['idnumber', 'course', 'year', 'section', 'semester', 'academic_year', 'birthplace', 'address'];
+                $fields = ['idnumber', 'course', 'year', 'gender', 'semester', 'academic_year', 'birthplace', 'address'];
     
                 foreach ($fields as $field) {
                     if ($request->has($field)) {
@@ -60,11 +60,10 @@ class ProfileController extends Controller
                     }
                 }
     
-                if ($request->has('photo')) {
-                    $photo = $request->input('photo');
-                    $otherDetail->photo = $photo;
+                if ($request->has('photo') && !empty($request->input('photo'))) {
+                    $otherDetail->photo = $request->input('photo');
                 }
-    
+
                 $otherDetail->save();
                 return redirect()->route('alumni.profile')->with('success', 'Profile updated successfully.');
             }
