@@ -2,6 +2,7 @@
 
 @section('content') 
 <div class="container-fluid p-4">
+    <!-- Events Section -->
     <section class="mb-4">
         <h3 class="mb-3">Events</h3>
         <div class="card mb-3">

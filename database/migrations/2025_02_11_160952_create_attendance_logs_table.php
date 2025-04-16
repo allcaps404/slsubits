@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('student_id')->constrained('users')->onDelete('cascade');
             $table->dateTime('login_time')->nullable();
             $table->dateTime('logout_time')->nullable();
-            $table->timestamps();
+            $table->timestamps(); 
         });
     }
 

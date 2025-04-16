@@ -35,29 +35,12 @@
         </div>
     </div>
 
-    <div class="col-12 col-md-4 mb-4">
-        <div class="card shadow">
-            <div class="card-body text-center">
-                <h5 class="card-title">Event Organizers</h5>
-                <canvas id="eventOrganizersChart"></canvas>
-            </div>
-        </div>
-    </div>
 
     <div class="col-12 col-md-4 mb-4">
         <div class="card shadow">
             <div class="card-body text-center">
-                <h5 class="card-title">Alumnus</h5>
-                <canvas id="alumnusChart"></canvas>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-12 col-md-4 mb-4">
-        <div class="card shadow">
-            <div class="card-body text-center">
-                <h5 class="card-title">Alumnae</h5>
-                <canvas id="alumnaeChart"></canvas>
+                <h5 class="card-title">Alumni</h5>
+                <canvas id="alumniChart"></canvas>
             </div>
         </div>
     </div>
@@ -118,43 +101,15 @@
         }
     });
 
-    const eventOrganizersChart = new Chart(document.getElementById('eventOrganizersChart'), {
+    const alumnusChart = new Chart(document.getElementById('alumniChart'), {
         ...config,
         data: {
-            labels: ['Total Event Organizers'],
+            labels: ['Total Alumni'],
             datasets: [{
-                label: 'Total Registered Event Organizers',
-                data: [{{ $totalRegisteredEventOrganizers }}],
-                backgroundColor: 'rgba(220, 53, 69, 0.5)',
-                borderColor: 'rgba(220, 53, 69, 1)',
-                borderWidth: 1
-            }]
-        }
-    });
-
-    const alumnusChart = new Chart(document.getElementById('alumnusChart'), {
-        ...config,
-        data: {
-            labels: ['Total Alumnus'],
-            datasets: [{
-                label: 'Total Registered Alumnus',
-                data: [{{ $totalRegisteredAlumnus }}],
+                label: 'Total Registered Alumni',
+                data: [{{ $totalRegisteredAlumni }}],
                 backgroundColor: 'rgba(54, 162, 235, 0.5)',
                 borderColor: 'rgba(54, 162, 235, 1)',
-                borderWidth: 1
-            }]
-        }
-    });
-
-    const alumnaeChart = new Chart(document.getElementById('alumnaeChart'), {
-        ...config,
-        data: {
-            labels: ['Total Alumnae'],
-            datasets: [{
-                label: 'Total Registered Alumnae',
-                data: [{{ $totalRegisteredAlumnae }}],
-                backgroundColor: 'rgba(153, 102, 255, 0.5)',
-                borderColor: 'rgba(153, 102, 255, 1)',
                 borderWidth: 1
             }]
         }

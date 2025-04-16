@@ -38,7 +38,7 @@
                     <h3>Create New Event</h3>
                 </div>
                 <div class="card-body">
-                    <form id="eventForm" method="POST" action="{{ route('admin.events.store') }}">
+                    <form id="eventForm" method="POST" action="{{ route('events.store') }}">
                         @csrf
 
                         <div class="row">

@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.event_manager.index')
 
 @section('content')
 <div class="container">
@@ -27,7 +27,7 @@
                     <h3>Edit Event</h3>
                 </div>
                 <div class="card-body">
-                    <form id="eventForm" method="POST" action="{{ route('events.update', $event->id) }}">
+                    <form id="eventForm" method="POST" action="{{ route('event_manager.update', $event->id) }}">
                         @csrf
                         @method('PUT')
 
