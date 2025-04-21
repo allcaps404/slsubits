@@ -60,10 +60,10 @@
                 <label for="year" class="block text-sm font-medium text-gray-700 mb-1">Year</label>
                 <select name="year" id="year" class="w-full px-3 py-2 border border-gray-300 rounded-md">
                     <option value="">Filter by Year</option>
-                    <option value="1st Year" {{ request('year') == '1st Year' ? 'selected' : '' }}>1st Year</option>
-                    <option value="2nd Year" {{ request('year') == '2nd Year' ? 'selected' : '' }}>2nd Year</option>
-                    <option value="3rd Year" {{ request('year') == '3rd Year' ? 'selected' : '' }}>3rd Year</option>
-                    <option value="4th Year" {{ request('year') == '4th Year' ? 'selected' : '' }}>4th Year</option>
+                    <option value="1st" {{ request('year') == '1st' ? 'selected' : '' }}>1st Year</option>
+                    <option value="2nd" {{ request('year') == '2nd' ? 'selected' : '' }}>2nd Year</option>
+                    <option value="3rd" {{ request('year') == '3rd' ? 'selected' : '' }}>3rd Year</option>
+                    <option value="4th" {{ request('year') == '4th' ? 'selected' : '' }}>4th Year</option>
                 </select>
             </div>
 
