@@ -87,7 +87,7 @@ Route::prefix('alumni')->middleware(['alumni'])->group(function () {
     Route::delete('work_experiences/{work_experience}', [App\Http\Controllers\Alumni\WorkExperienceController::class, 'destroy'])->name('work_experiences.destroy');
 });
 
-Route::prefix('event_manager')->middleware(['auth'])->group(function () {
+Route::prefix('event-manager')->middleware(['auth'])->group(function () {
     Route::get('/', [EventManagerController::class, 'index'])->name('event_manager.index');
     Route::get('/create', [EventManagerController::class, 'create'])->name('event_manager.create');
     Route::post('/', [EventManagerController::class, 'store'])->name('event_manager.store');
