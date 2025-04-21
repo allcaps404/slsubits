@@ -109,10 +109,10 @@
                                     <label for="year">Year</label>
                                     <select class="form-control" name="year" id="year">
                                         <option value="" disabled {{ old('year') == '' ? 'selected' : '' }}>Select a Year Level</option>
-                                        <option value="1st" {{ old('year') == '1st Year' ? 'selected' : '' }}>1st Year</option>
-                                        <option value="2nd" {{ old('year') == '2nd Year' ? 'selected' : '' }}>2nd Year</option>
-                                        <option value="3rd" {{ old('year') == '3rd Year' ? 'selected' : '' }}>3rd Year</option>
-                                        <option value="4th" {{ old('year') == '4th Year' ? 'selected' : '' }}>4th Year</option>
+                                        <option value="1st" {{ old('year') == '1st' ? 'selected' : '' }}>1st Year</option>
+                                        <option value="2nd" {{ old('year') == '2nd' ? 'selected' : '' }}>2nd Year</option>
+                                        <option value="3rd" {{ old('year') == '3rd' ? 'selected' : '' }}>3rd Year</option>
+                                        <option value="4th" {{ old('year') == '4th' ? 'selected' : '' }}>4th Year</option>
                                     </select>
                                 </div>
                             </div>
