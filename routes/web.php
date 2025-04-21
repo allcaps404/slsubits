@@ -34,7 +34,7 @@ Route::prefix('admin')->middleware(['admin'])->group(function () {
 
     Route::resource('roles', RoleController::class);
 
-    Route::get('events', [App\Http\Controllers\Admin\EventController::class, 'index'])->name('admin.events.index');
+    Route::get('events', [App\Http\Controllers\Admin\EventController::class, 'index'])->name('events.index');
     Route::get('events/create', [App\Http\Controllers\Admin\EventController::class, 'create'])->name('events.create');
     Route::post('events', [App\Http\Controllers\Admin\EventController::class, 'store'])->name('events.store');
     Route::get('events/{event}', [App\Http\Controllers\Admin\EventController::class, 'show'])->name('events.show');
