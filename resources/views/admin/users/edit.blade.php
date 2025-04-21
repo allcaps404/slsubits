@@ -87,10 +87,10 @@
                     <label for="year">Year</label>
                     <select class="form-control" name="year" id="year">
                         <option value="" disabled selected>Select a year</option>
-                        <option value="1st Year" {{ old('year', $user->OtherDetail->year ?? '') == '1st Year' ? 'selected' : '' }}>1st Year</option>
-                        <option value="2nd Year" {{ old('year', $user->OtherDetail->year ?? '') == '2nd Year' ? 'selected' : '' }}>2nd Year</option>
-                        <option value="3rd Year" {{ old('year', $user->OtherDetail->year ?? '') == '3rd Year' ? 'selected' : '' }}>3rd Year</option>
-                        <option value="4th Year" {{ old('year', $user->OtherDetail->year ?? '') == '4th Year' ? 'selected' : '' }}>4th Year</option>
+                        <option value="1st" {{ old('year', $user->OtherDetail->year ?? '') == '1st Year' ? 'selected' : '' }}>1st Year</option>
+                        <option value="2nd" {{ old('year', $user->OtherDetail->year ?? '') == '2nd Year' ? 'selected' : '' }}>2nd Year</option>
+                        <option value="3rd" {{ old('year', $user->OtherDetail->year ?? '') == '3rd Year' ? 'selected' : '' }}>3rd Year</option>
+                        <option value="4th" {{ old('year', $user->OtherDetail->year ?? '') == '4th Year' ? 'selected' : '' }}>4th Year</option>
                     </select>
                 </div>
             </div>
