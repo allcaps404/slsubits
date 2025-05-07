@@ -7,7 +7,7 @@
     @if(session('success'))
     <div class="alert alert-success">{{ session('success') }}</div>
     @endif
-    <form method="GET" action="{{ route('admin.events.index') }}" class="mb-3">
+    <form method="GET" action="{{ route('events.index') }}" class="mb-3">
         <div class="row">
             <div class="col-md-3 mb-2">
                 <input type="text" name="name" class="form-control" placeholder="Filter by Event Name" value="{{ request('name') }}">

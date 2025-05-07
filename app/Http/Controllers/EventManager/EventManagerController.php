@@ -6,6 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Exports\EventAttendanceExport;
+use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
+use PhpOffice\PhpWord\PhpWord;
+use PhpOffice\PhpWord\IOFactory;
+use App\Models\User;
+
 
 class EventManagerController extends Controller
 {
@@ -160,4 +167,175 @@ class EventManagerController extends Controller
         $event->delete();
         return redirect()->route('event_manager.index')->with('success', 'Event deleted successfully.');
     }
+   
+
+public function exportExcel(Event $event, Request $request)
+{
+    $filters = $request->filters ? json_decode($request->filters, true) : [];
+    return Excel::download(new EventAttendanceExport($event, $filters), "event-{$event->id}-attendance.xlsx");
+}
+
+public function exportWord(Event $event, Request $request)
+{
+    $filters = $request->filters ? json_decode($request->filters, true) : [];
+    $attendanceLogs = $this->getFilteredAttendanceLogs($event, $filters);
+    
+    $phpWord = new PhpWord();
+    $section = $phpWord->addSection();
+    
+    // Add title
+    $section->addText("Attendance Report for {$event->name}", ['bold' => true, 'size' => 16]);
+    $section->addTextBreak(2);
+    
+    // Add table
+    $table = $section->addTable();
+    $table->addRow();
+    // Add headers
+    $headers = ['Student ID', 'Student Name', 'Course', 'Year', 'Section', 'Login Time', 'Logout Time', 'Duration'];
+    foreach ($headers as $header) {
+        $table->addCell(2000)->addText($header, ['bold' => true]);
+    }
+    
+    // Add data rows
+    foreach ($attendanceLogs as $log) {
+        $table->addRow();
+        $cells = [
+            $log->student->otherDetail->idnumber ?? 'N/A',
+            ($log->student->lastname ?? '') . ', ' . ($log->student->firstname ?? ''),
+            $log->student->otherDetail->course ?? 'N/A',
+            $log->student->otherDetail->year ?? 'N/A',
+            $log->student->otherDetail->section ?? 'N/A',
+            $log->login_time ? \Carbon\Carbon::parse($log->login_time)->format('M d, Y h:i A') : 'N/A',
+            $log->logout_time ? \Carbon\Carbon::parse($log->logout_time)->format('M d, Y h:i A') : 'N/A',
+            $log->login_time && $log->logout_time 
+                ? \Carbon\Carbon::parse($log->login_time)->diff(\Carbon\Carbon::parse($log->logout_time))->format('%Hh %Im') 
+                : 'N/A'
+        ];
+        
+        foreach ($cells as $cellContent) {
+            $table->addCell(2000)->addText($cellContent);
+        }
+    }
+    
+    $fileName = "event-{$event->id}-attendance.docx";
+    $tempFile = tempnam(sys_get_temp_dir(), 'word');
+    $objWriter = IOFactory::createWriter($phpWord, 'Word2007');
+    $objWriter->save($tempFile);
+    
+    return response()->download($tempFile, $fileName)->deleteFileAfterSend(true);
+}
+
+public function exportPDF(Event $event, Request $request)
+{
+    $filters = $request->filters ? json_decode($request->filters, true) : [];
+    $attendanceLogs = $this->getFilteredAttendanceLogs($event, $filters);
+    
+    $pdf = PDF::loadView('event_manager.event-attendance-pdf', [
+        'event' => $event,
+        'attendanceLogs' => $attendanceLogs
+    ]);
+    
+    return $pdf->download("event-{$event->id}-attendance.pdf");
+}
+
+private function getFilteredAttendanceLogs(Event $event, array $filters)
+{
+    $query = $event->attendanceLogs()->with(['student', 'student.otherDetail']);
+    
+    if (!empty($filters['student_id'])) {
+        $query->whereHas('student.otherDetail', function($q) use ($filters) {
+            $q->where('idnumber', 'like', '%' . $filters['student_id'] . '%');
+        });
+    }
+    
+    if (!empty($filters['student_name'])) {
+        $query->whereHas('student', function($q) use ($filters) {
+            $q->where('firstname', 'like', '%' . $filters['student_name'] . '%')
+              ->orWhere('lastname', 'like', '%' . $filters['student_name'] . '%');
+        });
+    }
+    
+    // Add other filters as needed...
+    
+    return $query->get();
+}
+public function byStudentIndex(Request $request)
+{
+    $students = \App\Models\User::query()
+        ->whereHas('role', function ($q) {
+            $q->where('role_name', 'student');
+        })
+        ->when($request->student_name, function ($query) use ($request) {
+            $query->where(function ($q) use ($request) {
+                $q->where('firstname', 'like', '%' . $request->student_name . '%')
+                  ->orWhere('lastname', 'like', '%' . $request->student_name . '%');
+            });
+        })
+        ->when($request->student_id, function ($query) use ($request) {
+            $query->whereHas('otherDetail', function ($q) use ($request) {
+                $q->where('idnumber', 'like', '%' . $request->student_id . '%');
+            });
+        })
+        ->when($request->course, function ($query) use ($request) {
+            $query->whereHas('otherDetail', function ($q) use ($request) {
+                $q->where('course', 'like', '%' . $request->course . '%');
+            });
+        })
+        ->when($request->gender, function ($query) use ($request) {
+            $query->where('gender', $request->gender);
+        })
+        ->when($request->semester, function ($query) use ($request) {
+            $query->whereHas('otherDetail', function ($q) use ($request) {
+                $q->where('semester', $request->semester);
+            });
+        })
+        ->when($request->academic_year, function ($query) use ($request) {
+            $query->whereHas('otherDetail', function ($q) use ($request) {
+                $q->where('academic_year', $request->academic_year);
+            });
+        })
+        ->with(['role', 'otherDetail']) // Eager load relationships
+        ->paginate(10);
+
+    return view('event_manager.by_student.index', compact('students'));
+}
+
+public function byStudentShow($id)
+{
+    $student = User::with([
+        'otherDetail',
+        'attendanceLogs.event' 
+    ])->findOrFail($id);
+
+    return view('event_manager.by_student.show', compact('student'));
+}
+
+public function byYearSectionIndex(Request $request)
+{
+    $students = Event::query()
+       
+        
+        ->when($request->course, fn($q) => $q->whereHas('student.otherDetail', function($subQuery) use ($request) {
+            $subQuery->where('course', 'like', '%' . $request->course . '%');
+        }))
+       
+        ->when($request->semester, fn($q) => $q->whereHas('student.otherDetail', function($subQuery) use ($request) {
+            $subQuery->where('semester', $request->semester);
+        }))
+        ->when($request->academic_year, fn($q) => $q->whereHas('student.otherDetail', function($subQuery) use ($request) {
+            $subQuery->where('academic_year', $request->academic_year);
+        }))
+        ->withCount('attendanceLogs')
+        ->paginate(10);
+
+    return view('event_manager.by_year_section.index', compact('students'));
+}
+
+public function byYearSectionShow($id)
+{
+    $student = Event::with(['attendanceLogs.event', 'student', 'student.otherDetail'])
+        ->findOrFail($id);
+
+    return view('event_manager.by_year_section.show', compact('student'));
+}
 }

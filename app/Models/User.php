@@ -65,5 +65,8 @@ class User extends Authenticatable
     {
         return $this->hasOne(YearBook::class);
     }
-    
+    public function attendanceLogs()
+    {
+        return $this->hasMany(AttendanceLog::class, 'student_id');
+    }
 }

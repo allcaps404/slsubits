@@ -46,34 +46,51 @@
                         <li>
                             <a href="{{ route('event_manager.index') }}" class="sidebar-link flex items-center px-6 py-3 transition-all duration-200 {{ request()->routeIs('event_manager.index') ? 'active' : '' }}">
                                 <i class="fas fa-tachometer-alt mr-3 text-blue-200"></i>
-                                <span>Management</span>
+                                <span>Events</span>
                             </a>
                         </li>
-                        
-                        <!-- <li>
-                            <a href="#" class="sidebar-link flex items-center px-6 py-3 transition-all duration-200">
-                                <i class="fas fa-calendar-check mr-3 text-blue-200"></i>
-                                <span>Event Calendar</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="sidebar-link flex items-center px-6 py-3 transition-all duration-200">
-                                <i class="fas fa-users mr-3 text-blue-200"></i>
-                                <span>Participants</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="sidebar-link flex items-center px-6 py-3 transition-all duration-200">
-                                <i class="fas fa-chart-bar mr-3 text-blue-200"></i>
-                                <span>Reports</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" class="sidebar-link flex items-center px-6 py-3 transition-all duration-200">
-                                <i class="fas fa-cog mr-3 text-blue-200"></i>
-                                <span>Settings</span>
-                            </a>
-                        </li> -->
+                        <div class="flex-1 overflow-y-auto py-4">
+    <nav>
+        <ul>
+            <li>
+                <div class="flex items-center justify-between px-6 py-3 cursor-pointer transition-all duration-200 {{ request()->routeIs('event_manager.index') ? 'active' : '' }}" onclick="toggleDropdown('management-dropdown')">
+                    <div class="flex items-center">
+                        <i class="fas fa-calendar-alt mr-3 text-blue-200"></i>
+                        <span>Attendance Management</span>
+                    </div>
+                    <i class="fas fa-chevron-down text-xs text-blue-200 transition-transform duration-200" id="management-dropdown-arrow"></i>
+                </div>
+                <!-- Dropdown menu -->
+                <ul class="ml-8 pl-2 border-l-2 border-gray-200 hidden" id="management-dropdown">
+                <!-- Sidebar Link -->
+                    <li>
+                        <a href="{{ route('event_manager.by_student.index') }}" class="sidebar-link flex items-center px-4 py-2 transition-all duration-200">
+                            <i class="fas fa-user-graduate mr-3 text-blue-200"></i>
+                            <span>By Student</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('event_manager.by_year_section.index') }}" class="sidebar-link flex items-center px-4 py-2 transition-all duration-200">
+                            <i class="fas fa-users mr-3 text-blue-200"></i>
+                            <span>By Year & Section</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+<script>
+    function toggleDropdown(id) {
+        const dropdown = document.getElementById(id);
+        const arrow = document.getElementById(id + '-arrow');
+        
+        dropdown.classList.toggle('hidden');
+        arrow.classList.toggle('rotate-180');
+    }
+</script>
+                       
                     </ul>
                 </nav>
             </div>

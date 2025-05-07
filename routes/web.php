@@ -97,7 +97,19 @@ Route::prefix('event-manager')->middleware(['auth'])->group(function () {
     Route::delete('/{event}', [EventManagerController::class, 'destroy'])->name('event_manager.destroy');
 
     Route::get('/{event}', [EventManagerController::class, 'show'])->name('event_manager.show');
-});
-
+    Route::post('/events/{event}/export/excel', [EventManagerController::class, 'exportExcel'])
+    ->name('event_manager.export.excel');
+    
+    Route::post('/events/{event}/export/word', [EventManagerController::class, 'exportWord'])
+        ->name('event_manager.export.word');
+        
+    Route::post('/events/{event}/export/pdf', [EventManagerController::class, 'exportPDF'])
+        ->name('event_manager.export.pdf');
+        Route::get('event-manager/by-student', [EventManagerController::class, 'byStudentIndex'])->name('event_manager.by_student.index');
+        Route::get('event-manager/by-student/{id}', [EventManagerController::class, 'byStudentShow'])->name('event_manager.by_student.show');
+        Route::get('event-manager/by-year_section', [EventManagerController::class, 'byYearSectionIndex'])->name('event_manager.by_year_section.index');
+        Route::get('event-manager/by-year_section/{id}', [EventManagerController::class, 'byYearSectionShow'])->name('event_manager.by_year_section.show');
+        
+    });
 
 Auth::routes();

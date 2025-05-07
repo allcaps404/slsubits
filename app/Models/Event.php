@@ -31,4 +31,9 @@ class Event extends Model
     {
         return $this->hasMany(AttendanceLog::class);
     }
+
+    public function student()
+    {
+        return $this->belongsTo(User::class, 'student_id', 'id');
+    }
 }
